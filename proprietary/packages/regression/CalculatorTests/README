@@ -1,0 +1,14 @@
+WHAT IT DOES?
+=============
+Calculator regression test cases. To implement auto test for regression test , add these cases.
+
+
+HOW IT WAS BUILT?
+==================
+dependent on Calculator apk ,So Must install the same version Calculator apk firstly.
+
+
+HOW TO USE IT?
+==============
+follow AT run flow
+

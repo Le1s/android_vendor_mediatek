@@ -1,0 +1,14 @@
+WHAT IT DOES?
+=============
+camera HDR shot related files.
+
+
+HOW IT WAS BUILT?
+==================
+It can build the following static library file :
+libcam.camadapter.scenario.shot.hdrshot.a
+
+
+HOW TO USE IT?
+==============
+Provide camera HDR shot related api.

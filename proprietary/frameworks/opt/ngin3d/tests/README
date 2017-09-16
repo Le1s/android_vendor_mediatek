@@ -1,0 +1,19 @@
+Tests apps for ngin3d
+
+WHAT IT DOES?
+=============
+This is tests app for the features of ngin3d.
+There are many instrumentation tests that guarantee the modification of ngin3d is good.
+
+HOW IT WAS BUILT?
+==================
+ngin3d test app is dependent on MAGE engine, it needs
+1.  liba3m.so & libj3m.so, they are already in turnkey load.
+2.  ngin3d jar module. The source of ngin3d is in 
+alps/vendor/mediatek/proprietary/frameworks/opt/ngin3d
+
+HOW TO USE IT?
+==============
+Build the ngin3d test APK and install it, execute following command to run instrumentation test:
+adb shell am instrument -w com.mediatek.ngin3d.tests/com.zutubi.android.junitreport.JUnitReportTestRunner
+

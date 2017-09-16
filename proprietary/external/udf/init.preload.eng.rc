@@ -1,0 +1,2 @@
+on init
+	export LD_PRELOAD libsigchain.so:libudf.so:libdirect-coredump.so

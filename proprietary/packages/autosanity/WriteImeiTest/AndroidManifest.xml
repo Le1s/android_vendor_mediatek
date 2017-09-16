@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.mtk.test.imei.writetest"
+      android:sharedUserId="android.uid.phone"
+      android:versionName="1.1">
+
+    <uses-sdk android:minSdkVersion="10"/>
+    <application>
+        <uses-library android:name="android.test.runner" />
+    </application>
+
+    <uses-permission android:name="com.mtk.test.imei" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <instrumentation
+        android:name="com.mtk.test.imei.writetest.IMEItestRunner"
+        android:targetPackage="com.android.phone"
+        android:label="WriteIMEITest" >
+    </instrumentation>
+</manifest>
+

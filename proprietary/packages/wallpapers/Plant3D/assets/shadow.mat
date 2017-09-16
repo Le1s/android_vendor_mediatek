@@ -1,0 +1,5 @@
+1.0
+shader_program shadow.sp
+depth_test true
+depth_write false
+polygon_mode CULL_NONE WINDING_CCW 1.0

@@ -1,0 +1,21 @@
+WHAT IT DOES?
+=============
+A-GPS regression test cases. To implement auto test for regression test , add these cases.
+
+
+HOW IT WAS BUILT?
+==================
+It depends on the Android library librobotium4.jar and the Mediatek library com.mediatek.lbs.em2.utils.jar.
+
+
+
+HOW TO USE IT?
+==============
+1. Follow AT run flow
+2. Or execute it manually:
+   adb shell am instrument -w com.mediatek.agps.regressiontest/android.test.InstrumentationTestRunner
+
+
+Source
+==============
+All the source code of this module were written by MediaTek co..

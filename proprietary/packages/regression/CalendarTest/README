@@ -1,0 +1,5 @@
+Regression test for Calendar App.
+
+HOW TO RUN IT?
+==============
+adb shell am instrument -w com.mediatek.calendar.regressiontest/android.test.InstrumentationTestRunner

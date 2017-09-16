@@ -1,0 +1,24 @@
+Test apk for writing IMEI in auto sanity test.
+
+This apk is pre-built by MediaTek internal.
+
+WHAT IT DOES?
+=============
+Write IMEI for auto sanity test.
+
+HOW IT WAS BUILT?
+==================
+It needs the following library from AOSP:
+1. android.test.runner
+2. telephony-common
+
+and the following libs from MediaTek:
+1. mediatek-framework
+
+HOW TO USE IT?
+==============
+
+Install IMEIWritetest.apk, push config.writeimei.xml to /sdcard/ and run test case:
+adb shell am instrument -w com.mtk.test.imei.writetest/.IMEItestRunner
+
+All the source code of this library were written by MediaTek co..

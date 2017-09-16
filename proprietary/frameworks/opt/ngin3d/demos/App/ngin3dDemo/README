@@ -1,0 +1,18 @@
+Demo apps for ngin3d
+
+WHAT IT DOES?
+=============
+This is demo app for the features of ngin3d.
+There are many small demo activities that show you how to use ngin3d and write simple 3D apps.
+
+HOW IT WAS BUILT?
+==================
+ngin3d demo app is dependent on MAGE engine, it needs
+1.  liba3m.so & libj3m.so, they are already in turnkey load.
+2.  ngin3d jar module. The source of ngin3d is in 
+alps/vendor/mediatek/proprietary/frameworks/opt/ngin3d
+
+HOW TO USE IT?
+==============
+Build the ngin3d demo APK and install it, you can find the ngin3dDemo app in the app list. Click it then you can play with it.
+

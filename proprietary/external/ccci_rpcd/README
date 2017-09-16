@@ -1,0 +1,20 @@
+The bin file 'ccci_rpcd' is a daemon service.
+This bin is pre-built by MediaTek internal.
+
+
+WHAT IT DOES?
+=============
+
+ccci_rpcd is used to handle some modem ccci rpc request in userspace,
+
+HOW IT WAS BUILT?
+==================
+
+This module is released in binary format in 'vendor/mediatek/proprietary/external/ccci_rpcd' folder.
+
+
+
+HOW TO USE IT?
+==============
+
+The bin file is a system service, and it's started at system booting up while parsing init.modem.rc.

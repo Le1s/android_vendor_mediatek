@@ -1,0 +1,100 @@
+<H><R>2<r><P>6<p><N>84<n><h><R><C>capture<c><C>cheese<c><r><P>
+<R>0<r>
+<C> CMD_X NCMD5 K+AE_en AE_en P_en CH+ER_en ER_en ENDL <c>
+<R>0<r>
+<C> CMD_X NCMD6 K+AE_en AE_en P_en CH+ER_en ER_en D_en ENDL <c>
+<R>0<r>
+<C> CMD_X NCMD5 R+AE_en AE_en P_en CH+ER_en ER_en ENDL <c>
+<R>1<r>
+<C> CMD_X NCMD3 CH+IY_en IY_en Z_en ENDL <c>
+<R>1<r>
+<C> CMD_X NCMD2 IY_en CH_en ENDL <c>
+<R>1<r>
+<C> CMD_X NCMD2 IY_en V_en ENDL <c>
+<p>
+<N>
+<C> CMD_X NCMD9 R+IY_en IY_en EY_en SH+AH_en AH_en N_en SH+IH_en IH_en P_en ENDL <c>
+<C> CMD_X NCMD7 AH_en M+AW_en AW_en N_en T+IH_en IH_en D_en ENDL <c>
+<C> CMD_X NCMD3 B_en W+AA_en AA_en ENDL <c>
+<C> CMD_X NCMD3 HH+AY_en AY_en ER_en ENDL <c>
+<C> CMD_X NCMD5 S+AH_en AH_en D+AH_en AH_en N_en ENDL <c>
+<C> CMD_X NCMD5 P_en R+UW_en UW_en V_en Z_en ENDL <c>
+<C> CMD_X NCMD4 SH_en R+AY_en AY_en N_en ENDL <c>
+<C> CMD_X NCMD3 AO_en NG_en D_en ENDL <c>
+<C> CMD_X NCMD6 AH_en B+IH_en IH_en AH_en T+IY_en IY_en ENDL <c>
+<C> CMD_X NCMD6 B_en R+IY_en IY_en DH+IH_en IH_en NG_en ENDL <c>
+<C> CMD_X NCMD7 T_en R+AE_en AE_en V+AH_en AH_en IH_en NG_en ENDL <c>
+<C> CMD_X NCMD6 S+ER_en ER_en P_en R+AY_en AY_en Z_en ENDL <c>
+<C> CMD_X NCMD9 K+AH_en AH_en M_en Y+UW_en UW_en N_en Y+AH_en AH_en N_en ENDL <c>
+<C> CMD_X NCMD6 EH_en N_en G+EY_en EY_en JH_en D_en ENDL <c>
+<C> CMD_X NCMD2 DH+IY_en IY_en ENDL <c>
+<C> CMD_X NCMD10 AH_en T_en R+IH_en IH_en B_en Y+AH_en AH_en T+AH_en AH_en D_en ENDL <c>
+<C> CMD_X NCMD6 W+AA_en AA_en N_en D+ER_en ER_en D_en ENDL <c>
+<C> CMD_X NCMD4 S_en T+OW_en OW_en N_en ENDL <c>
+<C> CMD_X NCMD3 G+EY_en EY_en M_en ENDL <c>
+<C> CMD_X NCMD12 IH_en N_en V+EH_en EH_en S_en T+AH_en AH_en G+EY_en EY_en SH+AH_en AH_en N_en ENDL <c>
+<C> CMD_X NCMD8 AH_en D_en V+AE_en AE_en N_en S+IH_en IH_en NG_en ENDL <c>
+<C> CMD_X NCMD11 K+AA_en AA_en M_en P+AH_en AH_en N_en S+EY_en EY_en SH+AH_en AH_en N_en ENDL <c>
+<C> CMD_X NCMD5 B_en R+IY_en IY_en DH_en D_en ENDL <c>
+<C> CMD_X NCMD8 EH_en M_en P+OY_en OY_en M+AH_en AH_en N_en T_en ENDL <c>
+<C> CMD_X NCMD9 S_en W+IH_en IH_en T_en S+ER_en ER_en AH_en N_en D_en ENDL <c>
+<C> CMD_X NCMD6 P_en R+AH_en AH_en AO_en NG_en D_en ENDL <c>
+<C> CMD_X NCMD9 AE_en K_en Y+AH_en AH_en Z+EY_en EY_en SH+AH_en AH_en N_en ENDL <c>
+<C> CMD_X NCMD7 P_en R+UW_en UW_en D+AH_en AH_en N_en T_en ENDL <c>
+<C> CMD_X NCMD6 P+AA_en AA_en R_en T+IH_en IH_en NG_en ENDL <c>
+<C> CMD_X NCMD4 S+EY_en EY_en V_en Z_en ENDL <c>
+<C> CMD_X NCMD11 T_en R+AE_en AE_en N_en S_en P+EH_en EH_en R+AH_en AH_en N_en T_en ENDL <c>
+<C> CMD_X NCMD5 D+AH_en AH_en B+AH_en AH_en D_en ENDL <c>
+<C> CMD_X NCMD13 K+EH_en EH_en R+AH_en AH_en K_en T+ER_en ER_en IH_en S_en T+IH_en IH_en K_en S_en ENDL <c>
+<C> CMD_X NCMD4 S+EH_en EH_en N_en D_en ENDL <c>
+<C> CMD_X NCMD6 F_en R+OW_en OW_en Z+AH_en AH_en N_en ENDL <c>
+<C> CMD_X NCMD4 D_en R+EH_en EH_en D_en ENDL <c>
+<C> CMD_X NCMD6 F+AE_en AE_en K_en T+ER_en ER_en IY_en ENDL <c>
+<C> CMD_X NCMD8 IH_en N_en D+ER_en ER_en EH_en K_en T+IY_en IY_en ENDL <c>
+<C> CMD_X NCMD6 S+AH_en AH_en N_en S+EH_en EH_en T_en ENDL <c>
+<C> CMD_X NCMD8 K+AA_en AA_en M+AH_en AH_en N_en P+EY_en EY_en S_en ENDL <c>
+<C> CMD_X NCMD4 K+AH_en AH_en P+AH_en AH_en ENDL <c>
+<C> CMD_X NCMD8 OW_en B+IY_en IY_en D+IY_en IY_en AH_en N_en T_en ENDL <c>
+<C> CMD_X NCMD7 T+EH_en EH_en K_en N+IH_en IH_en K+AH_en AH_en ENDL <c>
+<C> CMD_X NCMD6 P+OY_en OY_en N_en T+AH_en AH_en D_en ENDL <c>
+<C> CMD_X NCMD3 AY_en T+IY_en IY_en ENDL <c>
+<C> CMD_X NCMD5 M+OW_en OW_en S_en T+IY_en IY_en ENDL <c>
+<C> CMD_X NCMD5 S+AE_en AE_en N_en D_en Z_en ENDL <c>
+<C> CMD_X NCMD3 N+ER_en ER_en V_en ENDL <c>
+<C> CMD_X NCMD5 B+IH_en IH_en F+AO_en AO_en R_en ENDL <c>
+<C> CMD_X NCMD9 P_en R+IY_en IY_en T+EH_en EH_en N_en D+IH_en IH_en NG_en ENDL <c>
+<C> CMD_X NCMD5 S_en T+AH_en AH_en D+IY_en IY_en ENDL <c>
+<C> CMD_X NCMD7 IH_en JH+IH_en IH_en P_en SH+AH_en AH_en N_en ENDL <c>
+<C> CMD_X NCMD2 IH_en CH_en ENDL <c>
+<C> CMD_X NCMD4 F_en R+UW_en UW_en T_en ENDL <c>
+<C> CMD_X NCMD4 S+AA_en AA_en AH_en D_en ENDL <c>
+<C> CMD_X NCMD5 K_en W+AO_en AO_en R+AH_en AH_en ENDL <c>
+<C> CMD_X NCMD2 S+IY_en IY_en ENDL <c>
+<C> CMD_X NCMD6 IH_en N_en T+EH_en EH_en N_en D_en ENDL <c>
+<C> CMD_X NCMD4 S+ER_en ER_en V+EY_en EY_en ENDL <c>
+<C> CMD_X NCMD8 AH_en T+EH_en EH_en M_en P_en T+AH_en AH_en D_en ENDL <c>
+<C> CMD_X NCMD4 B+EH_en EH_en R+IY_en IY_en ENDL <c>
+<C> CMD_X NCMD3 EY_en K_en S_en ENDL <c>
+<C> CMD_X NCMD5 HH+AO_en AO_en R+AH_en AH_en D_en ENDL <c>
+<C> CMD_X NCMD7 D+EH_en EH_en S_en T+IH_en IH_en N_en D_en ENDL <c>
+<C> CMD_X NCMD9 IH_en K_en S_en P_en R+EH_en EH_en S+IH_en IH_en V_en ENDL <c>
+<C> CMD_X NCMD10 F+AH_en AH_en N_en D+AH_en AH_en M+EH_en EH_en N_en T+AH_en AH_en ENDL <c>
+<C> CMD_X NCMD8 D+EH_en EH_en K+ER_en ER_en EY_en SH+AH_en AH_en N_en ENDL <c>
+<C> CMD_X NCMD6 OW_en K+EY_en EY_en T+AH_en AH_en D_en ENDL <c>
+<C> CMD_X NCMD4 K_en R+IY_en IY_en K_en ENDL <c>
+<C> CMD_X NCMD6 N+AO_en AO_en R_en M+AH_en AH_en N_en ENDL <c>
+<C> CMD_X NCMD5 TH+AE_en AE_en NG_en K_en T_en ENDL <c>
+<C> CMD_X NCMD3 HH+OW_en OW_en Z_en ENDL <c>
+<C> CMD_X NCMD7 R+IH_en IH_en Z+AH_en AH_en T+IH_en IH_en D_en ENDL <c>
+<C> CMD_X NCMD4 T_en R+EY_en EY_en D_en ENDL <c>
+<C> CMD_X NCMD3 F+AY_en AY_en T_en ENDL <c>
+<C> CMD_X NCMD7 M+AH_en AH_en T+IH_en IH_en R+IY_en IY_en AH_en ENDL <c>
+<C> CMD_X NCMD2 ER_en TH_en ENDL <c>
+<C> CMD_X NCMD5 HH+AE_en AE_en N_en D_en Z_en ENDL <c>
+<C> CMD_X NCMD6 IH_en N_en F+AH_en AH_en N_en T_en ENDL <c>
+<C> CMD_X NCMD4 S_en P+AY_en AY_en T_en ENDL <c>
+<C> CMD_X NCMD4 EH_en S_en T+AH_en AH_en ENDL <c>
+<C> CMD_X NCMD8 R+AH_en AH_en K+AO_en AO_en R_en D+AH_en AH_en D_en ENDL <c>
+<C> CMD_X NCMD2 G+ER_en ER_en ENDL <c>
+<C> CMD_X NCMD2 EH_en S_en ENDL <c>
+<n>

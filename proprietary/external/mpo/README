@@ -1,0 +1,23 @@
+Library of MTK camera features, icluding face detection, high dynamic range,
+video stabilization, lens shading compensation and anti-flicker.
+
+This library is pre-built by MediaTek internal.
+
+
+WHAT IT DOES?
+=============
+libmpo.so contains MediaTek developed mpo file related encode and decode processing modules.  
+Without them, the functionalities of the mpo file encode and decode will not work.
+
+HOW IT WAS BUILT?
+==================
+It needs the following library from AOSP:
+1.  libcutils.so
+
+HOW TO USE IT?
+==============
+
+Provide api for mpo to encode and decode.
+all api interface are at (vendor/mediatek/proprietary/external/mpo)
+
+All the source code of this library were written by MediaTek co..

@@ -1,0 +1,22 @@
+
+
+For MediaTek Bluetooth sanity test.
+
+
+WHAT IT DOES?
+=============
+Test basic BT function: turn On, turn Off , search & pair.
+ 
+
+HOW IT WAS BUILT?
+==================
+mmm vendor/mediatek/proprietary/packages/autosanity/BluetoothTest
+
+HOW TO USE IT?
+==============
+
+1. install: adb install -r BluetoothTest.apk
+2. run: adb shell am instrument -w com.mediatek.bluetoothtest/com.mediatek.bluetooth.sanitytest.BluetoohRunner
+
+All the source code were written by MediaTek co..
+

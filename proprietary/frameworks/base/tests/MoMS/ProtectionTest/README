@@ -1,0 +1,13 @@
+License verifier for MoMS
+
+WHAT IT DOES?
+=============
+Test apk to verify license check work.
+
+HOW IT WAS BUILT?
+==================
+make as an apk.
+
+HOW TO USE IT?
+==============
+Only used as a testcase.

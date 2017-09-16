@@ -1,0 +1,28 @@
+Library of MTK camera features, icluding face detection, high dynamic range,
+video stabilization, lens shading compensation and anti-flicker.
+
+This library is pre-built by MediaTek internal.
+
+
+WHAT IT DOES?
+=============
+libgifEncoder_jni.so contains MediaTek developed animated gif encoding related jni modules.  
+Without them, the animated gif encoding functionalities will not work.
+
+HOW IT WAS BUILT?
+==================
+It needs the following library from AOSP:
+1.  libcutils.so
+2.  libskia.so
+3.  libandroid_runtime.so
+
+and the following libs from MediaTek:
+1.  libAGifEncoder.so
+
+HOW TO USE IT?
+==============
+
+Provide api for the java file of the animated gif to contact with the native code.
+all api interface are at (vendor/mediatek/proprietary/frameworks/base/media/agifencoder/jni)
+
+All the source code of this library were written by MediaTek co..

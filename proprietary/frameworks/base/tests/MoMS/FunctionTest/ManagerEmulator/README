@@ -1,0 +1,13 @@
+Application Emulator for Mobile Management.
+
+WHAT IT DOES?
+=============
+Receive intents to use MoMS API.
+
+HOW IT WAS BUILT?
+==================
+It is built along with module.
+
+HOW TO USE IT?
+==============
+Only used for testcase.

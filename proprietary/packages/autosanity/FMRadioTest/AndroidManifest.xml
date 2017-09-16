@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.mediatek.fmradiotest"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <application>
+       <uses-library android:name="android.test.runner" />
+       <!--uses-library android:name="com.jayway.android.robotium" />-->
+    </application>
+    <uses-sdk android:minSdkVersion="8" />
+    
+    <instrumentation android:name="android.test.InstrumentationTestRunner"
+		     android:targetPackage="com.mediatek.fmradio"
+                     android:label="FMRadioTest"/>
+    <uses-permission android:name="com.mediatek.fmradio.test" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+</manifest> 

@@ -1,0 +1,24 @@
+Library of MTK camera features, icluding face detection, high dynamic range,
+video stabilization, lens shading compensation and anti-flicker.
+
+This library is pre-built by MediaTek internal.
+
+
+WHAT IT DOES?
+=============
+libleptonica.a contains MediaTek developed animated gif encode related pre- and post-processing modules.  
+Without them, the animated gif encode functionalities will not work.
+
+HOW IT WAS BUILT?
+==================
+
+All source/dependency modules of this module are already put in
+'vendor/mediatek/libs' folder.
+
+HOW TO USE IT?
+==============
+
+Provide api for the animated gif encode to encode.
+all api interface are at (vendor/mediatek/proprietary/external/leptonica)
+
+All the source code of this library were written by MediaTek co..

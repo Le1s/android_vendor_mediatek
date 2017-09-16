@@ -1,0 +1,23 @@
+The file case40.py is an auto test script for modem logger.
+This bin is pre-built by MediaTek internal.
+
+
+WHAT IT DOES?
+=============
+
+case40.py is an test script.
+It can test modem logger's start, stop and memory dump function.
+
+HOW IT WAS BUILT?
+==================
+
+All source/dependency modules of this module are already put in
+'vendor/mediatek/libs' folder.
+
+HOW TO USE IT?
+==============
+
+This test script can be used by test framework.
+Usage:
+    python case40.py -s {$device_serialno}
+

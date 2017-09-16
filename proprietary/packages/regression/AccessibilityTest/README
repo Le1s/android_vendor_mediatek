@@ -1,0 +1,28 @@
+
+
+For MediaTek Accessibility regression test.
+
+
+WHAT IT DOES?
+=============
+Test basic Accessibility functions as followings:
+1. Enable/disable magnification gestures and verify db value directly
+2. Enable/disable accessibility shortcut and verify db value directly
+3. Enable/disable Talkback
+
+
+HOW IT WAS BUILT?
+==================
+mmm vendor/mediatek/proprietary/packages/regression/AccessibilityTest
+
+
+HOW TO USE IT?
+==============
+1. Install: adb install -r AccessibilityTest.apk
+2. Install: adb install -r talkback.apk
+3. Run the following adb commands:
+     adb shell pm clear com.google.android.marvin.talkback
+     adb shell am instrument -w com.mediatek.accessibility.regressiontest/android.test.InstrumentationTestRunner
+
+All the source code were written by MediaTek co..
+

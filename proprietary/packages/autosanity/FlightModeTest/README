@@ -1,0 +1,23 @@
+
+
+For MediaTek Flight mode sanity test.
+
+
+WHAT IT DOES?
+=============
+Test basic flight mode function: turn On, turn Off , check sim state if radio on.
+ 
+
+HOW IT WAS BUILT?
+==================
+mmm vendor/mediatek/proprietary/packages/autosanity/FlightModeTest
+
+
+HOW TO USE IT?
+==============
+
+1. install: adb install -r FlightModeTest.apk
+2. run: adb shell am instrument -w com.mediatek.flightmode.sanitytest/com.mediatek.flightmode.sanitytest.FlightModeRunner
+
+All the source code were written by MediaTek co..
+

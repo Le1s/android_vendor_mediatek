@@ -1,0 +1,1 @@
+_CLC_OVERLOAD _CLC_DECL int get_image_channel_order(__CLC_ALLIMAGETYPE image);

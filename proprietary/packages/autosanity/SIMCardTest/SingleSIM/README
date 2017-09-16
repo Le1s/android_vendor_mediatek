@@ -1,0 +1,13 @@
+WHAT IT DOES?
+=============
+Auto sanity script for sanity case TC01(Single SIM case).
+
+HOW IT WAS BUILT?
+==================
+It's a Python script.
+
+HOW TO USE IT?
+==============
+Run with Python when MTK_AUTO_TEST is on.
+
+All the source code of this folder were written by MediaTek co..

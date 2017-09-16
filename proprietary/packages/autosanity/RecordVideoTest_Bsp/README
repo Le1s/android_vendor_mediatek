@@ -1,0 +1,18 @@
+This directory contains sources to perform automated sanity testing of recording video.
+
+
+WHAT IT DOES?
+=============
+It is the sanity test for recording video and show it success.
+The description of test case: Record video using Camera and show it in Gallery.
+
+HOW IT WAS BUILT?
+==================
+mmm vendor/mediatek/proprietary/packages/autosanity/RecordVideoTest_Bsp
+
+HOW TO USE IT?
+==============
+1. Install RecordVideoTest_Bsp.apk.
+2. Use adb command to run test:
+adb shell am instrument -w com.mediatek.recordvideotest.sanitytest/android.test.InstrumentationTestRunner
+

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.mediatek.flightmode.sanitytest"
+      android:versionCode="2"
+      android:versionName="2.20140923">
+   
+    <application>
+           <uses-library android:name="android.test.runner" />
+    </application>
+    
+     <instrumentation
+          android:name="com.mediatek.flightmode.sanitytest.FlightModeRunner"
+          android:targetPackage="com.android.settings" 
+          android:label = "Switch Flight Mode" />
+</manifest>

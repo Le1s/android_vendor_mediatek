@@ -1,0 +1,15 @@
+WHAT IT DOES?
+=============
+OP03Plugin regression test cases. To implement auto test for regression test , add these cases.
+
+
+HOW IT WAS BUILT?
+==================
+dependent on OP03Plugin.apk ,So Must install the same version OP03Plugin.apk firstly.
+
+
+HOW TO USE IT?
+==============
+follow AT run flow
+
+All the source code of this module were written by MediaTek co..

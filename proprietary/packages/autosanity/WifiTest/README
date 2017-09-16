@@ -1,0 +1,23 @@
+
+
+For MediaTek Wifi sanity test.
+
+
+WHAT IT DOES?
+=============
+Test basic Wifi function: turn On, turn Off , search & connect.
+ 
+
+HOW IT WAS BUILT?
+==================
+mmm vendor/mediatek/proprietary/packages/autosanity/WifiTest
+
+
+HOW TO USE IT?
+==============
+
+1. install: adb install -r WifiTest.apk
+2. run: adb shell am instrument -w com.mediatek.wifi.sanitytest/android.test.InstrumentationTestRunner
+
+All the source code were written by MediaTek co..
+

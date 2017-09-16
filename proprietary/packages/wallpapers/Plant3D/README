@@ -1,0 +1,17 @@
+Plant3D LiveWallpaper
+
+WHAT IT DOES?
+=============
+It's Plant3D Live Wallpaper developed by MAGE engine. It's showing the skeleton and physical animation and demostrate the power of MAGE and MTK platform.
+
+HOW IT WAS BUILT?
+==================
+Plant3D is dependent on MAGE engine, it needs
+1.  liba3m.so & libj3m.so, they are already in turnkey load.
+2.  ngin3d jar module. The source of ngin3d is in 
+alps/vendor/mediatek/proprietary/frameworks/opt/ngin3d
+
+HOW TO USE IT?
+==============
+Build the Plant3D APK and install it, you can find the Plant3D LiveWallpaper when swithcing the LiveWallpaper.
+

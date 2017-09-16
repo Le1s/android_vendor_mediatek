@@ -1,0 +1,10 @@
+LOCAL_PATH := $(my-dir)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := libalacdec_mtk
+LOCAL_MODULE_CLASS := STATIC_LIBRARIES
+LOCAL_SRC_FILES_arm := libalacdec_mtk.a
+LOCAL_MODULE_SUFFIX := .a
+LOCAL_MULTILIB := 32
+
+include $(BUILD_PREBUILT)

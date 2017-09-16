@@ -1,0 +1,11 @@
+WHAT IT DOES?
+=============
+Auto test apk for todos application
+
+HOW IT WAS BUILT?
+==================
+Build together with todos apk
+
+HOW TO USE IT?
+==============
+Run this test apk by android instrument command

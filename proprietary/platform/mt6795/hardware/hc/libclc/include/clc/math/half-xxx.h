@@ -1,0 +1,12 @@
+#define half_cos cos
+#define half_exp exp
+#define half_exp2 exp2
+#define half_exp10 exp10
+#define half_log log
+#define half_log2 log2
+#define half_log10 log10
+#define half_powr powr
+//#define half_rsqrt rsqrt
+#define half_sin sin
+//#define half_sqrt sqrt
+#define half_tan tan

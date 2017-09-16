@@ -1,0 +1,46 @@
+1.0
+vertex_source_file leaf.vert
+fragment_source_file leaf.frag
+
+uniform u_t_model T_MODEL
+uniform u_t_view T_VIEW
+uniform u_t_modelView T_MODEL_VIEW
+uniform u_t_viewProjection T_VIEW_PROJECTION
+uniform u_t_modelViewProjection T_MODEL_VIEW_PROJECTION
+uniform u_t_normal T_NORMAL_MODEL
+uniform u_cameraPosition T_CAMERA_POSITION
+
+uniform u_l_count L_COUNT
+uniform u_l_position L_POSITION
+uniform u_l_attenuation_near L_ATTENUATION_NEAR
+uniform u_l_attenuation_reciprocal L_ATTENUATION_RECIPROCAL
+uniform u_l_spot_inner_dot L_SPOT_INNER_COS
+uniform u_l_spot_outer_dot L_SPOT_OUTER_COS
+uniform u_l_spot_direction L_SPOT_DIRECTION
+uniform u_l_ambient L_AMBIENT_COLOUR
+uniform u_l_diffuse L_DIFFUSE_COLOUR
+uniform u_l_specular L_SPECULAR_COLOUR
+
+uniform u_j_count J_COUNT
+uniform u_j_world J_WORLD
+
+uniform u_m_diffuseTexture M_DIFFUSE_TEXTURE
+uniform u_m_ambientTexture M_AMBIENT_TEXTURE
+uniform u_m_emissiveTexture M_EMISSIVE_TEXTURE
+uniform u_m_specularTexture M_SPECULAR_TEXTURE
+uniform u_m_reflectionTexture M_REFLECTION_TEXTURE
+uniform u_m_bumpmapTexture M_BUMP_TEXTURE
+uniform u_m_ambientColour M_AMBIENT_COLOUR
+uniform u_m_diffuseColour M_DIFFUSE_COLOUR
+uniform u_m_emissiveColour M_EMISSIVE_COLOUR
+uniform u_m_specularColour M_SPECULAR_COLOUR
+uniform u_m_specularLevel M_SPECULAR_LEVEL
+uniform u_m_shininess M_SHININESS
+uniform u_m_selfIllumination M_SELF_ILLUMINATION
+uniform u_m_opacity M_OPACITY
+
+uniform u_fogDensity FOG_DENSITY
+uniform u_fogColour FOG_COLOUR
+
+uniform u_animationTime CHARGEPHASE
+uniform u_charging CHARGING

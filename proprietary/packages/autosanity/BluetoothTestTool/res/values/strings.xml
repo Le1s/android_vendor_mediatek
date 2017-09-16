@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BluetoothTestTool(V2.2)</string>
+    <string name="bt_configuring">Configuring, please wait.</string>
+    <string name="bt_configure_done">Configure done !</string>
+    <string name="lock_screen_off_failed_msg">Permission check failed, please change the lock screen pattern in "Settings ---> Secure".</string>
+    <string name="bt_logo">BT sanity</string>
+    <string name="title_status">Device Status :</string>
+    <string name="title_latest_record">Latest pairing record :</string>
+    <string name="pair_history">Pair History</string>
+    
+    <string name="latest_record">Time: %1$s , Addaress: %2$s </string>       
+    
+    <string name="empty_record">No Available Request</string>
+    
+    <string name="empty_status">No Available Status</string>
+    
+    <string name="result">Result: %1$s </string>
+    
+    <string name="result_success">Pair Success</string>
+    <string name="result_pairing">Pairing</string>
+    <string name="result_fail">Pair fail</string>
+    
+    <string name="system_crash_notice">System Crash, please handle it. </string>
+    
+    <string name="record_history">Record History</string>
+
+</resources>

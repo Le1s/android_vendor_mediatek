@@ -1,0 +1,34 @@
+#define SHUFFLE_DECL(PRIM_TYPE, MASK_TYPE, ARG_SIZE, RET_SIZE) \
+  _CLC_OVERLOAD _CLC_DECL PRIM_TYPE##RET_SIZE shuffle(PRIM_TYPE##ARG_SIZE x, \
+                                                      MASK_TYPE##RET_SIZE mask);
+
+#define SHUFFLE_RET_SIZE(PRIM_TYPE, MASK_TYPE, ARG_SIZE) \
+  SHUFFLE_DECL(PRIM_TYPE, MASK_TYPE, ARG_SIZE, 2) \
+  SHUFFLE_DECL(PRIM_TYPE, MASK_TYPE, ARG_SIZE, 4) \
+  SHUFFLE_DECL(PRIM_TYPE, MASK_TYPE, ARG_SIZE, 8) \
+  SHUFFLE_DECL(PRIM_TYPE, MASK_TYPE, ARG_SIZE, 16)
+
+#define SHUFFLE_ARG_SIZE(PRIM_TYPE, MASK_TYPE) \
+  SHUFFLE_RET_SIZE(PRIM_TYPE, MASK_TYPE, 2) \
+  SHUFFLE_RET_SIZE(PRIM_TYPE, MASK_TYPE, 4) \
+  SHUFFLE_RET_SIZE(PRIM_TYPE, MASK_TYPE, 8) \
+  SHUFFLE_RET_SIZE(PRIM_TYPE, MASK_TYPE, 16)
+
+#define SHUFFLE_PRIM_TYPE() \
+  SHUFFLE_ARG_SIZE(char,  uchar)   \
+  SHUFFLE_ARG_SIZE(uchar, uchar)  \
+  SHUFFLE_ARG_SIZE(short,  ushort)  \
+  SHUFFLE_ARG_SIZE(ushort, ushort) \
+  SHUFFLE_ARG_SIZE(int,  uint)    \
+  SHUFFLE_ARG_SIZE(uint, uint)   \
+  SHUFFLE_ARG_SIZE(long,  ulong)   \
+  SHUFFLE_ARG_SIZE(ulong, ulong)  \
+  SHUFFLE_ARG_SIZE(float, uint)
+
+SHUFFLE_PRIM_TYPE()
+
+#ifdef cl_khr_fp64
+SHUFFLE_ARG_SIZE(double, ulong)
+#endif
+
+// FIXME: argnument type "half" not support

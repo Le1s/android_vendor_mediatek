@@ -1,0 +1,18 @@
+These files is code for MediaTek apn sanity test.
+
+
+WHAT IT DOES?
+=============
+Test apn add/edit/delete function.
+
+HOW IT WAS BUILT?
+==================
+mmm vendor/mediatek/proprietary/packages/autosanity/ApnTest
+
+HOW TO USE IT?
+==============
+
+1. install: adb install -r ApnTest.apk
+2. run: adb shell am instrument -w com.mediatek.apntest/com.mediatek.apn.sanitytest.ApnTestRunner
+
+All the source code were written by MediaTek co..

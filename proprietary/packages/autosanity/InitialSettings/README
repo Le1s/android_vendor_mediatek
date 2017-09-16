@@ -1,0 +1,24 @@
+Initial case in auto sanity, which can setup environment for the following auto sanity flow
+
+WHAT IT DOES?
+=============
+Used for initial setting in auto sanity, like set language to english, unlock phone, etc.
+
+
+HOW IT WAS BUILT?
+==================
+No external bin/so needed for this model
+
+Build command:
+mmm alps/vendor/mediatek/proprietary/packages/autosanity/InitialSettings
+
+
+HOW TO USE IT?
+==============
+Install the build apk and run the corresponding instrument
+
+Install apk:
+adb install initialsettings.apk
+
+Run instrument:
+adb shell am instrument -w -r com.mtk.sanitytest.initialsettings/android.test.InstrumentationTestRunner

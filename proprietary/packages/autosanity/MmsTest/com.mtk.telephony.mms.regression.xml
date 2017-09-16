@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="gb2312"?>
+<TestSuite name="com.mtk.telephony.mms.regression">
+    <TestCase name="MMSTest">
+        <Test name="test_mms_send">
+        	<test_count value="1" />
+        	<sim1_number value="18681372543" />
+        	<sim2_number value="13709034019" />
+        	<text_message value="This is a test message" />
+        	<subject_text value="MMS Regresstion Test" />
+        	<attach_file value="/mnt//sdcard//AutoTest.jpg" />
+        </Test> 
+    </TestCase>
+</TestSuite>

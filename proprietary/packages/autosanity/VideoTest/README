@@ -1,0 +1,23 @@
+This directory contains sources and resources to perform automated sanity testing of video playback.
+
+WHAT IT DOES?
+=============
+It is a sanity test for Video Playback.
+The description of test case: Video file can be played normally(use Gallery2)
+Precondition: There is at least one MP4 file in the device.
+Step 1. Play the MP4 file from Gallery.
+Step 2. Wait until the file played to end.
+Expected result: The file can be played smoothly.
+Postcondition: Back to home screen.
+
+HOW IT WAS BUILT?
+==================
+mmm vendor/mediatek/proprietary/packages/autosanity/VideoTest
+
+HOW TO USE IT?
+==============
+1.Install VideoPlaybackTest.apk.(The path of the apk:alps/out/target/product/k95v21/data/app/VideoPlaybackTest/VideoPlaybackTest.apk)
+2.Push SanityTest.mp4 to root directory of phone storage, and reboot the device.
+3.Use adb command to run the test:
+adb shell am instrument -w  com.mediatek.videoplaybacktest/android.test.InstrumentationTestRunner
+

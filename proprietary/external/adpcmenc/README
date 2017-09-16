@@ -1,0 +1,27 @@
+Library of MTK camera features, icluding face detection, high dynamic range,
+video stabilization, lens shading compensation and anti-flicker.
+
+This library is pre-built by MediaTek internal.
+
+
+WHAT IT DOES?
+=============
+libadpcmenc_mtk.a contains adpcm encode swip.  
+Without it, flac will not decode.
+
+HOW IT WAS BUILT?
+==================
+It needs the following library from AOSP:
+
+and the following libs from MediaTek:
+1.libadpcmenc_mtk.a
+
+All source/dependency modules of this module are already put in
+'vendor/mediatek/proprietary/external/adpcmenc/' folder.
+
+HOW TO USE IT?
+==============
+
+use openmax api.
+
+All the source code of this library were written by MediaTek co..

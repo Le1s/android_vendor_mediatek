@@ -1,0 +1,23 @@
+EngineerModeRTest.apk is the test APK of EngineerMode.apk.
+
+This application is pre-built by MediaTek internal.
+
+WHAT IT DOES?
+=============
+It is used to test some regression test case of EngineerMode.
+
+HOW IT WAS BUILT?
+==================
+It needs the following library from AOSP:
+1. android.test.runner
+
+and the following libs from MediaTek:
+1. librobotium4
+
+All source/dependency modules of this module are already put in
+'vendor/mediatek/libs' folder.
+
+HOW TO USE IT?
+==============
+1. Install EngineerModeRTest.apk in mediatek platform.
+2. Use adb command to run test.

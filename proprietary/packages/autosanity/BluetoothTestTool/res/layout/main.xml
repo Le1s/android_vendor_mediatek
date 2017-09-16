@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="25dip"
+    android:paddingRight="25dip" >
+
+   <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/bt_logo"
+        android:src="@drawable/ic_device_status" />
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_status"
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"
+        android:textColor="@color/title" />
+
+    <TextView
+        android:id="@+id/txtStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bt_configuring"
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"
+        android:textColor="@color/status" />
+
+   <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/bt_logo"
+        android:src="@drawable/ic_latest_record" />
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_latest_record"
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"
+        android:textColor="@color/title" />
+
+    <TextView
+        android:id="@+id/txtLatestHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/empty_record"
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"
+        android:textColor="@color/status" />
+
+    <TextView
+        android:id="@+id/txtResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/empty_status"
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"
+        android:textColor="@color/history" />
+
+</LinearLayout>

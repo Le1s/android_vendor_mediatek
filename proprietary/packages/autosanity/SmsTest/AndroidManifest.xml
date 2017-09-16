@@ -1,0 +1,13 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.mediatek.sms.sanitytest"
+      android:versionName="1.2">
+    <application >
+        <uses-library android:name="android.test.runner" />
+    </application>
+    <instrumentation android:name="android.test.InstrumentationTestRunner"
+        android:targetPackage="com.android.mms"
+        android:label="ReceiveAndReplyMMSTest_GEMINI">
+    </instrumentation>
+    <uses-permission android:name="android.permission.INJECT_EVENTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+</manifest> 

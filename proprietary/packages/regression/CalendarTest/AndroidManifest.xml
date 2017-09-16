@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mediatek.calendar.regressiontest"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <application>
+        <uses-library android:name="android.test.runner" />
+    </application>
+
+    <!--
+    adb shell am instrument -w
+    com.mediatek.calendar.regressiontest/android.test.InstrumentationTestRunner
+    -->
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:label="calendar regressiontest tests"
+        android:targetPackage="com.android.calendar" />
+
+</manifest>

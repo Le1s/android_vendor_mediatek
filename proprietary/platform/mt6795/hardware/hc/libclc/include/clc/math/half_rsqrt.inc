@@ -1,0 +1,1 @@
+_CLC_OVERLOAD _CLC_DECL __CLC_FLOATN half_rsqrt(__CLC_FLOATN p0);

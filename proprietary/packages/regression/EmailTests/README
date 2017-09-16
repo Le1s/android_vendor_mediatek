@@ -1,0 +1,19 @@
+Regression test for Email App.
+
+WHAT IT DOES?
+=============
+Regression testcase for Email basic function
+
+HOW IT WAS BUILT?
+==================
+mmm vendor/mediatek/proprietary/packages/regression/EmailTests/
+Note that it depedent Email app.
+
+
+HOW TO USE IT?
+==============
+follow AT run flow.
+Use following command to run it:
+adb shell am instrument -w com.android.email.regression.tests/com.android.email.regression.tests.EmailRegressionTestRunner
+
+All the source code of this module were written by MediaTek co..

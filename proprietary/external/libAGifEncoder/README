@@ -1,0 +1,28 @@
+Library of MTK camera features, icluding face detection, high dynamic range,
+video stabilization, lens shading compensation and anti-flicker.
+
+This library is pre-built by MediaTek internal.
+
+
+WHAT IT DOES?
+=============
+libAGifEncoder.so contains MediaTek developed Animated gif related encoding modules.  
+Without them, the functionalities of export motiontrack/mpo pictures to one gif file in gallery will not work.
+
+HOW IT WAS BUILT?
+==================
+It needs the following library from AOSP:
+1.  libctuils.so
+2.  libskia.so
+3.  libgif.a
+
+and the following libs from MediaTek:
+1.  libleptonica.a
+
+HOW TO USE IT?
+==============
+
+Provide api for gallery to export motiontrack/mpo pictures to on gif file.
+all api interface are at (vendor/mediatek/proprietary/external/libAGifEncoder)
+
+All the source code of this library were written by MediaTek co..

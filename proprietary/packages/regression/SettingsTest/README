@@ -1,0 +1,15 @@
+WHAT IT DOES?
+=============
+Settings regression test cases. To implement auto test for regression test , add these cases.
+
+
+HOW IT WAS BUILT?
+==================
+dependent on Settings.apk. Must install the same version Settings.apk firstly.
+
+
+HOW TO USE IT?
+==============
+follow AT run flow
+
+All the source code of this module were written by MediaTek co..

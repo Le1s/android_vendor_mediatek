@@ -1,0 +1,18 @@
+These files is code for MediaTek contacts sanity test.
+
+
+WHAT IT DOES?
+=============
+Test contacts add to simcard function.
+
+HOW IT WAS BUILT?
+==================
+mmm vendor/mediatek/proprietary/packages/autosanity/ContactsTest
+
+HOW TO USE IT?
+==============
+
+1. install: adb install -r ContactsSanityTest.apk
+2. run: adb shell am instrument -w com.mediatek.contacts.sanitytest/com.mediatek.contacts.sanitytest.AutoSanityTestRunner
+
+All the source code were written by MediaTek co..

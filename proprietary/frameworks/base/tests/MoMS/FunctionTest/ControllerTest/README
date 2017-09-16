@@ -1,0 +1,13 @@
+Functional test application for MoMS
+
+WHAT IT DOES?
+=============
+Test apk to verify MoMS internal module.
+
+HOW IT WAS BUILT?
+==================
+make as an apk.
+
+HOW TO USE IT?
+==============
+Only used as a testcase.

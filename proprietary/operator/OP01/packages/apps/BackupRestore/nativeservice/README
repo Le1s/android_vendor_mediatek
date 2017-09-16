@@ -1,0 +1,14 @@
+this part code is required by specific operator. It's a part of system app.
+
+
+WHAT IT DOES?
+=============
+Those code is used to backup and restore user app infomation.
+
+HOW IT WAS BUILT?
+==================
+It will be preinstalled on the operator project.
+
+HOW TO USE IT?
+==============
+It is unvilable to end user.

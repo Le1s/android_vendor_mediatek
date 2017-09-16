@@ -1,0 +1,13 @@
+Only dummy java file is included in mediatek-android.jar for binary release support.
+
+WHAT IT DOES?
+=============
+Binary release support.
+
+HOW IT WAS BUILT?
+==================
+It is built along with module.
+
+HOW TO USE IT?
+==============
+Include dummy java file.

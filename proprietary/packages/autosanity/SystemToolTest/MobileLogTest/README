@@ -1,0 +1,15 @@
+Log tool which can record log to sdcard.
+
+WHAT IT DOES?
+=============
+Auto sanity script for sanity case TC_039(mobile_log_d).
+
+HOW IT WAS BUILT?
+==================
+It's a python script.
+
+HOW TO USE IT?
+==============
+Run with python when MTK_AUTO_TEST is on.
+
+All the source code of this module were written by MediaTek co..

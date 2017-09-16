@@ -1,0 +1,27 @@
+Script of MTK suspend/resume auto sanity including suspend/resume script and unlocker APK.
+
+This script is pre-built by MediaTek internal.
+
+
+WHAT IT DOES?
+=============
+Sanity_Sleep_Wakeup_test.py contains MediaTek developed suspend/resume auto test step.  
+Unlocker.apk contains MediaTek developed unlock screen feature.
+Without them, suspend/resume can no do auto sanity.
+
+HOW IT WAS BUILT?
+==================
+Script will be executed from host side.
+
+All source/dependency modules of this module are already put in
+'vendor\mediatek\proprietary\packages\autosanity\PowerKeySleepTest' and 
+'vendor\mediatek\proprietary\packages\autosanity\PowerKeyWakeupTest' folder.
+
+HOW TO USE IT?
+==============
+
+Provide auto test for suspend/resume auto sanity.
+all api interface are at (vendor\mediatek\proprietary\packages\autosanity\PowerKeySleepTest and 
+vendor\mediatek\proprietary\packages\autosanity\PowerKeyWakeupTest)
+
+All the source code of this library were written by MediaTek co..

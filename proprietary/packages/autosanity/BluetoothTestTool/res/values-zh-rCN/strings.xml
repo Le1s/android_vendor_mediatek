@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">蓝牙配对测试(V2.2)</string>
+    <string name="bt_configuring">配对设备初始化中，请等待</string>
+    <string name="bt_configure_done">初始化完, 可以进行Sanity测试</string>
+
+    <string name="title_status">设备状态 :</string>
+    <string name="title_latest_record">最新配对记录 :</string>
+    <string name="pair_history">配对记录</string>
+    
+    <string name="latest_record">时间 : %1$s , MAC地址: %2$s </string>       
+    
+    <string name="empty_record">无有效请求</string>
+    
+    <string name="empty_status">无有效状态</string>
+    
+    <string name="result">配对结果 : %1$s </string>
+    
+    <string name="result_success">配对成功</string>
+    <string name="result_pairing">正在配对</string>
+    <string name="result_fail">配对失败</string>
+	
+    <string name="record_history">配对记录</string>
+</resources>

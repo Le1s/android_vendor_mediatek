@@ -1,0 +1,18 @@
+This module is sanity test for Mms applicataion.
+
+
+WHAT IT DOES?
+=============
+It is sanity test for Mms applicataion.
+It is to check Sms can be sent and received successfully.
+
+HOW IT WAS BUILT?
+==================
+It needs the following library from MediaTek: librobotium4.jar
+
+HOW TO USE IT?
+==============
+1. Install SmsSanityTest.apk in mediatek platform.
+2. Configurate sanity_configure.xml and put it to root directory of sdcard.
+3. Use adb command to run test:
+adb shell am instrument -w com.mediatek.sms.sanitytest/android.test.InstrumentationTestRunner

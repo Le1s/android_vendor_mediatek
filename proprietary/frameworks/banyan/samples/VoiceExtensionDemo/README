@@ -1,0 +1,3 @@
+This is a demo program "VoiceExtensionDemo" for using VIE SDK. 
+The default command file is "cmd_camera.xmf". 
+The demo program will read it at "system/etc/voicecommand/cmd_camera.xmf".

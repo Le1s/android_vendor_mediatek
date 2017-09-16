@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.mediatek.autosanity.networkmodeswitchtest"
+      android:versionCode="1"
+      android:versionName="1.6">
+    <uses-permission android:name = "android.permission.INTERNET"/>
+    <uses-permission android:name = "android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name = "android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name = "android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+
+    <application>
+           <uses-library android:name="android.test.runner" />
+    </application>
+
+    <instrumentation android:name="com.mediatek.autosanity.networkmodeswitchtest.NetworkModeSwitchTestRunner"
+        android:label = "DataConnectionTest"
+        android:targetPackage="com.android.phone" >
+    </instrumentation>
+
+</manifest>

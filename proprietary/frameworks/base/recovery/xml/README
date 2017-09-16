@@ -1,0 +1,11 @@
+WHAT IT DOES?
+=============
+Used by RMS to perform recovery method during runtime
+
+HOW IT WAS BUILT?
+==================
+This module is built to Recovery.jar under /system/framework/
+
+HOW TO USE IT?
+==============
+ - Override the interface AbstractRecoveryMethod class to define your own recovery method

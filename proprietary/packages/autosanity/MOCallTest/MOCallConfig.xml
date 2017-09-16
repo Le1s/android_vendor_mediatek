@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="gb2312"?>
+<config>
+   <sim1>10086</sim1>
+   <sim2>10086</sim2>
+   <maxtimes>3</maxtimes>
+   <passtimes>1</passtimes>
+</config>

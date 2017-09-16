@@ -1,0 +1,17 @@
+Sanity_KPD_test.py is a test script for android key function.
+
+WHAT IT DOES?
+=============
+Sanity_KPD_test.py test the functionality for KEY_VOLUMEUP and KEY_VOLUMEDOWN
+by judging the change of volume level.
+
+
+HOW IT WAS BUILT?
+==================
+Sanity_KPD_test.py is declared as ETC module class and
+will be put in /system/etc/ folder.
+
+HOW TO USE IT?
+==============
+Usage:
+  python Sanity_KPD_test.py -s <SERIAL>

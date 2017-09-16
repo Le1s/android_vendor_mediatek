@@ -1,0 +1,16 @@
+TouchPanelTest is a test script for android touch function.
+
+WHAT IT DOES?
+=============
+TouchPanelTest.py test the touch coordination for all position
+
+
+HOW IT WAS BUILT?
+==================
+TouchPanelTest.py is declared as ETC module class and
+will be put in /system/etc/ folder.
+
+HOW TO USE IT?
+==============
+Usage:
+  python TouchPanelTest.py -s <SERIAL>

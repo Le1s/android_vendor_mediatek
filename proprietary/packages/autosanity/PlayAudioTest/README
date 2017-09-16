@@ -1,0 +1,20 @@
+APK of audio sanity test apk, including the tests about audio playback, pause, forward and rewind.
+
+This APK is built by MediaTek internal.
+
+WHAT IT DOES?
+=============
+audiotest.apk is used to test the audio playback, pause, forward and rewind operations
+
+HOW IT WAS BUILT?
+==================
+It needs the following library from AOSP:
+1. framework.jar
+
+All source/dependency modules of this module are already put in
+'system/framework' folder.
+
+HOW TO USE IT?
+==============
+Ensure the Music.apk is installed on the device
+adb shell am instrument -w com.mediatek.audio.sanitytest/android.test.InstrumentationTestRunner

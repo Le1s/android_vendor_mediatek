@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.mediatek.browser.sanitytest"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>  
+    
+    <application>
+    <uses-library android:name="android.test.runner" />
+    </application>
+    
+    <instrumentation android:name="com.mediatek.browser.sanitytest.BrowserRunner" 
+        android:targetPackage="com.android.browser" 
+        android:label = "Test browser "/>
+</manifest>

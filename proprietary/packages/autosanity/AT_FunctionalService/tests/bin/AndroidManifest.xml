@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mtk.fts.tests">
+
+    <application>
+        <uses-library android:name="com.jayway.android.robotium" />
+        <uses-library android:name="android.test.runner" />
+    </application>
+    
+    <instrumentation android:name="com.mtk.fts.FSLaunchPerformance"
+        android:targetPackage="com.mtk.fts"
+        android:label="Functional Launch Performance">
+    </instrumentation>
+</manifest>

@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="app_name">MAGE Money Plant</string>
+    <string name="title_activity_main">MAGE Money Plant</string>
+    <string name="options">Options</string>
+    <string name="wp_name">MAGE Money Plant</string>
+    <string name="wp_describe">Interactive 3D palnt, run on MTKs MAGE 3D engine</string>
+    
+</resources>

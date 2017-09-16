@@ -1,0 +1,21 @@
+The is a test apk for auto sanity test of Stk
+
+This apk is pre-built by MediaTek internal.
+
+WHAT IT DOES?
+=============
+
+This test apk is used for running auto sanity test for Stk.
+When the apk is launched, it will simulate the click event to
+click stk apk and select the first item of menu.
+
+HOW IT WAS BUILT?
+==================
+
+It will pre-built automatically by build process.
+
+
+HOW TO USE IT?
+==============
+
+It is launched by auto sanity test

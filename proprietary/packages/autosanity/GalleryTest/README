@@ -1,0 +1,19 @@
+This directory contains sources and resources to perform automated sanity testing of pictures.
+
+
+WHAT IT DOES?
+=============
+It is the sanity test for pictures feature.
+The description of test case: JPG file can be showned normally using Gallery2.
+
+HOW IT WAS BUILT?
+==================
+mmm vendor/mediatek/proprietary/packages/autosanity/GalleryTest
+
+HOW TO USE IT?
+==============
+1. Install GalleryTest.apk.
+2. Push testimageJD.jpg to root directory of phone storage, and reboot.
+2. Use adb command to run test:
+adb shell am instrument -w com.mediatek.gallerytest/android.test.InstrumentationTestRunner
+

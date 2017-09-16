@@ -1,0 +1,14 @@
+WHAT IT DOES?
+=============
+QuickSearchBox regression test case.
+
+
+HOW IT WAS BUILT?
+==================
+Depends on QuickSearchBox apk, must install the same version QuickSearchBox apk first.
+
+
+HOW TO USE IT?
+==============
+1. install: adb install -r QuickSearchBoxTest.apk
+2. run: adb shell am instrument -w com.mediatek.qsb.regressiontest/android.test.InstrumentationTestRunner
