@@ -33,8 +33,8 @@
  * applicable license agreements with MediaTek Inc.
  */
 
-#ifndef _MTK_M4U_LIB_H
-#define _MTK_M4U_LIB_H
+#ifndef _MTK_M4U_LIB_V2_H
+#define _MTK_M4U_LIB_V2_H
 
 #include <linux/ioctl.h>
 #include "m4u_lib_priv.h"
@@ -69,9 +69,9 @@ typedef enum
 } M4U_DMA_DIR_ENUM;
 
 typedef struct _M4U_PORT
-{  
+{
 	M4U_PORT_ID ePortID;		   //hardware port ID, defined in M4U_PORT_ID
-	unsigned int Virtuality;						   
+	unsigned int Virtuality;
 	unsigned int Security;
     unsigned int domain;            //domain : 0 1 2 3
 	unsigned int Distance;
@@ -79,11 +79,11 @@ typedef struct _M4U_PORT
 }M4U_PORT_STRUCT;
 
 struct m4u_port_array
-{  
-	#define M4U_PORT_ATTR_EN 		(1<<0)
-	#define M4U_PORT_ATTR_VIRTUAL 	(1<<1)
-	#define M4U_PORT_ATTR_SEC	 	(1<<2)
-	unsigned char ports[M4U_PORT_NR];
+{
+    #define M4U_PORT_ATTR_EN 		(1<<0)
+    #define M4U_PORT_ATTR_VIRTUAL 	(1<<1)
+    #define M4U_PORT_ATTR_SEC	 	(1<<2)
+    unsigned char ports[M4U_PORT_NR];
 };
 
 typedef enum
@@ -99,26 +99,26 @@ typedef enum
 } M4U_ROTATOR_ENUM;
 
 typedef struct _M4U_PORT_ROTATOR
-{  
+{
 	M4U_PORT_ID_ENUM ePortID;		   // hardware port ID, defined in M4U_PORT_ID_ENUM
-	unsigned int Virtuality;						   
+	unsigned int Virtuality;
 	unsigned int Security;
 	// unsigned int Distance;      // will be caculated actomatically inside M4U driver
 	// unsigned int Direction;
-  unsigned int MVAStart; 
+  unsigned int MVAStart;
   unsigned int BufAddr;
-  unsigned int BufSize;  
-  M4U_ROTATOR_ENUM angle;	
+  unsigned int BufSize;
+  M4U_ROTATOR_ENUM angle;
 }M4U_PORT_STRUCT_ROTATOR;
 
 
 typedef struct _M4U_MOUDLE
 {
-	M4U_PORT_ID port;	
-	unsigned long BufAddr;				
-	unsigned int BufSize;				
+	M4U_PORT_ID port;
+	unsigned long BufAddr;
+	unsigned int BufSize;
 	unsigned int prot;
-	unsigned int MVAStart;						 
+	unsigned int MVAStart;
 	unsigned int MVAEnd;
     unsigned int flags;
 
@@ -143,27 +143,50 @@ typedef enum
 
 typedef struct _M4U_CACHE
 {
-    M4U_PORT_ID port;             
+    M4U_PORT_ID port;
     M4U_CACHE_SYNC_ENUM eCacheSync;
-    unsigned long va;                 
-    unsigned int size; 
+    unsigned long va;
+    unsigned int size;
     unsigned int mva;
 }M4U_CACHE_STRUCT;
 
+typedef enum
+{
+    M4U_DMA_MAP_AREA,
+    M4U_DMA_UNMAP_AREA,
+} M4U_DMA_TYPE;
+
+typedef enum
+{
+	M4U_DMA_FROM_DEVICE,
+	M4U_DMA_TO_DEVICE,
+	M4U_DMA_BIDIRECTIONAL,
+} M4U_DMA_DIR;
+
+typedef struct _M4U_DMA
+{
+    M4U_PORT_ID port;
+    M4U_DMA_TYPE eDMAType;
+    M4U_DMA_DIR eDMADir;
+    unsigned long va;
+    unsigned int size;
+    unsigned int mva;
+}M4U_DMA_STRUCT;
+
 typedef struct _M4U_MAU
 {
-    M4U_PORT_ID port;             
-    bool write;                 
+    M4U_PORT_ID port;
+    bool write;
     unsigned int mva;
-    unsigned int size; 	
+    unsigned int size;
     bool enable;
-    bool force; 		
+    bool force;
 }M4U_MAU_STRUCT;
 
 typedef struct _M4U_TF
 {
-    M4U_PORT_ID port;             
-    bool fgEnable;                 		
+    M4U_PORT_ID port;
+    bool fgEnable;
 }M4U_TF_STRUCT;
 
 
@@ -181,49 +204,49 @@ enum _M4U_STATUS
 typedef int M4U_STATUS_ENUM;
 class MTKM4UDrv
 {
-    
-private:		                          		                          
+
+private:
     int mFileDescriptor;
-    
+
 public:
     MTKM4UDrv(void);
     ~MTKM4UDrv(void);
-    
+
     int m4u_power_on(M4U_PORT_ID port);
     int m4u_power_off(M4U_PORT_ID port);
-    
-    int m4u_alloc_mva(M4U_PORT_ID port, 
+
+    int m4u_alloc_mva(M4U_PORT_ID port,
                   unsigned long va, unsigned int size,
                   unsigned int prot, unsigned int flags,
 				  unsigned int *pMva);
 
-    int m4u_dealloc_mva(M4U_PORT_ID port, 
+    int m4u_dealloc_mva(M4U_PORT_ID port,
                             unsigned long va, unsigned int size,
                             unsigned int mva);
 
-    M4U_STATUS_ENUM m4u_insert_wrapped_range(M4U_MODULE_ID_ENUM eModuleID, 
-                  M4U_PORT_ID_ENUM portID, 
-								  const unsigned int MVAStart, 
+    M4U_STATUS_ENUM m4u_insert_wrapped_range(M4U_MODULE_ID_ENUM eModuleID,
+                  M4U_PORT_ID_ENUM portID,
+								  const unsigned int MVAStart,
 								  const unsigned int MVAEnd); //0:disable, 1~4 is valid
-								  		                            
-    M4U_STATUS_ENUM m4u_insert_tlb_range(M4U_MODULE_ID_ENUM eModuleID, 
-		                          unsigned int MVAStart, 
-		                          const unsigned int MVAEnd, 
+
+    M4U_STATUS_ENUM m4u_insert_tlb_range(M4U_MODULE_ID_ENUM eModuleID,
+		                          unsigned int MVAStart,
+		                          const unsigned int MVAEnd,
 		                          M4U_RANGE_PRIORITY_ENUM ePriority,
-		                          unsigned int entryCount);	
-		                                
+		                          unsigned int entryCount);
+
     M4U_STATUS_ENUM m4u_invalid_tlb_range(M4U_MODULE_ID_ENUM eModuleID,
-		                          unsigned int MVAStart, 
+		                          unsigned int MVAStart,
 		                          unsigned int MVAEnd);
-		                                  
+
     M4U_STATUS_ENUM m4u_manual_insert_entry(M4U_MODULE_ID_ENUM eModuleID,
-		                          unsigned int EntryMVA, 
-		                          bool Lock);	
+		                          unsigned int EntryMVA,
+		                          bool Lock);
     M4U_STATUS_ENUM m4u_invalid_tlb_all(M4U_MODULE_ID_ENUM eModuleID);
     int m4u_config_port(M4U_PORT_STRUCT* pM4uPort);
-	void m4u_port_array_init(struct m4u_port_array * port_array);
-	int m4u_port_array_add(struct m4u_port_array *port_array, int port, int m4u_en, int secure);
-	int m4u_config_port_array(struct m4u_port_array * port_array);
+    void m4u_port_array_init(struct m4u_port_array * port_array);
+    int m4u_port_array_add(struct m4u_port_array *port_array, int port, int m4u_en, int secure);
+    int m4u_config_port_array(struct m4u_port_array * port_array);
 
     M4U_STATUS_ENUM m4u_config_port_rotator(M4U_PORT_STRUCT_ROTATOR* pM4uPort);
 
@@ -238,43 +261,52 @@ public:
 
     int m4u_cache_sync(M4U_PORT_ID port,
 		                          M4U_CACHE_SYNC_ENUM eCacheSync,
-		                          unsigned long BufAddr, 
+		                          unsigned long BufAddr,
 		                          unsigned int BufSize,
 		                          unsigned int mva);
-								  
+
     M4U_STATUS_ENUM m4u_cache_sync(M4U_MODULE_ID_ENUM eModuleID,
 		                          M4U_CACHE_SYNC_ENUM eCacheSync,
-		                          unsigned int BufAddr, 
+		                          unsigned int BufAddr,
 		                          unsigned int BufSize);
-		                          
+
     M4U_STATUS_ENUM m4u_reset_mva_release_tlb(M4U_MODULE_ID_ENUM eModuleID);
-    
+
     ///> ------- helper function
     int m4u_dump_info(M4U_PORT_ID port);
     int m4u_monitor_start(M4U_PORT_ID PortID);
-    int m4u_monitor_stop(M4U_PORT_ID PortID);	
+    int m4u_monitor_stop(M4U_PORT_ID PortID);
 	M4U_STATUS_ENUM m4u_dump_reg(M4U_MODULE_ID_ENUM eModuleID);
 	// used for those looply used buffer
     // will check link list for mva rather than re-build pagetable by get_user_pages()
-    // if can not find the VA in link list, will call m4u_alloc_mva() internally		  
-    M4U_STATUS_ENUM m4u_query_mva(M4U_MODULE_ID_ENUM eModuleID, 
-		                          const unsigned int BufAddr, 
-		                          const unsigned int BufSize, 
+    // if can not find the VA in link list, will call m4u_alloc_mva() internally
+    M4U_STATUS_ENUM m4u_query_mva(M4U_MODULE_ID_ENUM eModuleID,
+		                          const unsigned int BufAddr,
+		                          const unsigned int BufSize,
 		                          unsigned int *pRetMVABuf);
-    M4U_STATUS_ENUM m4u_dump_pagetable(M4U_MODULE_ID_ENUM eModuleID, 
-								  const unsigned long BufAddr, 
-								  const unsigned int BufSize, 
+    M4U_STATUS_ENUM m4u_dump_pagetable(M4U_MODULE_ID_ENUM eModuleID,
+								  const unsigned long BufAddr,
+								  const unsigned int BufSize,
 								  unsigned int MVAStart);
 
-    M4U_STATUS_ENUM m4u_register_buffer(M4U_MODULE_ID_ENUM eModuleID, 
-								  const unsigned int BufAddr, 
+    M4U_STATUS_ENUM m4u_register_buffer(M4U_MODULE_ID_ENUM eModuleID,
+								  const unsigned int BufAddr,
 								  const unsigned int BufSize,
 								  int security,
 								  int cache_coherent,
 								  unsigned int *pRetMVAAddr);
 
     M4U_STATUS_ENUM m4u_cache_flush_all(M4U_MODULE_ID_ENUM eModuleID);
-    
+    M4U_STATUS_ENUM m4u_dma_map_area(M4U_PORT_ID port,
+            						M4U_DMA_DIR eDMADir,
+            						unsigned long va,
+            						unsigned int size,
+            						unsigned int mva);
+    M4U_STATUS_ENUM m4u_dma_unmap_area(M4U_PORT_ID port,
+            						M4U_DMA_DIR eDMADir,
+            						unsigned long va,
+            						unsigned int size,
+            						unsigned int mva);
     bool m4u_enable_m4u_func(M4U_MODULE_ID_ENUM eModuleID);
     bool m4u_disable_m4u_func(M4U_MODULE_ID_ENUM eModuleID);
     bool m4u_print_m4u_enable_status();

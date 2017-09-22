@@ -32,27 +32,36 @@
 # have been modified by MediaTek Inc. All revisions are subject to any receiver's
 # applicable license agreements with MediaTek Inc.
 
-## test for executable program
-LOCAL_PATH := $(call my-dir)
+
+ifneq (,$(filter $(strip $(TARGET_BOARD_PLATFORM)), mt6572 mt6582 mt6592))
+
+LOCAL_PATH:= $(call my-dir)
+
 include $(CLEAR_VARS)
-LOCAL_SRC_FILES := m4u_ut.cpp \
 
-LOCAL_MODULE := m4u_ut
-  
-LOCAL_SHARED_LIBRARIES := libcutils liblog libion
+LOCAL_SRC_FILES:= m4u_lib.cpp
+LC_MTK_PLATFORM := $(shell echo $(MTK_PLATFORM) | tr A-Z a-z )
 
-LOCAL_C_INCLUDES+= $(MTK_PATH_PLATFORM)/hardware/m4u
-LOCAL_C_INCLUDES += \
- 	$(MTK_PATH_SOURCE)/kernel/include \
-    $(TOPDIR)/kernel/include \
-    $(TOPDIR)/system/core/include \
-    $(MTK_PATH_SOURCE)/external/include
+LOCAL_C_INCLUDES:= \
+	$(TOP)/$(MTK_PATH_PLATFORM)/kernel/core/include/mach \
+	$(TOP)/$(MTK_PATH_SOURCE)/hardware/m4u/$(LC_MTK_PLATFORM) \
 
-LOCAL_SHARED_LIBRARIES += libm4u libion_mtk
-  
-  
-#LOCAL_STATIC_LIBRARIES := 
+
+LOCAL_SHARED_LIBRARIES := \
+	libcutils \
+	liblog \
+
+LOCAL_MODULE := libm4u
+
 LOCAL_MODULE_TAGS := eng
-#LOCAL_PRELINK_MODULE:=false
-include $(BUILD_EXECUTABLE) 
+
+#LOCAL_PRELINK_MODULE := false
+
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+#include $(call all-makefiles-under,$(LOCAL_PATH))
+
+endif
+
 

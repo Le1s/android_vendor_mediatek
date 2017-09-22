@@ -117,7 +117,7 @@ int ion_m4u_misc_using()
     pid_t pid;
     unsigned int bufsize = 1*1024*1024;
 
-    ion_fd = mt_ion_open("m4u_ut");
+    ion_fd = ion_open();
     if (ion_fd < 0)
     {
         printf("Cannot open ion device.\n");

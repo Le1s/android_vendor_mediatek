@@ -38,7 +38,7 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <cutils/log.h>
-#include "m4u_lib.h"
+#include "m4u_lib_v2.h"
 #include <string.h>
 #include <errno.h>
 
@@ -57,12 +57,16 @@
 #else
   #define M4UMSG(...)
 #endif
+#define M4UINFO(...) \
+	do { \
+		ALOGI(__VA_ARGS__); \
+	}while (0)
 
 
 //#define __DUMP_BACKTRACE_ON_ERROR__
 #ifdef __DUMP_BACKTRACE_ON_ERROR__
 extern "C" void rtt_dump_caller_backtrace(const char* tag);
-extern "C" int rtt_dump_backtrace(pid_t pid, pid_t tid, const char* file_path); 
+extern "C" int rtt_dump_backtrace(pid_t pid, pid_t tid, const char* file_path);
 static void m4u_dump_backtrace(void)
 {
     char name[35] = "/data/m4u_dump";
@@ -98,7 +102,7 @@ MTKM4UDrv::MTKM4UDrv(void)
 {
 
     mFileDescriptor = -1;
- 
+
     mFileDescriptor = open("/proc/m4u", O_RDONLY);
     if(mFileDescriptor<0)
     {
@@ -109,7 +113,7 @@ MTKM4UDrv::MTKM4UDrv(void)
 }
 
 MTKM4UDrv::~MTKM4UDrv(void)
-{    
+{
     int fd;
     fd = mFileDescriptor;
     mFileDescriptor = -1;
@@ -121,9 +125,9 @@ MTKM4UDrv::~MTKM4UDrv(void)
 
 
 /**
- * @brief : 
- * @param 
- * @return 
+ * @brief :
+ * @param
+ * @return
  */
 int MTKM4UDrv::m4u_power_on(M4U_PORT_ID port)
 {
@@ -148,9 +152,9 @@ int MTKM4UDrv::m4u_power_on(M4U_PORT_ID port)
 }
 
 /**
- * @brief : 
- * @param 
- * @return 
+ * @brief :
+ * @param
+ * @return
  */
 int MTKM4UDrv::m4u_power_off(M4U_PORT_ID port)
 {
@@ -175,7 +179,7 @@ int MTKM4UDrv::m4u_power_off(M4U_PORT_ID port)
 }
 
 
-int MTKM4UDrv::m4u_alloc_mva(M4U_PORT_ID port, 
+int MTKM4UDrv::m4u_alloc_mva(M4U_PORT_ID port,
                   unsigned long va, unsigned int size,
                   unsigned int prot, unsigned int flags,
 				  unsigned int *pMva)
@@ -189,13 +193,6 @@ int MTKM4UDrv::m4u_alloc_mva(M4U_PORT_ID port,
 
     m4u_module.MVAStart = *pMva;
 
-    if(mlock((void*)va, size))
-    {
-        M4UMSG("mlock fail! %d, %s \n", errno, strerror(errno));
-        *pMva = 0;
-        return -1;
-    }
-
     if(mFileDescriptor<0 )
     {
         M4UMSG("m4u_alloc_mva failed fd=%d\n", mFileDescriptor);
@@ -207,6 +204,8 @@ int MTKM4UDrv::m4u_alloc_mva(M4U_PORT_ID port,
         M4UMSG(" ioctl MTK_M4U_T_ALLOC_MVA fail! %d, %s \n", errno, strerror(errno));
         m4u_dump_backtrace();
         *pMva = 0;
+	M4UMSG("ioctl MTK_M4U_T_ALLOC_MVA fail:va = %lx,size=%x,port=%d\n ", va, size, port);
+
         return -1;
     }
     else
@@ -216,17 +215,17 @@ int MTKM4UDrv::m4u_alloc_mva(M4U_PORT_ID port,
     }
 }
 
- 	        
 
-M4U_STATUS_ENUM MTKM4UDrv::m4u_query_mva(M4U_MODULE_ID_ENUM eModuleID, 
-								  const unsigned int BufAddr, 
-								  const unsigned int BufSize, 
+
+M4U_STATUS_ENUM MTKM4UDrv::m4u_query_mva(M4U_MODULE_ID_ENUM eModuleID,
+								  const unsigned int BufAddr,
+								  const unsigned int BufSize,
 								  unsigned int *pRetMVAAddr)
 {
 	*pRetMVAAddr = 0;
 	return -1;
 }
-int MTKM4UDrv::m4u_dealloc_mva(M4U_PORT_ID port, 
+int MTKM4UDrv::m4u_dealloc_mva(M4U_PORT_ID port,
                             unsigned long va, unsigned int size,
                             unsigned int mva)
 {
@@ -244,34 +243,34 @@ int MTKM4UDrv::m4u_dealloc_mva(M4U_PORT_ID port,
     {
         M4UMSG(" ioctl MTK_M4U_T_DEALLOC_MVA fail! %d, %s \n", errno, strerror(errno));
         m4u_dump_backtrace();
-        //munlock((void*)va, size);
+	M4UMSG("ioctl MTK_M4U_T_DEALLOC_MVA fail:va = 0x%lx,size = 0x%x,mva = 0x%x,port = %d\n ", va, size, mva, port);
+
         return -1;
     }
     else
     {
-        //munlock((void*)va,size);
         return 0;
     }
 }
 
 
-M4U_STATUS_ENUM MTKM4UDrv::m4u_insert_wrapped_range(M4U_MODULE_ID_ENUM eModuleID, 
-                                  M4U_PORT_ID_ENUM portID, 
-								  const unsigned int MVAStart, 
+M4U_STATUS_ENUM MTKM4UDrv::m4u_insert_wrapped_range(M4U_MODULE_ID_ENUM eModuleID,
+                                  M4U_PORT_ID_ENUM portID,
+								  const unsigned int MVAStart,
 								  const unsigned int MVAEnd)
 {
 	return 0;
 }
-M4U_STATUS_ENUM MTKM4UDrv::m4u_insert_tlb_range(M4U_MODULE_ID_ENUM eModuleID, 
-										unsigned int MVAStart, 
-										const unsigned int MVAEnd, 
+M4U_STATUS_ENUM MTKM4UDrv::m4u_insert_tlb_range(M4U_MODULE_ID_ENUM eModuleID,
+										unsigned int MVAStart,
+										const unsigned int MVAEnd,
 										M4U_RANGE_PRIORITY_ENUM ePriority,
-										unsigned int entryCount) 
+										unsigned int entryCount)
 {
 	return 0;
 }
 M4U_STATUS_ENUM MTKM4UDrv::m4u_invalid_tlb_range(M4U_MODULE_ID_ENUM eModuleID,
-										  unsigned int MVAStart, 
+										  unsigned int MVAStart,
 										  unsigned int MVAEnd)
 {
 	return 0;
@@ -281,8 +280,8 @@ M4U_STATUS_ENUM MTKM4UDrv::m4u_invalid_tlb_all(M4U_MODULE_ID_ENUM eModuleID)
 	return 0;
 }
 M4U_STATUS_ENUM MTKM4UDrv::m4u_manual_insert_entry(M4U_MODULE_ID_ENUM eModuleID,
-									unsigned int EntryMVA, 
-									bool Lock)	
+									unsigned int EntryMVA,
+									bool Lock)
 {
 return 0;
 }
@@ -296,7 +295,7 @@ int MTKM4UDrv::m4u_config_port(M4U_PORT_STRUCT* pM4uPort)
         m4u_dump_backtrace();
         return -1;
     }
-	        	        
+
     if(mFileDescriptor<0)
     {
         M4UMSG("m4u_config_port failed \n");
@@ -312,7 +311,7 @@ int MTKM4UDrv::m4u_config_port(M4U_PORT_STRUCT* pM4uPort)
     else
     {
         return 0;
-    }	
+    }
 }
 
 void MTKM4UDrv::m4u_port_array_init(struct m4u_port_array * port_array)
@@ -320,7 +319,7 @@ void MTKM4UDrv::m4u_port_array_init(struct m4u_port_array * port_array)
     memset(port_array, 0, sizeof(struct m4u_port_array));
 }
 
-int MTKM4UDrv::m4u_port_array_add(struct m4u_port_array *port_array, 
+int MTKM4UDrv::m4u_port_array_add(struct m4u_port_array *port_array,
     int port, int m4u_en, int secure)
 {
     if(port>=M4U_PORT_NR)
@@ -353,7 +352,7 @@ int MTKM4UDrv::m4u_config_port_array(struct m4u_port_array * port_array)
     else
     {
         return 0;
-    }	
+    }
 }
 
 int MTKM4UDrv::m4u_config_mau(M4U_PORT_ID port, unsigned int mva, unsigned int size,
@@ -393,7 +392,7 @@ int MTKM4UDrv::m4u_config_mau(M4U_PORT_ID port, unsigned int mva, unsigned int s
     else
     {
         return 0;
-    }	
+    }
 
 }
 
@@ -418,7 +417,7 @@ int MTKM4UDrv::m4u_enable_tf(M4U_PORT_ID port, bool enable)
     else
     {
         return 0;
-    }	
+    }
 
 }
 
@@ -433,9 +432,9 @@ return 0;
 }
 ///> ------------------- helper function -----------------------------------------------------
 /**
- * @brief :             
- * @param 
- * @return 
+ * @brief :
+ * @param
+ * @return
  */
 int MTKM4UDrv::m4u_monitor_start(M4U_PORT_ID PortID)
 {
@@ -460,9 +459,9 @@ int MTKM4UDrv::m4u_monitor_start(M4U_PORT_ID PortID)
 }
 
 /**
- * @brief :             
- * @param 
- * @return 
+ * @brief :
+ * @param
+ * @return
  */
 int MTKM4UDrv::m4u_monitor_stop(M4U_PORT_ID PortID)
 {
@@ -516,34 +515,34 @@ int MTKM4UDrv::m4u_dump_info(M4U_PORT_ID port)
 }
 M4U_STATUS_ENUM MTKM4UDrv::m4u_cache_sync(M4U_MODULE_ID_ENUM eModuleID,
 	                                    M4U_CACHE_SYNC_ENUM eCacheSync,
-		                                  unsigned int BufAddr, 
+		                                  unsigned int BufAddr,
 		                                  unsigned int BufSize)
 {
     M4UMSG("error!! use old m4u_cache_sync interface!!\n");
     return -1;
-}										  
+}
 
 int MTKM4UDrv::m4u_cache_sync(M4U_PORT_ID port,
 	                                    M4U_CACHE_SYNC_ENUM eCacheSync,
-		                                  unsigned long va, 
+		                                  unsigned long va,
 		                                  unsigned int size,
 		                                  unsigned int mva)
 {
     M4U_CACHE_STRUCT m4u_cache;
-    
+
     if(mFileDescriptor<0 )
     {
         M4UMSG("m4u_cache_sync failed \n");
         m4u_dump_backtrace();
         return -1;
     }
-	        
+
     m4u_cache.port = port;
     m4u_cache.eCacheSync = eCacheSync;
     m4u_cache.va = va;
     m4u_cache.size = size;
     m4u_cache.mva = mva;
-    
+
     if(ioctl(mFileDescriptor, MTK_M4U_T_CACHE_SYNC, &m4u_cache) < 0)
     {
         M4UMSG(" ioctl MTK_M4U_T_CACHE_SYNC fail! %d, %s \n", errno, strerror(errno));
@@ -557,9 +556,9 @@ int MTKM4UDrv::m4u_cache_sync(M4U_PORT_ID port,
 }
 
 
-int MTKM4UDrv::m4u_dump_pagetable(M4U_PORT_ID port, 
-								  const unsigned long BufAddr, 
-								  const unsigned int BufSize, 
+int MTKM4UDrv::m4u_dump_pagetable(M4U_PORT_ID port,
+								  const unsigned long BufAddr,
+								  const unsigned int BufSize,
 								  unsigned int MVAStart)
 {
 
@@ -569,7 +568,7 @@ int MTKM4UDrv::m4u_dump_pagetable(M4U_PORT_ID port,
     m4u_module.BufAddr = BufAddr;
     m4u_module.BufSize = BufSize;
     m4u_module.MVAStart = MVAStart;
- 	        
+
     if(mFileDescriptor<0 )
     {
         M4UMSG("m4u_dump_pagetable failed \n");
@@ -589,8 +588,8 @@ int MTKM4UDrv::m4u_dump_pagetable(M4U_PORT_ID port,
 }
 
 
-M4U_STATUS_ENUM MTKM4UDrv::m4u_register_buffer(M4U_MODULE_ID_ENUM eModuleID, 
-								  const unsigned int BufAddr, 
+M4U_STATUS_ENUM MTKM4UDrv::m4u_register_buffer(M4U_MODULE_ID_ENUM eModuleID,
+								  const unsigned int BufAddr,
 								  const unsigned int BufSize,
 								  int security,
 								  int cache_coherent,
@@ -607,10 +606,78 @@ int MTKM4UDrv::m4u_cache_flush_all(M4U_PORT_ID port)
         m4u_dump_backtrace();
         return -1;
     }
-	        
+
     if(ioctl(mFileDescriptor, MTK_M4U_T_CACHE_FLUSH_ALL, NULL) < 0)
     {
         M4UMSG(" ioctl MTK_M4U_T_CACHE_FLUSH_ALL fail! %d, %s \n", errno, strerror(errno));
+        m4u_dump_backtrace();
+        return -1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+M4U_STATUS_ENUM MTKM4UDrv::m4u_dma_map_area(M4U_PORT_ID port,
+										M4U_DMA_DIR eDMADir,
+										unsigned long va,
+										unsigned int size,
+										unsigned int mva)
+{
+    M4U_DMA_STRUCT m4u_dma;
+
+    if(mFileDescriptor<0 )
+    {
+        M4UMSG("m4u_cache_sync failed \n");
+        m4u_dump_backtrace();
+        return -1;
+    }
+
+    m4u_dma.port = port;
+    m4u_dma.eDMAType = M4U_DMA_MAP_AREA;
+    m4u_dma.eDMADir = eDMADir;
+    m4u_dma.va = va;
+    m4u_dma.size = size;
+    m4u_dma.mva = mva;
+
+    if(ioctl(mFileDescriptor, MTK_M4U_T_DMA_OP, &m4u_dma) < 0)
+    {
+        M4UMSG("ioctl MTK_M4U_T_DMA_MAP_AREA fail! %d, %s \n", errno, strerror(errno));
+        m4u_dump_backtrace();
+        return -1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+M4U_STATUS_ENUM MTKM4UDrv::m4u_dma_unmap_area(M4U_PORT_ID port,
+										M4U_DMA_DIR eDMADir,
+										unsigned long va,
+										unsigned int size,
+										unsigned int mva)
+{
+    M4U_DMA_STRUCT m4u_dma;
+
+    if(mFileDescriptor<0 )
+    {
+        M4UMSG("m4u_cache_sync failed \n");
+        m4u_dump_backtrace();
+        return -1;
+    }
+
+    m4u_dma.port = port;
+    m4u_dma.eDMAType = M4U_DMA_UNMAP_AREA;
+    m4u_dma.eDMADir = eDMADir;
+    m4u_dma.va = va;
+    m4u_dma.size = size;
+    m4u_dma.mva = mva;
+
+    if(ioctl(mFileDescriptor, MTK_M4U_T_DMA_OP, &m4u_dma) < 0)
+    {
+        M4UMSG("ioctl MTK_M4U_T_DMA_UNMAP_AREA fail! %d, %s \n", errno, strerror(errno));
         m4u_dump_backtrace();
         return -1;
     }
@@ -624,7 +691,7 @@ int MTKM4UDrv::m4u_cache_flush_all(M4U_PORT_ID port)
     {
 		return 0;
     }
-    
+
     bool MTKM4UDrv::m4u_disable_m4u_func(M4U_MODULE_ID_ENUM eModuleID)
     {
 return 0;

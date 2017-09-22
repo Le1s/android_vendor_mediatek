@@ -32,4 +32,26 @@
 # have been modified by MediaTek Inc. All revisions are subject to any receiver's
 # applicable license agreements with MediaTek Inc.
 
-include $(call all-subdir-makefiles)
+
+## test for executable program
+LOCAL_PATH := $(call my-dir)
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := m4u_ut.cpp \
+	rgb565_390x210.c \
+
+LOCAL_MODULE := m4u_ut
+LC_MTK_PLATFORM := $(shell echo $(MTK_PLATFORM) | tr A-Z a-z )
+
+LOCAL_C_INCLUDES:= \
+	$(TOP)/$(MTK_PATH_SOURCE)/external/mhal/src/core/drv/inc \
+	$(TOP)/$(MTK_PATH_SOURCE)/hardware/m4u/$(LC_MTK_PLATFORM) \
+
+LOCAL_SHARED_LIBRARIES := \
+	libcutils \
+	liblog \
+	libm4u \
+
+#LOCAL_STATIC_LIBRARIES := 
+LOCAL_MODULE_TAGS := tests
+LOCAL_PRELINK_MODULE:=false
+include $(BUILD_EXECUTABLE) 

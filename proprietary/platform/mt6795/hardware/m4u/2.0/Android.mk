@@ -32,4 +32,30 @@
 # have been modified by MediaTek Inc. All revisions are subject to any receiver's
 # applicable license agreements with MediaTek Inc.
 
-include $(call all-subdir-makefiles)
+
+LOCAL_PATH:= $(call my-dir)
+
+include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES:= m4u_lib.cpp
+LC_MTK_PLATFORM := $(shell echo $(MTK_PLATFORM) | tr A-Z a-z )
+
+LOCAL_C_INCLUDES:= \
+	$(TOP)/$(MTK_PATH_PLATFORM)/kernel/core/include/mach \
+	../mt6795
+
+LOCAL_SHARED_LIBRARIES := \
+	libcutils \
+	liblog \
+
+LOCAL_MODULE := libm4u
+LOCAL_MULTILIB := both
+
+LOCAL_MODULE_TAGS := eng
+
+#LOCAL_PRELINK_MODULE := false
+
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+# include $(call all-makefiles-under,$(LOCAL_PATH))

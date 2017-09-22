@@ -6,7 +6,7 @@
 # Without the prior written permission of MediaTek inc. and/or its licensors,
 # any reproduction, modification, use or disclosure of MediaTek Software,
 # and information contained herein, in whole or in part, shall be strictly prohibited.
-#
+
 # MediaTek Inc. (C) 2010. All rights reserved.
 #
 # BY OPENING THIS FILE, RECEIVER HEREBY UNEQUIVOCALLY ACKNOWLEDGES AND AGREES
@@ -32,4 +32,36 @@
 # have been modified by MediaTek Inc. All revisions are subject to any receiver's
 # applicable license agreements with MediaTek Inc.
 
-include $(call all-subdir-makefiles)
+
+LOCAL_PATH:= $(call my-dir)
+
+include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES:= \
+	m4u_it.cpp \
+
+LC_MTK_PLATFORM := $(shell echo $(MTK_PLATFORM) | tr A-Z a-z )
+
+LOCAL_SHARED_LIBRARIES:= \
+	libui \
+	libutils \
+	libcutils \
+	libhardware \
+
+LOCAL_C_INCLUDES:= \
+	$(TOP)/$(MTK_PATH_SOURCE)/external/mhal/src/core/drv/6575/mdp \
+	$(TOP)/$(MTK_PATH_SOURCE)/external/mhal/src/core/drv/6575/jpeg \
+	$(TOP)/$(MTK_PATH_SOURCE)/external/mhal/src/core/scenario/imagetransform \
+	$(TOP)/$(MTK_PATH_SOURCE)/external/mhal/src/core/scenario/camera \
+	$(TOP)/$(MTK_PATH_SOURCE)/external/mhal/inc \
+	$(TOP)/system/core/include/cutils \
+	$(TOP)/$(MTK_PATH_PLATFORM)/kernel/drivers/jpeg \
+	$(TOP)/$(MTK_PATH_PLATFORM)/kernel/core/include/mach \
+	$(TOP)/$(MTK_PATH_SOURCE)/external/mhal/src/core/drv/6575/inc \
+	$(TOP)/$(MTK_PATH_SOURCE)/external/mhal/src/core/drv/6575/inc \
+	$(TOP)/$(MTK_PATH_SOURCE)/hardware/m4u/$(LC_MTK_PLATFORM) \
+
+LOCAL_MODULE:= m4u_it
+
+LOCAL_PRELINK_MODULE:=false
+include $(BUILD_EXECUTABLE) 
