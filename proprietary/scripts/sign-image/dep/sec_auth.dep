@@ -1,1 +1,0 @@
-obj/sec_auth.o: auth/sec_auth.c auth/inc/sign_img.h
