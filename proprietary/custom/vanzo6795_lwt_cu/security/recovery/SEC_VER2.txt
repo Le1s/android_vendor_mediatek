@@ -1,3 +1,0 @@
-custom_name = NULL
-boot = 1
-system = 1
