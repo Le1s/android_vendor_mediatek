@@ -264,7 +264,7 @@ ifdef OPTR_SPEC_SEG_DEF
     OPTR := $(word 1,$(subst _,$(space),$(OPTR_SPEC_SEG_DEF)))
     SPEC := $(word 2,$(subst _,$(space),$(OPTR_SPEC_SEG_DEF)))
     SEG  := $(word 3,$(subst _,$(space),$(OPTR_SPEC_SEG_DEF)))
-    
+
     ifeq ( ,$(filter device/mediatek/common/overlay/operator/$(OPTR)/$(SPEC)/$(SEG),$(DEVICE_PACKAGE_OVERLAYS)))
       MTK_RMS_ERROR_MESSAGES += Please correct DEVICE_PACKAGE_OVERLAYS or set different OPTR_SPEC_SEG_DEF($(OPTR_SPEC_SEG_DEF));
     endif
@@ -287,7 +287,7 @@ ifneq ( ,$(filter DEVICE_PACKAGE_OVERLAYS,$(MTK_RMS_ERROR_MESSAGES)))
 MTK_RMS_ERROR_MESSAGES += DEVICE_PACKAGE_OVERLAYS is set in device/<company>/$(MTK_TARGET_PROJECT)/device.mk;
 endif
 ifneq ( ,$(filter PRODUCT_AAPT_CONFIG,$(MTK_RMS_ERROR_MESSAGES)))
-MTK_RMS_ERROR_MESSAGES += PRODUCT_AAPT_CONFIG is set in device/<company>/$(MTK_TARGET_PROJECT)/full_$(MTK_TARGET_PROJECT).mk;
+MTK_RMS_ERROR_MESSAGES += PRODUCT_AAPT_CONFIG is set in device/<company>/$(MTK_TARGET_PROJECT)/$(ROM_NAME_PREFIX)$(MTK_TARGET_PROJECT).mk;
 endif
 $(error $(MTK_RMS_ERROR_MESSAGES))
 endif
