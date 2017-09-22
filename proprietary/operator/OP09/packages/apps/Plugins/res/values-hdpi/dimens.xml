@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="dialpad_additional_edge_button_width">99px</dimen>
-    <dimen name="dialpad_additional_dial_button_width">138px</dimen>
-</resources>

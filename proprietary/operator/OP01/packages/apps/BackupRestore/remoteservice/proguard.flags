@@ -1,1 +1,0 @@
--keep class com.mediatek.backuprestore.modules.AidlService { <init>(...); }
