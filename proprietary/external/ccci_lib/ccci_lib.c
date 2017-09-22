@@ -31,27 +31,10 @@
 *  RELATED THERETO SHALL BE SETTLED BY ARBITRATION IN SAN FRANCISCO, CA, UNDER
 *  THE RULES OF THE INTERNATIONAL CHAMBER OF COMMERCE (ICC).
 *
+*  modified by:daniel_hk(https://github.com/daniel_hk)
+*	terminate raw_buf with 0
+*	add MTK_IMS_SUPPORT and MTK_VOLTE_SUPPORT properties
 *****************************************************************************/
-/*****************************************************************************
- *
- * Filename:
- * ---------
- *   ccci_lib.c
- *
- * Project:
- * --------
- *  
- *
- * Description:
- * ------------
- *   
- *
- * Author:
- * -------
- *   
- *
- ****************************************************************************/
-
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
@@ -66,15 +49,13 @@
 
 
 //----------------debug log define-----------------//
-#define LOGV(...)	do{ __android_log_print(ANDROID_LOG_VERBOSE, "ccci_lib", __VA_ARGS__); }while(0)
-
 #define LOGD(...)	do{ __android_log_print(ANDROID_LOG_DEBUG, "ccci_lib", __VA_ARGS__); }while(0)
-
-#define LOGI(...)	do{ __android_log_print(ANDROID_LOG_INFO, "ccci_lib", __VA_ARGS__); }while(0)
-
-#define LOGW(...)	do{ __android_log_print(ANDROID_LOG_WARN, "ccci_lib", __VA_ARGS__); }while(0)
-
 #define LOGE(...)	do{ __android_log_print(ANDROID_LOG_ERROR, "ccci_lib", __VA_ARGS__); }while(0)
+
+#define MTK_TELEPHONY_BOOTUP_MODE_SLOT1	0
+#define MTK_TELEPHONY_BOOTUP_MODE_SLOT2	1
+#define MTK_IMS_SUPPORT		"ro.mtk_ims_support"
+#define MTK_VOLTE_SUPPORT	"ro.mtk_volte_support"
 
 static int parse_info(char raw_data[], int raw_size, char name[], char val[], int size)
 {
@@ -165,6 +146,8 @@ int query_kcfg_setting(char name[], char val[], int size)
 		ret = -3;
 		goto _Exit;
 	}
+	if (ret == 4096) ret--;
+	raw_buf[ret] = '\0';		// discard residues in raw_buf
 	LOGD("read info:%s", raw_buf);
 
 	//------------------------------------------------
@@ -180,6 +163,43 @@ _Exit:
 
 int query_prj_cfg_setting(char name[], char val[], int size)
 {
+	char value[PROPERTY_VALUE_MAX];
+//-- For MTK_TELEPHONY_BOOTUP_MODE_SLOT1
+#ifdef MTK_TELEPHONY_BOOTUP_MODE_SLOT1
+	if(strcmp(name, "BOOTUP_MODE_SLOT1")==0) {
+		snprintf(val, size, "%s", MTK_TELEPHONY_BOOTUP_MODE_SLOT1);
+		return 0;
+	}
+#endif
+
+//-- For MTK_TELEPHONY_BOOTUP_MODE_SLOT2
+#ifdef MTK_TELEPHONY_BOOTUP_MODE_SLOT2
+	if(strcmp(name, "BOOTUP_MODE_SLOT2")==0) {
+		snprintf(val, size, "%s", MTK_TELEPHONY_BOOTUP_MODE_SLOT2);
+		return 0;
+	}
+#endif
+
+//-- For MTK_IMS_SUPPORT
+	if(property_get(MTK_IMS_SUPPORT, value, NULL) > 0) {
+		if(strstr("yes,ture,on", value) > 0) {
+			if(strcmp(name, "MTK_IMS_SUPPORT")==0) {
+				snprintf(val, size, "1");
+				return 0;
+			}
+		}
+	}
+
+//-- For MTK_VOLTE_SUPPORT
+	if(property_get(MTK_VOLTE_SUPPORT, value, NULL) > 0) {
+		if(strstr("yes,ture,on", value) > 0) {
+			if(strcmp(name, "MTK_VOLTE_SUPPORT")==0) {
+				snprintf(val, size, "1");
+				return 0;
+			}
+		}
+	}
+
 	//-- For EVDO_DT_SUPPORT
 	#ifdef EVDO_DT_SUPPORT
 	if(strcmp(name, "EVDO_DT_SUPPORT")==0) {
@@ -198,5 +218,3 @@ int query_prj_cfg_setting(char name[], char val[], int size)
 
 	return -1;
 }
-
-
