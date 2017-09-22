@@ -54,6 +54,7 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.os.StrictMode;
 import android.os.SystemProperties;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -62,7 +63,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 
 public class CWTest extends Activity {
 
@@ -134,32 +134,32 @@ public class CWTest extends Activity {
 
         // @Override
         public void onLocationChanged(Location location) {
-            Xlog.v(TAG, "Enter onLocationChanged function");
+            Log.v("@M_" + TAG, "Enter onLocationChanged function");
         }
 
         // @Override
         public void onProviderDisabled(String provider) {
-            Xlog.v(TAG, "Enter onProviderDisabled function");
+            Log.v("@M_" + TAG, "Enter onProviderDisabled function");
         }
 
         // @Override
         public void onProviderEnabled(String provider) {
-            Xlog.v(TAG, "Enter onProviderEnabled function");
+            Log.v("@M_" + TAG, "Enter onProviderEnabled function");
         }
 
         // @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
-            Xlog.v(TAG, "Enter onStatusChanged function");
+            Log.v("@M_" + TAG, "Enter onStatusChanged function");
         }
     };
 
     private final GpsStatus.Listener mGpsListener = new GpsStatus.Listener() {
         private void onFirstFix(int ttff) {
-            Xlog.v(TAG, "Enter onFirstFix function: ttff = " + ttff);
+            Log.v("@M_" + TAG, "Enter onFirstFix function: ttff = " + ttff);
         }
 
         private void onPreFix(int ttff) {
-            Xlog.v(TAG, "Enter onPreFix function: ttff = " + ttff);
+            Log.v("@M_" + TAG, "Enter onPreFix function: ttff = " + ttff);
         }
 
         private boolean isLocationFixed(Iterable<GpsSatellite> list) {
@@ -176,7 +176,7 @@ public class CWTest extends Activity {
         }
 
         public void onGpsStatusChanged(int event) {
-            Xlog.v(TAG, "Enter onGpsStatusChanged function");
+            Log.v("@M_" + TAG, "Enter onGpsStatusChanged function");
             GpsStatus status = mLocationManager.getGpsStatus(null);
             switch (event) {
             case GpsStatus.GPS_EVENT_STARTED:
@@ -192,16 +192,16 @@ public class CWTest extends Activity {
                 break;
             case GpsStatus.GPS_EVENT_SATELLITE_STATUS:
                 if (!isLocationFixed(status.getSatellites())) {
-                    Xlog.v(TAG, "gps status unavailable");
+                    Log.v("@M_" + TAG, "gps status unavailable");
                 } else {
-                    Xlog.v(TAG, "gps status available");
+                    Log.v("@M_" + TAG, "gps status available");
                 }
                 break;
             default:
                 break;
             }
 
-            Xlog.v(TAG, "onGpsStatusChanged:" + event + " Status:" + mStatus);
+            Log.v("@M_" + TAG, "onGpsStatusChanged:" + event + " Status:" + mStatus);
         }
     };
 
@@ -212,10 +212,10 @@ public class CWTest extends Activity {
         public void onClick(View v) {
             Bundle extras = new Bundle();
             if (v == (View) mBtnStart) {
-                Xlog.v(TAG, "Start button is pressed");
+                Log.v("@M_" + TAG, "Start button is pressed");
                 startCWTest();
             } else if (v == (View) mBtnStop) {
-                Xlog.v(TAG, "Stop button is pressed");
+                Log.v("@M_" + TAG, "Stop button is pressed");
                 stopCWTest();
             } else {
                 return;
@@ -228,10 +228,10 @@ public class CWTest extends Activity {
             case HANDLE_START_TEST:
                 mCurrentTimes++;
                 //mCurrentTimesTv.setText(Integer.toString(mCurrentTimes));
-                Xlog.v(TAG, "[--CMD--]send start command, times = " + Integer.toString(mCurrentTimes));
+                Log.v("@M_" + TAG, "[--CMD--]send start command, times = " + Integer.toString(mCurrentTimes));
                 sendCommand("$PMTK817,1");
                 if (mCurrentTimes >= mTotalTimes) {
-                    Xlog.v(TAG, "Test done");
+                    Log.v("@M_" + TAG, "Test done");
                     break;
                 }
                 sendEmptyMessageDelayed(HANDLE_START_TEST, mInterval * 1000);
@@ -248,7 +248,7 @@ public class CWTest extends Activity {
                 String[] strA = res.split(",");
                 mCurrentTimesTv.setText(Integer.toString(mCurrentTimes));
                 if (strA.length >= RESPONSE_ARRAY_LENGTH) {
-                    Xlog.v(TAG, "[--CMD--]receive command, times = " + Integer.toString(mCurrentTimes));
+                    Log.v("@M_" + TAG, "[--CMD--]receive command, times = " + Integer.toString(mCurrentTimes));
                     String strCNR = strA[RESPONSE_ARRAY_LENGTH - 2];
                     int cnr = Integer.parseInt(strCNR);
                     if (mCurrentTimes == 1) {
@@ -280,7 +280,7 @@ public class CWTest extends Activity {
 
                 }
                 if (mCurrentTimes >= mTotalTimes) {
-                    Xlog.v(TAG, "Test done, Reset button");
+                    Log.v("@M_" + TAG, "Test done, Reset button");
                     mBtnStart.setEnabled(true);
                     mBtnStop.setEnabled(false);
                     break;
@@ -338,19 +338,19 @@ public class CWTest extends Activity {
         String prop = SystemProperties.get(MNL_PROP_NAME);
 
         int index = 2;
-        Xlog.v(TAG, "getMnlProp: " + prop);
+        Log.v("@M_" + TAG, "getMnlProp: " + prop);
         if (null == prop || prop.isEmpty()) {
             result = defaultValue;
         } else {
             char c = prop.charAt(index);
             result = String.valueOf(c);
         }
-        Xlog.v(TAG, "getMnlProp result: " + result);
+        Log.v("@M_" + TAG, "getMnlProp result: " + result);
         return result;
     }
 
     private void setDebug2FileMnlProp(String value) {
-        Xlog.v(TAG, "setMnlProp: " + value);
+        Log.v("@M_" + TAG, "setMnlProp: " + value);
         String prop = SystemProperties.get(MNL_PROP_NAME);
 
         int index = 2;
@@ -363,13 +363,13 @@ public class CWTest extends Activity {
             charArray[index] = value.charAt(0);
             String newProp = String.valueOf(charArray);
             SystemProperties.set(MNL_PROP_NAME, newProp);
-            Xlog.v(TAG, "setMnlProp newProp: " + newProp);
+            Log.v("@M_" + TAG, "setMnlProp newProp: " + newProp);
         }
 
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Xlog.v(TAG, "Enter onCreate  function of Main Activity");
+        Log.v("@M_" + TAG, "Enter onCreate  function of Main Activity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cw_test);
 
@@ -422,21 +422,21 @@ public class CWTest extends Activity {
 
                 if (mLocationManager
                         .isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                   Xlog.w(TAG, "provider enabled");
+                   Log.w("@M_" + TAG, "provider enabled");
 
                 } else {
-                    Xlog.w(TAG, "provider disabled");
+                    Log.w("@M_" + TAG, "provider disabled");
                     showDialog(DIALOG_GPS_ERROR);
                 }
             } else {
-                Xlog.w(TAG, "new mLocationManager failed");
+                Log.w("@M_" + TAG, "new mLocationManager failed");
             }
         } catch (SecurityException e) {
             Toast.makeText(this, "security exception", Toast.LENGTH_LONG)
                     .show();
-            Xlog.w(TAG, "Exception: " + e.getMessage());
+            Log.w("@M_" + TAG, "Exception: " + e.getMessage());
         } catch (IllegalArgumentException e) {
-            Xlog.w(TAG, "Exception: " + e.getMessage());
+            Log.w("@M_" + TAG, "Exception: " + e.getMessage());
         }
 
         mPowerKeyFilter = new IntentFilter(INTENT_ACTION_SCREEN_OFF);
@@ -444,31 +444,31 @@ public class CWTest extends Activity {
 
             @Override
             public void onReceive(Context context, Intent intent) {
-                Xlog.v(TAG, "onReceive, receive SCREEN_OFF event");
+                Log.v("@M_" + TAG, "onReceive, receive SCREEN_OFF event");
                 // finish();
             }
         };
         registerReceiver(mPowerKeyReceiver, mPowerKeyFilter);
-        Xlog.v(TAG, "registerReceiver powerKeyReceiver");
+        Log.v("@M_" + TAG, "registerReceiver powerKeyReceiver");
         mSocketClient = new ClientSocket(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Xlog.v(TAG, "Enter onPause function");
+        Log.v("@M_" + TAG, "Enter onPause function");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Xlog.v(TAG, "Enter onResume function");
+        Log.v("@M_" + TAG, "Enter onResume function");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Xlog.v(TAG, "Enter onStop function");
+        Log.v("@M_" + TAG, "Enter onStop function");
 
         mYgpsWakeLock.release();
 
@@ -476,19 +476,19 @@ public class CWTest extends Activity {
 
     @Override
     protected void onRestart() {
-        Xlog.v(TAG, "Enter onRestart function");
+        Log.v("@M_" + TAG, "Enter onRestart function");
 
         if (null != mYgpsWakeLock) {
             mYgpsWakeLock.acquireScreenWakeLock(this);
         } else {
-            Xlog.d(TAG, "mYGPSWakeLock is null");
+            Log.d("@M_" + TAG, "mYGPSWakeLock is null");
         }
         super.onRestart();
     }
 
     @Override
     protected void onDestroy() {
-        Xlog.v(TAG, "enter onDestroy function");
+        Log.v("@M_" + TAG, "enter onDestroy function");
         mLocationManager.removeUpdates(mLocListener);
         mLocationManager.removeGpsStatusListener(mGpsListener);
 
@@ -497,7 +497,7 @@ public class CWTest extends Activity {
         }
         mHandler.removeMessages(HANDLE_START_TEST);
         unregisterReceiver(mPowerKeyReceiver);
-        Xlog.v(TAG, "unregisterReceiver powerKeyReceiver");
+        Log.v("@M_" + TAG, "unregisterReceiver powerKeyReceiver");
         mSocketClient.endClient();
         super.onDestroy();
     }
@@ -544,7 +544,7 @@ public class CWTest extends Activity {
      *            PMTK command to be send
      */
     private void sendCommand(String command) {
-        Xlog.v(TAG, "GPS Command is " + command);
+        Log.v("@M_" + TAG, "GPS Command is " + command);
 
         int index1 = command.indexOf(COMMAND_START);
         int index2 = command.indexOf(COMMAND_END);
@@ -568,7 +568,7 @@ public class CWTest extends Activity {
      */
     public void onResponse(String ss) {
 
-        Xlog.v(TAG, "Enter getResponse: " + ss);
+        Log.v("@M_" + TAG, "Enter getResponse: " + ss);
         if (null == ss || ss.isEmpty()) {
             return;
         }
@@ -579,13 +579,13 @@ public class CWTest extends Activity {
         int startIndex = ss.indexOf("$PMTK817");
 
         String response = ss.substring(startIndex);
-        Xlog.v(TAG, "start string " + response);
+        Log.v("@M_" + TAG, "start string " + response);
 
         int endIndex = response.indexOf("*");
         endIndex = endIndex + 3;
 
         String res = response.substring(0, endIndex);
-        Xlog.v(TAG, "last string " + res);
+        Log.v("@M_" + TAG, "last string " + res);
 
         if (res.startsWith("$PMTK817")) {
 
@@ -593,7 +593,7 @@ public class CWTest extends Activity {
             m.obj = res;
             mHandler.sendMessage(m);
         } else {
-            Xlog.v(TAG, "result is not proper");
+            Log.v("@M_" + TAG, "result is not proper");
         }
 
 
@@ -618,7 +618,7 @@ public class CWTest extends Activity {
             dialog = builder.create();
             break;
         default:
-            Xlog.d(TAG, "error dialog ID");
+            Log.d("@M_" + TAG, "error dialog ID");
             break;
         }
         return dialog;
@@ -634,7 +634,7 @@ public class CWTest extends Activity {
          *            Getting lock context
          */
         void acquireCpuWakeLock(Context context) {
-            Xlog.v(TAG, "Acquiring cpu wake lock");
+            Log.v("@M_" + TAG, "Acquiring cpu wake lock");
             if (mCpuWakeLock != null) {
                 return;
             }
@@ -655,7 +655,7 @@ public class CWTest extends Activity {
          *            Getting lock context
          */
         void acquireScreenWakeLock(Context context) {
-            Xlog.v(TAG, "Acquiring screen wake lock");
+            Log.v("@M_" + TAG, "Acquiring screen wake lock");
             if (mScreenWakeLock != null) {
                 return;
             }
@@ -673,7 +673,7 @@ public class CWTest extends Activity {
          * Release wake locks.
          */
         void release() {
-            Xlog.v(TAG, "Releasing wake lock");
+            Log.v("@M_" + TAG, "Releasing wake lock");
             if (mCpuWakeLock != null) {
                 mCpuWakeLock.release();
                 mCpuWakeLock = null;

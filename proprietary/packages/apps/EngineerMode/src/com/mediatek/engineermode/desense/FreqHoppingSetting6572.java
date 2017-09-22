@@ -43,6 +43,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -54,7 +55,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.mediatek.engineermode.R;
 import com.mediatek.engineermode.ShellExe;
-import com.mediatek.xlog.Xlog;
 
 public class FreqHoppingSetting6572 extends Activity implements OnClickListener,
         OnItemSelectedListener {
@@ -282,7 +282,7 @@ public class FreqHoppingSetting6572 extends Activity implements OnClickListener,
             showDialog("Help", output);
             break;
         default:
-            Xlog.w(TAG, "onClick() unknown view id:" + view.getId());
+            Log.w("@M_" + TAG, "onClick() unknown view id:" + view.getId());
             break;
         }
     }
@@ -343,7 +343,7 @@ public class FreqHoppingSetting6572 extends Activity implements OnClickListener,
         output = outStr;
         String[] pllInfos = output.split(" *\n *");
         if (pllInfos.length != 2) {
-            Xlog.e(TAG, "resolve PLL Data fail");
+            Log.e("@M_" + TAG, "resolve PLL Data fail");
             return;
         }
         pllInfos[0] = pllInfos[0].trim();
@@ -358,7 +358,7 @@ public class FreqHoppingSetting6572 extends Activity implements OnClickListener,
             resolvePllData(pllInfos[1]);
             break;
         default:
-            Xlog.w(TAG, "resolvePllDataById() Unknown index: " + index);
+            Log.w("@M_" + TAG, "resolvePllDataById() Unknown index: " + index);
             break;
         }
     }
@@ -371,7 +371,7 @@ public class FreqHoppingSetting6572 extends Activity implements OnClickListener,
         String[] pairs;
         pairs = infoStr.split(" *, *");
         if (pairs.length != PLL_VAL_NUM) {
-            Xlog.e(TAG, "resolvePllData() resolve fail, unknown format");
+            Log.e("@M_" + TAG, "resolvePllData() resolve fail, unknown format");
             return false;
         }
         String[] entry;
@@ -388,16 +388,16 @@ public class FreqHoppingSetting6572 extends Activity implements OnClickListener,
 
     private String execCommand(String cmd) {
          int ret = -1;
-         Xlog.d(TAG, "[cmd]:" + cmd);
+         Log.d("@M_" + TAG, "[cmd]:" + cmd);
          //Toast.makeText(this, cmd, Toast.LENGTH_LONG).show();
          try {
              ret = ShellExe.execCommand(cmd);
          } catch (IOException e) {
-             Xlog.e(TAG, "IOException: " + e.getMessage());
+             Log.e("@M_" + TAG, "IOException: " + e.getMessage());
          }
          if (ret == 0) {
              String outStr = ShellExe.getOutput();
-             Xlog.d(TAG, "[output]: " + outStr);
+             Log.d("@M_" + TAG, "[output]: " + outStr);
              return outStr;
          }
          return null;
@@ -418,7 +418,7 @@ public class FreqHoppingSetting6572 extends Activity implements OnClickListener,
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        Xlog.d(TAG, "onNothingSelected() + " + parent.toString());
+        Log.d("@M_" + TAG, "onNothingSelected() + " + parent.toString());
 
     }
 }

@@ -220,6 +220,7 @@
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/video_clip_raw_id"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dip"
@@ -775,6 +776,57 @@
                 android:minWidth="90dip"
                 android:textSize="14sp" >
             </EditText>
+        </LinearLayout>
+        <!-- Normal mode: Flash Calibration -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dip"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="50dip"
+                android:minWidth="200dip"
+                android:text="@string/auto_clibr_flash_calibration"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+            <Spinner
+                android:id="@+id/auto_clibr_flash_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/auto_calib_on_off_value"
+                android:minHeight="50dip"
+                android:minWidth="90dip"
+                android:textSize="18sp" >
+            </Spinner>
+        </LinearLayout>
+        <!-- Scene mode -->
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dip"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="50dip"
+                android:minWidth="200dip"
+                android:text="@string/auto_clibr_scene_mode"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+            <Spinner
+                android:id="@+id/auto_clibr_scene_mode_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/normal_capture_scene_mode"
+                android:minHeight="50dip"
+                android:minWidth="90dip"
+                android:textSize="18sp" >
+            </Spinner>
         </LinearLayout>
         <!-- common option List-->
         <ListView

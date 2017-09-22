@@ -15,8 +15,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.os.SystemProperties;
+import android.util.Log;
 
-import com.mediatek.xlog.Xlog;
 
 import java.io.File;
 import java.io.IOException;
@@ -64,7 +64,7 @@ public class UartUsbSwitch extends Activity {
                 break;
             }
             doSwitch(bModeUsb);
-            Xlog.d(TAG, "OnCheckedChangeListener.onCheckedChanged() checkId:" + checkedId + " bModeUsb:" + bModeUsb);
+            Log.d("@M_" + TAG, "OnCheckedChangeListener.onCheckedChanged() checkId:" + checkedId + " bModeUsb:" + bModeUsb);
         }
 
     };
@@ -86,22 +86,20 @@ public class UartUsbSwitch extends Activity {
             switch (msg.what) {
             case MSG_CHECK_RESULT:
                 final boolean result = waitForState(mModeVal, 2000);
-                if (result) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            updateStatus(VAL_USB.equals(mModeVal));
-                            enableUsbUartSwitch(true);
-                            showDialog(null, getString(R.string.uart_usb_switch_set)
-                                  + (result ? SUCCESS : FAIL));
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateStatus(VAL_USB.equals(mModeVal));
+                        enableUsbUartSwitch(true);
+                        showDialog(null, getString(R.string.uart_usb_switch_set)
+                              + (result ? SUCCESS : FAIL));
 
-                        }
-                    });
-                }
+                    }
+                });
 
                 break;
             default:
-                Xlog.w(TAG, "mWorkerHandler Unknown msg: " + msg.what);
+                Log.w("@M_" + TAG, "mWorkerHandler Unknown msg: " + msg.what);
                 break;
             }
             super.handleMessage(msg);
@@ -122,7 +120,7 @@ public class UartUsbSwitch extends Activity {
         if (!new File(mPortFile).exists()) {
             Toast.makeText(this, R.string.uart_usb_switch_notsupport,
                     Toast.LENGTH_SHORT).show();
-            Xlog.w(TAG, "Port mode file not exist");
+            Log.w("@M_" + TAG, "Port mode file not exist");
             finish();
             return;
         }
@@ -167,7 +165,7 @@ public class UartUsbSwitch extends Activity {
     protected void onResume() {
         super.onResume();
         String current = getUsbMode();
-        Xlog.v(TAG, "Current: " + current);
+        Log.v("@M_" + TAG, "Current: " + current);
         if (null == current) {
             Toast.makeText(this, R.string.uart_usb_switch_geterror,
                     Toast.LENGTH_SHORT).show();
@@ -236,17 +234,17 @@ public class UartUsbSwitch extends Activity {
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append("cat ");
         strBuilder.append(USB_CONNECT_STATE);
-        Xlog.v(TAG, "isUsbConnected cmd: " + strBuilder.toString());
+        Log.v("@M_" + TAG, "isUsbConnected cmd: " + strBuilder.toString());
         try {
             if (ShellExe.RESULT_SUCCESS == ShellExe.execCommand(strBuilder
-                    .toString())) {
+                    .toString(), true)) {
                 result = ShellExe.getOutput();
                 if (result.equals(USB_CONFIGURED) || result.equals(USB_CONNECT)) {
                     isConnected = true;
                 }
             }
         } catch (IOException e) {
-            Xlog.w(TAG, "get current dramc IOException: " + e.getMessage());
+            Log.w("@M_" + TAG, "get current dramc IOException: " + e.getMessage());
         }
         return isConnected;
     }
@@ -255,20 +253,20 @@ public class UartUsbSwitch extends Activity {
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append("cat ");
         strBuilder.append(mPortFile);
-        Xlog.v(TAG, "get current dramc cmd: " + strBuilder.toString());
+        Log.v("@M_" + TAG, "get current dramc cmd: " + strBuilder.toString());
         try {
             if (ShellExe.RESULT_SUCCESS == ShellExe.execCommand(strBuilder
-                    .toString())) {
+                    .toString(), true)) {
                 result = ShellExe.getOutput();
             }
         } catch (IOException e) {
-            Xlog.w(TAG, "get current dramc IOException: " + e.getMessage());
+            Log.w("@M_" + TAG, "get current dramc IOException: " + e.getMessage());
         }
         return result;
     }
 
     private void setUsbMode(String value) {
-        Xlog.v(TAG, "setUsbMode(), value: " + value);
+        Log.v("@M_" + TAG, "setUsbMode(), value: " + value);
         SystemProperties.set(KEY_USB_PORT, value);
     }
 
@@ -276,7 +274,7 @@ public class UartUsbSwitch extends Activity {
         int count = milliSec / 50;
         for (int i = 0; i < count; i++) {
             String relValue = SystemProperties.get(KEY_USB_PORT);
-            Xlog.d(TAG, "Check value of usb port mode:" + relValue);
+            Log.d("@M_" + TAG, "Check value of usb port mode:" + relValue);
             if (modeVal.equals(relValue)) {
                 return true;
             }

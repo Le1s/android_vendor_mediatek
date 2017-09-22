@@ -39,6 +39,7 @@ package com.mediatek.engineermode.io;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -49,7 +50,6 @@ import android.widget.Spinner;
 
 import com.mediatek.engineermode.ChipSupport;
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 
 import java.util.ArrayList;
 
@@ -180,7 +180,7 @@ public class MsdcSd3Test extends MsdcTest implements OnClickListener {
         }
 
         public void onNothingSelected(AdapterView<?> arg0) {
-            Xlog.v(TAG, "Spinner nothing selected");
+            Log.v("@M_" + TAG, "Spinner nothing selected");
         }
 
     };

@@ -46,13 +46,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 import java.util.Locale;
 
 public class SensorCalibration extends Activity implements OnClickListener {
@@ -70,6 +70,7 @@ public class SensorCalibration extends Activity implements OnClickListener {
     private static final int MSG_GET_FAILURE = 7;
     private static final int TOLERANCE_20 = 2;
     private static final int TOLERANCE_40 = 4;
+    private static final String[] SENSOR_NAME = {"GSENSOR", "GYROSCOPE"};
 
     private Button mSetCalibration20;
     private Button mSetCalibration40;
@@ -92,7 +93,7 @@ public class SensorCalibration extends Activity implements OnClickListener {
         @Override
         public void onSensorChanged(SensorEvent event) {
             if (event.sensor.getType() == mSensorType) {
-                Xlog.d(TAG, String.format("onSensorChanged(), type %d, values %f, %f, %f",
+                Log.d("@M_" + TAG, String.format("onSensorChanged(), type %d, values %f, %f, %f",
                         event.sensor.getType(), event.values[0], event.values[1], event.values[2]));
                 mCurrentData.setText(String.format(Locale.ENGLISH, "%+8.4f,%+8.4f,%+8.4f",
                         event.values[0], event.values[1], event.values[2]));
@@ -105,13 +106,20 @@ public class SensorCalibration extends Activity implements OnClickListener {
         }
     };
 
+    private String getSensorName(int type) {
+        if (type < 0 || type >= SENSOR_NAME.length) {
+            return "Sensor";
+        }
+        return SENSOR_NAME[type];
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sensor_calibration);
 
         mType = getIntent().getIntExtra(CALIBRAION_TYPE, GSENSOR);
-        Xlog.d(TAG, String.format("onCreate(), type %d", mType));
+        Log.d("@M_" + TAG, String.format("onCreate(), type %d", mType));
         if (mType == GSENSOR) {
             mSensorType = Sensor.TYPE_ACCELEROMETER;
             setTitle(R.string.sensor_calibration_gsensor);
@@ -137,21 +145,21 @@ public class SensorCalibration extends Activity implements OnClickListener {
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                 case MSG_SET_SUCCESS:
-                    Xlog.d(TAG, "set success");
+                    Log.d("@M_" + TAG, "set success");
                     enableButtons(true);
                     showToast("Operation succeed");
                     break;
                 case MSG_GET_SUCCESS:
-                    Xlog.d(TAG, "get success");
+                    Log.d("@M_" + TAG, "get success");
                     mCaliData.setText(mData);
                     break;
                 case MSG_SET_FAILURE:
-                    Xlog.d(TAG, "set fail");
+                    Log.d("@M_" + TAG, "set fail");
                     enableButtons(true);
                     showToast("Operation failed");
                     break;
                 case MSG_GET_FAILURE:
-                    Xlog.d(TAG, "get fail");
+                    Log.d("@M_" + TAG, "get fail");
                     enableButtons(true);
                     showToast("Get calibration failed");
                     break;
@@ -175,14 +183,15 @@ public class SensorCalibration extends Activity implements OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        Xlog.d(TAG, String.format("onResume(), type %d", mType));
+        Log.d("@M_" + TAG, String.format("onResume(), type %d", mType));
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(mSensorType);
         if (mSensor != null) {
-            Xlog.d(TAG, "registerListener");
+            Log.d("@M_" + TAG, "registerListener");
             mSensorManager.registerListener(mSensorEventListener, mSensor, SensorManager.SENSOR_DELAY_UI);
         } else {
-            Toast.makeText(this, "get default sensor failed.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getSensorName(mType) + " was not supported.",
+                    Toast.LENGTH_SHORT).show();
             finish();
         }
         mHandler.sendEmptyMessage(MSG_GET_CALIBRARION);
@@ -190,8 +199,8 @@ public class SensorCalibration extends Activity implements OnClickListener {
 
     @Override
     public void onPause() {
-        Xlog.d(TAG, String.format("onPause(), type %d", mType));
-        Xlog.d(TAG, "unregisterListener");
+        Log.d("@M_" + TAG, String.format("onPause(), type %d", mType));
+        Log.d("@M_" + TAG, "unregisterListener");
         mSensorManager.unregisterListener(mSensorEventListener);
         mSensorManager = null;
         super.onPause();
@@ -200,20 +209,20 @@ public class SensorCalibration extends Activity implements OnClickListener {
     @Override
     public void onClick(View arg0) {
         if (arg0.getId() == mSetCalibration20.getId()) {
-            Xlog.d(TAG, "do calibration 20");
+            Log.d("@M_" + TAG, "do calibration 20");
             mHandler.sendEmptyMessage(MSG_DO_CALIBRARION_20);
         } else if (arg0.getId() == mSetCalibration40.getId()) {
-            Xlog.d(TAG, "do calibration 40");
+            Log.d("@M_" + TAG, "do calibration 40");
             mHandler.sendEmptyMessage(MSG_DO_CALIBRARION_40);
         } else if (arg0.getId() == mClearCalibration.getId()) {
-            Xlog.d(TAG, "clear calibration");
+            Log.d("@M_" + TAG, "clear calibration");
             mHandler.sendEmptyMessage(MSG_CLEAR_CALIBRARION);
         }
         enableButtons(false);
     }
 
     private boolean getCalibration() {
-        Xlog.d(TAG, "getGsensorCalibration()");
+        Log.d("@M_" + TAG, "getGsensorCalibration()");
         float[] result = new float[3];
         int ret = 0;
         if (mType == GSENSOR) {
@@ -221,7 +230,7 @@ public class SensorCalibration extends Activity implements OnClickListener {
         } else {
             ret = EmSensor.getGyroscopeCalibration(result);
         }
-        Xlog.d(TAG, String.format("getGsensorCalibration(), ret %d, values %f, %f, %f",
+        Log.d("@M_" + TAG, String.format("getGsensorCalibration(), ret %d, values %f, %f, %f",
                 ret, result[0], result[1], result[2]));
 
         if (ret == EmSensor.RET_SUCCESS) {
@@ -238,7 +247,7 @@ public class SensorCalibration extends Activity implements OnClickListener {
 
     private void setCalibration(int what) {
         int result = 0;
-        Xlog.d(TAG, String.format("setCalibration(), operation %d", what));
+        Log.d("@M_" + TAG, String.format("setCalibration(), operation %d", what));
         if (mType == GSENSOR) {
             if (MSG_DO_CALIBRARION_20 == what) {
                 result = EmSensor.doGsensorCalibration(TOLERANCE_20);
@@ -256,7 +265,7 @@ public class SensorCalibration extends Activity implements OnClickListener {
                 result = EmSensor.clearGyroscopeCalibration();
             }
         }
-        Xlog.d(TAG, String.format("setCalibration(), ret %d", result));
+        Log.d("@M_" + TAG, String.format("setCalibration(), ret %d", result));
 
         if (result == EmSensor.RET_SUCCESS) {
             if (getCalibration()) {

@@ -39,7 +39,7 @@ package com.mediatek.engineermode.sensor;
 
 import com.mediatek.engineermode.emsvr.AFMFunctionCallEx;
 import com.mediatek.engineermode.emsvr.FunctionReturn;
-import com.mediatek.xlog.Xlog;
+import android.util.Log;
 import java.util.ArrayList;
 
 public class EmSensor {
@@ -176,12 +176,12 @@ public class EmSensor {
                 arrayList.add(r.mReturnString);
             } while (r.mReturnCode == AFMFunctionCallEx.RESULT_CONTINUE);
             if (r.mReturnCode == AFMFunctionCallEx.RESULT_IO_ERR) {
-                Xlog.d(TAG, "AFMFunctionCallEx: RESULT_IO_ERR");
+                Log.d("@M_" + TAG, "AFMFunctionCallEx: RESULT_IO_ERR");
                 arrayList.clear();
                 arrayList.add("ERROR");
             }
         } else {
-            Xlog.d(TAG, "AFMFunctionCallEx return false");
+            Log.d("@M_" + TAG, "AFMFunctionCallEx return false");
             arrayList.clear();
             arrayList.add("ERROR");
         }

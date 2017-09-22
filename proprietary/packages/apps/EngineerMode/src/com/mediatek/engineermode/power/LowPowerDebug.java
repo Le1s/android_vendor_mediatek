@@ -48,6 +48,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.mediatek.engineermode.Elog;
+import com.mediatek.engineermode.FeatureSupport;
 import com.mediatek.engineermode.R;
 import com.mediatek.engineermode.ShellExe;
 
@@ -93,6 +94,12 @@ public class LowPowerDebug extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.low_power_debug);
+        if (!FeatureSupport.isSupportedEmSrv()) {
+            Toast.makeText(this, R.string.notice_wo_emsvr,
+                    Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
         mStopSpinner = (Spinner) findViewById(R.id.low_power_stop_select);
         mUtSpinner = (Spinner) findViewById(R.id.low_power_ut_select);
         mStopSpinner.setOnItemSelectedListener(mSpinnerListener);

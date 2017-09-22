@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/WiFi_MCR_Addr_Text"
-            android:layout_width="80dip"
+            android:layout_width="120dip"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3pt"
             android:text="@string/wifi_mcr_addr_text" >
@@ -29,6 +29,7 @@
 
         <EditText
             android:id="@+id/WiFi_MCR_Addr_Content"
+            android:singleLine="true"
             android:layout_width="160dip"
             android:layout_height="wrap_content" >
         </EditText>
@@ -42,7 +43,7 @@
 
         <TextView
             android:id="@+id/WiFi_MCR_Value_Text"
-            android:layout_width="80dip"
+            android:layout_width="120dip"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3pt"
             android:text="@string/wifi_mcr_value_text" >
@@ -50,6 +51,7 @@
 
         <EditText
             android:id="@+id/WiFi_MCR_Value_Content"
+            android:singleLine="true"
             android:layout_width="160dip"
             android:layout_height="wrap_content" >
         </EditText>

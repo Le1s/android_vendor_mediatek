@@ -87,6 +87,7 @@
                     android:layout_marginLeft="5dip"
                     android:layout_marginTop="10dip"
                     android:numeric="integer"
+                    android:singleLine="true"
                     android:text="@string/Audio_ModeSetting_EditText" >
                 </EditText>
 
@@ -122,6 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dip"
                 android:layout_marginTop="10dip"
+                android:singleLine="true"
                 android:numeric="integer" >
             </EditText>
 

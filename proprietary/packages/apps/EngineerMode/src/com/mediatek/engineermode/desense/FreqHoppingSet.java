@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -16,7 +17,6 @@ import android.widget.Toast;
 
 import com.mediatek.engineermode.R;
 import com.mediatek.engineermode.ShellExe;
-import com.mediatek.xlog.Xlog;
 
 import java.io.File;
 import java.io.IOException;
@@ -98,7 +98,7 @@ public class FreqHoppingSet extends Activity {
         if (!new File(FILE_FREQ_HOPPING_DEBUG).exists()) {
             Toast.makeText(this, R.string.desense_freqhopping_notsupport,
                     Toast.LENGTH_SHORT).show();
-            Xlog.w(TAG, "FreqHoppingSet file not exists");
+            Log.w("@M_" + TAG, "FreqHoppingSet file not exists");
             finish();
             return;
         }
@@ -150,12 +150,12 @@ public class FreqHoppingSet extends Activity {
                 pllSpn.setAdapter(pllAdatper);
                 return 0;
             } else {
-                Xlog.d(TAG, "init pll spinner fail; mPllCount:" + mPllCount);
+                Log.d("@M_" + TAG, "init pll spinner fail; mPllCount:" + mPllCount);
                 return -1;
             }
 
         } else {
-            Xlog.d(TAG, "init pll spinner fail; debugMsg = null");
+            Log.d("@M_" + TAG, "init pll spinner fail; debugMsg = null");
             return -1;
         }
     }
@@ -210,7 +210,7 @@ public class FreqHoppingSet extends Activity {
             strBuilder.append(mSpPlls.getSelectedItemPosition());
             strBuilder.append(" > ");
             strBuilder.append(FILE_FREQ_STATUS);
-            Xlog.v(TAG, "enable command: " + strBuilder.toString());
+            Log.v("@M_" + TAG, "enable command: " + strBuilder.toString());
         } else {
             strBuilder.append("echo 3 0 ");
             strBuilder.append(mSpPlls.getSelectedItemPosition());
@@ -220,7 +220,7 @@ public class FreqHoppingSet extends Activity {
             }
             strBuilder.append(" > ");
             strBuilder.append(FILE_FREQ_HOPPING_DEBUG);
-            Xlog.v(TAG, "enable command 1: " + strBuilder.toString());
+            Log.v("@M_" + TAG, "enable command 1: " + strBuilder.toString());
         }
         try {
             if (ShellExe.RESULT_SUCCESS == ShellExe.execCommand(strBuilder
@@ -234,7 +234,7 @@ public class FreqHoppingSet extends Activity {
                     strBuilder.append(mSpPlls.getSelectedItemPosition());
                     strBuilder.append(" 1 0 0 0 0 > ");
                     strBuilder.append(FILE_FREQ_HOPPING_DEBUG);
-                    Xlog.v(TAG, "enable command 2: " + strBuilder.toString());
+                    Log.v("@M_" + TAG, "enable command 2: " + strBuilder.toString());
                     if (ShellExe.RESULT_SUCCESS == ShellExe
                             .execCommand(strBuilder.toString())) {
                         bSuccess = true;
@@ -243,7 +243,7 @@ public class FreqHoppingSet extends Activity {
                 }
             }
         } catch (IOException e) {
-            Xlog.w(TAG, "enable freqhopping IOException: " + e.getMessage());
+            Log.w("@M_" + TAG, "enable freqhopping IOException: " + e.getMessage());
         }
         Toast.makeText(
                 this,
@@ -259,7 +259,7 @@ public class FreqHoppingSet extends Activity {
         strBuilder.append(mSpPlls.getSelectedItemPosition());
         strBuilder.append(" 0 0 0 0 0 > ");
         strBuilder.append(FILE_FREQ_HOPPING_DEBUG);
-        Xlog.v(TAG, "disable command: " + strBuilder.toString());
+        Log.v("@M_" + TAG, "disable command: " + strBuilder.toString());
         try {
             if (ShellExe.RESULT_SUCCESS == ShellExe.execCommand(strBuilder
                     .toString())) {
@@ -267,7 +267,7 @@ public class FreqHoppingSet extends Activity {
                 updateCurrentStatus();
             }
         } catch (IOException e) {
-            Xlog.w(TAG, "disable freqhopping IOException: " + e.getMessage());
+            Log.w("@M_" + TAG, "disable freqhopping IOException: " + e.getMessage());
         }
         Toast.makeText(
                 this,
@@ -304,7 +304,7 @@ public class FreqHoppingSet extends Activity {
                     }
                 }
             } catch (NumberFormatException e) {
-                Xlog.w(TAG, "validate input NumberFormatException: "
+                Log.w("@M_" + TAG, "validate input NumberFormatException: "
                         + e.getMessage());
                 result = false;
             }
@@ -345,20 +345,20 @@ public class FreqHoppingSet extends Activity {
                     if (null != msg) {
                         int value = Integer.parseInt(msg.substring(1,
                                 msg.length() - 1).trim());
-                        Xlog.v(TAG, "index: " + index + " value: " + value);
+                        Log.v("@M_" + TAG, "index: " + index + " value: " + value);
                         mFreqHopping[index] = value;
                         index++;
                     }
                 }
                 result = index == mPllCount;
             } catch (IllegalStateException e) {
-                Xlog.w(TAG, "updateHoppingStatus IllegalStateException: "
+                Log.w("@M_" + TAG, "updateHoppingStatus IllegalStateException: "
                         + e.getMessage());
             } catch (IndexOutOfBoundsException e) {
-                Xlog.w(TAG, "updateHoppingStatus IndexOutOfBoundsException: "
+                Log.w("@M_" + TAG, "updateHoppingStatus IndexOutOfBoundsException: "
                         + e.getMessage());
             } catch (NumberFormatException e) {
-                Xlog.w(TAG, "updateHoppingStatus NumberFormatException: "
+                Log.w("@M_" + TAG, "updateHoppingStatus NumberFormatException: "
                         + e.getMessage());
             }
         }
@@ -373,7 +373,7 @@ public class FreqHoppingSet extends Activity {
                 result = ShellExe.getOutput();
             }
         } catch (IOException e) {
-            Xlog.w(TAG, "getFreqHopDebugMsg IOException: " + e.getMessage());
+            Log.w("@M_" + TAG, "getFreqHopDebugMsg IOException: " + e.getMessage());
         }
         return result;
     }
@@ -390,7 +390,7 @@ public class FreqHoppingSet extends Activity {
                 result += ShellExe.getOutput();
             }
         } catch (IOException e) {
-            Xlog.w(TAG, "getFreqHopMsg IOException: " + e.getMessage());
+            Log.w("@M_" + TAG, "getFreqHopMsg IOException: " + e.getMessage());
         }
         return result;
     }

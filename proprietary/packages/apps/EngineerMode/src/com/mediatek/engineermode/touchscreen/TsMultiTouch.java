@@ -47,6 +47,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -56,7 +57,6 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.mediatek.xlog.Xlog;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -111,12 +111,12 @@ public class TsMultiTouch extends Activity {
                     try {
                         ret = TouchScreenShellExe.execCommand(cmd);
                         if (0 == ret) {
-                            Xlog.v(TAG, "-->onResume Start logging...");
+                            Log.v("@M_" + TAG, "-->onResume Start logging...");
                         } else {
-                            Xlog.v(TAG, "-->onResume Logging failed!");
+                            Log.v("@M_" + TAG, "-->onResume Logging failed!");
                         }
                     } catch (IOException e) {
-                        Xlog.e(TAG, e.toString());
+                        Log.e("@M_" + TAG, e.toString());
                     }
                 }
             } .start();
@@ -128,7 +128,7 @@ public class TsMultiTouch extends Activity {
 
     @Override
     public void onPause() {
-        Xlog.v(TAG, "-->onPause");
+        Log.v("@M_" + TAG, "-->onPause");
         final SharedPreferences preferences = this.getSharedPreferences(
                 "touch_screen_settings", android.content.Context.MODE_PRIVATE);
         String fileString = preferences.getString("filename", "N");
@@ -146,7 +146,7 @@ public class TsMultiTouch extends Activity {
                             .show();
                 }
             } catch (IOException e) {
-                Xlog.e(TAG, e.toString());
+                Log.e("@M_" + TAG, e.toString());
             }
         }
         super.onPause();
@@ -250,15 +250,19 @@ public class TsMultiTouch extends Activity {
                     canvas.drawCircle(x, y, mPointSize, getPaint(point.getmPid()));
                 }
             }
-
+            final String maxString = "pid 9 x=999, y=999";
             for (TsPointDataStruct point : mCurrPoints.values()) {
                 Paint targetPaint = getPaint(point.getmPid());
                 String s = "pid " + String.valueOf(point.getmPid())
                         + " x=" + String.valueOf(point.getmCoordinateX())
                         + ", y=" + String.valueOf(point.getmCoordinateY());
-                Xlog.i(TAG, "Touch pos: " + point.getmCoordinateX() + "," + point.getmCoordinateY());
+                Log.i("@M_" + TAG, "Touch pos: " + point.getmCoordinateX() + "," + point.getmCoordinateY());
 
                 Rect rect = new Rect();
+                targetPaint.getTextBounds(maxString, 0, maxString.length(), rect);
+                if (rect.width() > mMetrics.widthPixels) {
+                    targetPaint = getSlimPaint(point.getmPid());
+                }
                 targetPaint.getTextBounds(s, 0, s.length(), rect);
 
                 int x = point.getmCoordinateX() - rect.width() / 2;
@@ -267,7 +271,7 @@ public class TsMultiTouch extends Activity {
                 if (x < 0) {
                     x = 0;
                 } else if (x > mMetrics.widthPixels - rect.width()) {
-                    x = mMetrics.widthPixels - rect.width();
+                    x = mMetrics.widthPixels - rect.width() - 2;
                 }
 
                 if (y < rect.height()) {
@@ -285,11 +289,11 @@ public class TsMultiTouch extends Activity {
 
         @Override
         public boolean onTouchEvent(MotionEvent event) {
-            Xlog.i(TAG, "onTouchEvent: Pointer counts: " + event.getPointerCount()
+            Log.i("@M_" + TAG, "onTouchEvent: Pointer counts: " + event.getPointerCount()
                     + " Action: " + event.getAction());
 
             for (int i = 0; i < event.getPointerCount(); i++) {
-                Xlog.i(TAG, "onTouchEvent: idx: " + i + " pid: " + event.getPointerId(i)
+                Log.i("@M_" + TAG, "onTouchEvent: idx: " + i + " pid: " + event.getPointerId(i)
                         + " (" + event.getX(i) + ", " + event.getY(i) + ")");
                 int pid = event.getPointerId(i);
                 TsPointDataStruct n = new TsPointDataStruct();
@@ -319,6 +323,23 @@ public class TsMultiTouch extends Activity {
                 paint.setARGB(255, 255, 255, 255);
             }
             int textsize = (int) (mPointSize * 3.63 + 7.37);
+            paint.setTextSize(textsize);
+            return paint;
+        }
+        private Paint getSlimPaint(int idx) {
+            int pointSize;
+            Paint paint = new Paint();
+            paint.setAntiAlias(false);
+            if (idx < RGB.length) {
+                paint.setARGB(255, RGB[idx][0], RGB[idx][1], RGB[idx][2]);
+            } else {
+                paint.setARGB(255, 255, 255, 255);
+            }
+            pointSize = mPointSize / 2;
+            if (pointSize < 1) {
+                pointSize = 1;
+            }
+            int textsize = (int) (pointSize * 3.63 + 7.37);
             paint.setTextSize(textsize);
             return paint;
         }

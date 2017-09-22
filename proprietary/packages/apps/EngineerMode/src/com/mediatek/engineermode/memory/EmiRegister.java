@@ -40,9 +40,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 
 public class EmiRegister extends Activity {
 
@@ -86,7 +86,7 @@ public class EmiRegister extends Activity {
                     });
             dialog = builder.create();
         } else {
-            Xlog.w(TAG, "unknown dialog ID");
+            Log.w("@M_" + TAG, "unknown dialog ID");
         }
         return dialog;
     }

@@ -42,7 +42,14 @@
         android:layout_height="wrap_content"
         android:text="@string/wifi_wps_test_mode" >
     </CheckBox>
-    
+
+    <CheckBox
+        android:id="@+id/wifi_cert_speedup_cpu"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/wifi_cert_speedup_cpu_freq" >
+    </CheckBox>
+
     <TextView
         android:id="@+id/wifi_version"
         android:layout_width="fill_parent"

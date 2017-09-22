@@ -42,6 +42,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 //import android.widget.ArrayAdapter;
@@ -51,7 +52,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 
 /**
  * Set uart info and test relayer mode.
@@ -87,7 +87,7 @@ public class BtRelayerModeActivity extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-//        Xlog.v(TAG, "-->onCreate");
+//        Log.v("@M_" + TAG, "-->onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bt_relayer_mode);
         // Init UI component
@@ -104,7 +104,7 @@ public class BtRelayerModeActivity extends Activity implements OnClickListener {
                         }
                     }
                     public void onNothingSelected(AdapterView<?> arg0) {
-                        Xlog.v(TAG, "onNothingSelected");
+                        Log.v("@M_" + TAG, "onNothingSelected");
                     }
                 });
         mStartBtn = (Button) findViewById(R.id.button1);
@@ -130,29 +130,29 @@ public class BtRelayerModeActivity extends Activity implements OnClickListener {
     }
 
     public void onClick(View v) {
-        Xlog.v(TAG, "-->onClick");
-        Xlog.v(TAG, "mStartFlag--" + mStartFlag);
+        Log.v("@M_" + TAG, "-->onClick");
+        Log.v("@M_" + TAG, "mStartFlag--" + mStartFlag);
         if (v.getId() == mStartBtn.getId()) {
 
-            Xlog.i(TAG, "mBtRelayerModeSpinner.getSelectedItem()--"
+            Log.i("@M_" + TAG, "mBtRelayerModeSpinner.getSelectedItem()--"
                     + mBauSpinner.getSelectedItem());
             try {
                 mBaudrate = Integer.parseInt(mBauSpinner
                         .getSelectedItem().toString().trim());
-                Xlog.v(TAG, "mBaudrate--" + mBaudrate);
+                Log.v("@M_" + TAG, "mBaudrate--" + mBaudrate);
 
             } catch (NumberFormatException e) { // detail info
-                Xlog.v(TAG, e.getMessage());
+                Log.v("@M_" + TAG, e.getMessage());
             }
 
-            // Xlog.i(TAG, "mSerialPortSpinner()--"
+            // Log.i("@M_" + TAG, "mSerialPortSpinner()--"
             // + mSerialPortSpinner.getSelectedItem());
-            // Xlog.i(TAG, "id--" + mSerialPortSpinner.getSelectedItemId());
+            // Log.i("@M_" + TAG, "id--" + mSerialPortSpinner.getSelectedItemId());
             // mPortNumber = (int) mSerialPortSpinner.getSelectedItemId(); //
             // use method to convert int
             Long tmpLong = mUartSpinner.getSelectedItemId();
             mPortNumber = tmpLong.intValue();
-            Xlog.i(TAG, "mPortNumber--" + mPortNumber);
+            Log.i("@M_" + TAG, "mPortNumber--" + mPortNumber);
             FunctionTask functionTask = new FunctionTask();
 
             // Disable button to avoid multiple click
@@ -172,7 +172,7 @@ public class BtRelayerModeActivity extends Activity implements OnClickListener {
 
     @Override
     protected Dialog onCreateDialog(int id) {
-        Xlog.v(TAG, "-->onCreateDialog");
+        Log.v("@M_" + TAG, "-->onCreateDialog");
         if (id == START_TEST) {
             ProgressDialog dialog = new ProgressDialog(
                     BtRelayerModeActivity.this);
@@ -201,7 +201,7 @@ public class BtRelayerModeActivity extends Activity implements OnClickListener {
             if (paraValue == START_TEST) {
                 result = mBtTest.relayerStart(mPortNumber, mBaudrate);
 //                mStartFlag = true;
-                Xlog.v(TAG, "-->relayerStart-" + mBaudrate + " uart "
+                Log.v("@M_" + TAG, "-->relayerStart-" + mBaudrate + " uart "
                         + mPortNumber + "result 0 success,-1 fail: result= "
                         + result);
             } else if (paraValue == END_TEST) {

@@ -43,6 +43,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -55,7 +56,6 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.mediatek.engineermode.R;
 import com.mediatek.engineermode.ShellExe;
-import com.mediatek.xlog.Xlog;
 
 public class CpuDvfs extends Activity implements OnItemClickListener,
         DialogInterface.OnClickListener, OnClickListener {
@@ -112,7 +112,7 @@ public class CpuDvfs extends Activity implements OnItemClickListener,
 //      try {
 //          mFreqMin = Long.parseLong(output);
 //      } catch(NumberFormatException e) {
-//            Xlog.e(TAG, "NumberFormatExceptin: Fail to get min cpu speed; " + e.getMessage());
+//            Log.e("@M_" + TAG, "NumberFormatExceptin: Fail to get min cpu speed; " + e.getMessage());
 //      }
 //
 //      cmd = CAT + FS_MAX_SPEED;
@@ -121,7 +121,7 @@ public class CpuDvfs extends Activity implements OnItemClickListener,
 //      try {
 //          mFreqMax = Long.parseLong(output);
 //      } catch(NumberFormatException e) {
-//            Xlog.e(TAG, "NumberFormatExceptin: Fail to get max cpu speed; " + e.getMessage());
+//            Log.e("@M_" + TAG, "NumberFormatExceptin: Fail to get max cpu speed; " + e.getMessage());
 //      }
 //
 //  }
@@ -168,7 +168,7 @@ public class CpuDvfs extends Activity implements OnItemClickListener,
             try {
                 freqVal = Long.parseLong(freqParts[1]);
             } catch (NumberFormatException e) {
-                Xlog.e(TAG, "NumberFormatExcaption: parse available freq fail: " + freqParts[1]);
+                Log.e("@M_" + TAG, "NumberFormatExcaption: parse available freq fail: " + freqParts[1]);
             }
             if (mFreqMax == -1) {
                 mFreqMax = freqVal;
@@ -193,15 +193,15 @@ public class CpuDvfs extends Activity implements OnItemClickListener,
 
      private String execCommand(String cmd) {
          int ret = -1;
-         Xlog.d(TAG, "[cmd]:" + cmd);
+         Log.d("@M_" + TAG, "[cmd]:" + cmd);
          try {
              ret = ShellExe.execCommand(cmd);
          } catch (IOException e) {
-             Xlog.e(TAG, "IOException: " + e.getMessage());
+             Log.e("@M_" + TAG, "IOException: " + e.getMessage());
          }
          if (ret == 0) {
              String outStr = ShellExe.getOutput();
-             Xlog.d(TAG, "[output]: " + outStr);
+             Log.d("@M_" + TAG, "[output]: " + outStr);
              return outStr;
          }
          return null;
@@ -252,14 +252,14 @@ public class CpuDvfs extends Activity implements OnItemClickListener,
             showSelectDialog(getString(R.string.dvfs_governor_choose), mGovernorItems, index, this);
             break;
         default:
-            Xlog.w(TAG, "unknown position: " + position);
+            Log.w("@M_" + TAG, "unknown position: " + position);
             break;
         }
     }
 
     private void setGovernor(String item) {
         String cmd = ECHO + " " + item + " > " + FS_GOVERNOR_DEFAULT;
-        Xlog.d(TAG, "SetGovernor: " + cmd);
+        Log.d("@M_" + TAG, "SetGovernor: " + cmd);
         execCommand(cmd);
     }
 

@@ -31,7 +31,8 @@
             android:layout_width="120dip"
             android:layout_height="wrap_content"
             android:digits="0123456789."
-            android:inputType="number" >
+            android:inputType="number"
+            android:maxLength="9">
         </EditText>
 
         <TextView
@@ -59,7 +60,8 @@
             android:layout_width="120dip"
             android:layout_height="wrap_content"
             android:digits="0123456789."
-            android:inputType="number" >
+            android:inputType="number"
+            android:maxLength="9">
         </EditText>
 
         <TextView
@@ -87,7 +89,8 @@
             android:layout_width="120dip"
             android:layout_height="wrap_content"
             android:digits="0123456789."
-            android:inputType="number" >
+            android:inputType="number"
+            android:maxLength="9">
         </EditText>
 
         <TextView

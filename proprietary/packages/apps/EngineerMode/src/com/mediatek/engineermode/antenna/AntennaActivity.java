@@ -43,6 +43,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -53,10 +54,9 @@ import android.widget.Toast;
 import com.android.internal.telephony.Phone;
 import com.android.internal.telephony.PhoneConstants;
 import com.android.internal.telephony.PhoneFactory;
+import com.mediatek.engineermode.ChipSupport;
 import com.mediatek.engineermode.FeatureSupport;
-import com.mediatek.engineermode.ModemCategory;
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 
 import java.util.HashSet;
 
@@ -112,7 +112,7 @@ public class AntennaActivity extends Activity {
                 if (asyncResult != null && asyncResult.exception == null
                         && asyncResult.result != null) {
                     final String[] result = (String[]) asyncResult.result;
-                    Xlog.i(TAG, "Get support mode " + result[0]);
+                    Log.i("@M_" + TAG, "Get support mode " + result[0]);
                     parseSupportMode(result[0]);
                     queryCurrentMode();
                 } else {
@@ -124,7 +124,7 @@ public class AntennaActivity extends Activity {
                 if (asyncResult != null && asyncResult.exception == null
                         && asyncResult.result != null) {
                     final String[] result = (String[]) asyncResult.result;
-                    Xlog.i(TAG, "Get mode " + result[0]);
+                    Log.i("@M_" + TAG, "Get mode " + result[0]);
                     parseCurrentMode(result[0]);
                 } else {
                     showToast("Query antenna mode failed.");
@@ -160,7 +160,7 @@ public class AntennaActivity extends Activity {
                         mSupportModes.add(mode);
                     }
                 } catch (NumberFormatException e) {
-                    Xlog.e(TAG, "Wrong supported mode format: " + data);
+                    Log.e("@M_" + TAG, "Wrong supported mode format: " + data);
                 }
             }
         }
@@ -172,7 +172,7 @@ public class AntennaActivity extends Activity {
         try {
             mode = Integer.valueOf(data.substring("+ERXPATH:".length()).trim());
         } catch (NumberFormatException e) {
-            Xlog.e(TAG, "Wrong current mode format: " + data);
+            Log.e("@M_" + TAG, "Wrong current mode format: " + data);
         }
 
         if (mode < 0 || mode >= mSpinner4G.getCount()) {
@@ -203,16 +203,14 @@ public class AntennaActivity extends Activity {
             mSpinner4G.setVisibility(View.GONE);
         }
 
-        if (ModemCategory.getModemType() == ModemCategory.MODEM_TD) {
-            findViewById(R.id.antenna_title_3g).setVisibility(View.GONE);
-            mSpinner3G.setVisibility(View.GONE);
-        }
 
         if (TelephonyManager.getDefault().getPhoneCount() > 1) {
             mPhone = PhoneFactory.getPhone(PhoneConstants.SIM_ID_1);
         } else {
             mPhone = PhoneFactory.getDefaultPhone();
         }
+
+
     }
 
     @Override
@@ -232,12 +230,14 @@ public class AntennaActivity extends Activity {
     }
 
     private void setMode(int mode) {
-        Xlog.i(TAG, "Set mode " + mode);
+        Log.i("@M_" + TAG, "Set mode " + mode);
         sendCommand(new String[] {"AT+ERXPATH=" + mode, ""}, MSG_SET_ANTENNA_MODE);
     }
 
     private void sendCommand(String[] command, int msg) {
-        mPhone.invokeOemRilRequestStrings(command, mCommandHander.obtainMessage(msg));
+        if (mPhone != null) {
+            mPhone.invokeOemRilRequestStrings(command, mCommandHander.obtainMessage(msg));
+        }
     }
 
     private void showToast(String msg) {

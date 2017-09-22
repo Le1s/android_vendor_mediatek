@@ -45,10 +45,10 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 
 /**
  * Show bluetooth chip infomation.
@@ -87,7 +87,7 @@ public class BtChipInfoActivity extends Activity {
 
     @Override
     public void onCreate(Bundle onSavedInstanceState) {
-//        Xlog.v(TAG, "onCreate"); // event log
+//        Log.v("@M_" + TAG, "onCreate"); // event log
         super.onCreate(onSavedInstanceState);
         setContentView(R.layout.bt_chip_info);
         
@@ -119,7 +119,7 @@ public class BtChipInfoActivity extends Activity {
             dialog.setCancelable(false);
             dialog.setIndeterminate(true);
             // dialog.show();
-            Xlog.i(TAG, "new ProgressDialog succeed");
+            Log.i("@M_" + TAG, "new ProgressDialog succeed");
             return dialog;
         } else if (id == CHECK_BT_STATE) {
             AlertDialog dialog = new AlertDialog.Builder(this)
@@ -153,38 +153,38 @@ public class BtChipInfoActivity extends Activity {
                     mChipId = "";
                     String[] chipList = getResources().getStringArray(
                             R.array.bt_chip_id);
-                    // Xlog.v(TAG, "chipList.length" + "___" + chipList.length);
-                    // Xlog.v(TAG, "mBT.GetChipIdInt()" + "__" +
+                    // Log.v("@M_" + TAG, "chipList.length" + "___" + chipList.length);
+                    // Log.v("@M_" + TAG, "mBT.GetChipIdInt()" + "__" +
                     // mBT.GetChipIdInt());
                     int tmpId = mBtTest.getChipIdInt();
                     if (tmpId <= chipList.length) {
                         mChipId = chipList[tmpId];
                     }
-                    Xlog.v(TAG, "chipId@" + "___" + mChipId);
+                    Log.v("@M_" + TAG, "chipId@" + "___" + mChipId);
 
                     mChipEco = "";
                     String[] ecoList = getResources().getStringArray(
                             R.array.bt_chip_eco);
-                    // Xlog.v(TAG, "ecoList.length" + "___" + ecoList.length);
-                    // Xlog.v(TAG, "mBT.GetChipEcoNum()" + "__" +
+                    // Log.v("@M_" + TAG, "ecoList.length" + "___" + ecoList.length);
+                    // Log.v("@M_" + TAG, "mBT.GetChipEcoNum()" + "__" +
                     // mBT.GetChipEcoNum());
                     int ecoIndex = mBtTest.getChipEcoNum();
                     if (ecoIndex <= ecoList.length) {
                         mChipEco = ecoList[ecoIndex];
                     }
 
-                    Xlog.v(TAG, "chipEco = " + mChipEco);
+                    Log.v("@M_" + TAG, "chipEco = " + mChipEco);
                     char[] patchIdArray = mBtTest.getPatchId();
 
                     mChipPatchId = new String(patchIdArray);
-                    Xlog.v(TAG, "chipPatchId@" + mChipPatchId.length() + "___"
+                    Log.v("@M_" + TAG, "chipPatchId@" + mChipPatchId.length() + "___"
                             + mChipPatchId);
                     mChipPatchLen = "" + mBtTest.getPatchLen(); // remove ""
-                    Xlog.v(TAG, "GetPatchLen=" + mChipPatchLen);
+                    Log.v("@M_" + TAG, "GetPatchLen=" + mChipPatchLen);
 
                     mBtTest.unInit();
                 } else {
-                    Xlog.i(TAG, "new BtTest failed");
+                    Log.i("@M_" + TAG, "new BtTest failed");
                 }
                 // mbIsBLEFeatureDetected = true;
                 // removeDialog(CHECK_BLE);

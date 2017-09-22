@@ -141,7 +141,7 @@
 
             <EditText
                 android:id="@+id/Log_Record_Interval"
-                android:layout_width="70dip"
+                android:layout_width="50dip"
                 android:layout_height="wrap_content"
                 android:numeric="integer"
                 android:singleLine="true"
@@ -168,7 +168,7 @@
 
             <Button
                 android:id="@+id/Log_Record"
-                android:layout_width="80dip"
+                android:layout_width="100dip"
                 android:layout_height="wrap_content"
                 android:text="@string/battery_info_Log_Start" />
         </LinearLayout>
@@ -239,6 +239,7 @@
                 android:layout_width="80dip"
                 android:layout_height="wrap_content"
                 android:inputType="numberSigned"
+                android:singleLine="true"
                 android:maxLength="3"/>
             <Button
                 android:id="@+id/battery_temperature_set_btn"

@@ -339,6 +339,108 @@
                 </CheckBox>
             </LinearLayout>
         </ScrollView>
+
+        <!-- FOR CDMA -->
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/View_CDMA"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left"
+                android:orientation="vertical" >
+
+                <CheckBox
+                    android:id="@+id/NetworkInfo_1xRTT_Radio"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NetworkInfo_1xRTT_Radio" >
+                </CheckBox>
+
+                <CheckBox
+                    android:id="@+id/NetworkInfo_1xRTT_Info"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NetworkInfo_1xRTT_Info" >
+                </CheckBox>
+
+                <CheckBox
+                    android:id="@+id/NetworkInfo_1xRTT_SCH_Info"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NetworkInfo_1xRTT_SCH_Info" >
+                </CheckBox>
+
+                <CheckBox
+                    android:id="@+id/NetworkInfo_1xRTT_Statistics"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NetworkInfo_1xRTT_Statistics" >
+                </CheckBox>
+
+                <CheckBox
+                    android:id="@+id/NetworkInfo_1xRTT_Serving"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NetworkInfo_1xRTT_Serving" >
+                </CheckBox>
+
+                <CheckBox
+                    android:id="@+id/NetworkInfo_EVDO_Serving_Info"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NetworkInfo_EVDO_Serving_Info" >
+                </CheckBox>
+
+                <CheckBox
+                    android:id="@+id/NetworkInfo_EVDO_Active_Set"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NetworkInfo_EVDO_Active_Set" >
+                </CheckBox>
+                
+                <CheckBox
+                    android:id="@+id/NetworkInfo_EVDO_Candidate_Set"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NetworkInfo_EVDO_Candidate_Set" >
+                </CheckBox>
+
+                <CheckBox
+                    android:id="@+id/NetworkInfo_EVDO_Neighbor_Set"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NetworkInfo_EVDO_Neighbor_Set" >
+                </CheckBox>
+
+                <CheckBox
+                    android:id="@+id/NetworkInfo_EVDO_FL"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NetworkInfo_EVDO_FL" >
+                </CheckBox>
+
+                <CheckBox
+                    android:id="@+id/NetworkInfo_EVDO_RL"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NetworkInfo_EVDO_RL" >
+                </CheckBox>
+
+                <CheckBox
+                    android:id="@+id/NetworkInfo_EVDO_State"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NetworkInfo_EVDO_State" >
+                </CheckBox>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
 </ScrollView>

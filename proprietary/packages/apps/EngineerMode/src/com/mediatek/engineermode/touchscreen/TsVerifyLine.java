@@ -46,6 +46,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -53,7 +54,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
-import com.mediatek.xlog.Xlog;
 
 import java.util.Vector;
 
@@ -93,7 +93,7 @@ public class TsVerifyLine extends Activity implements View.OnTouchListener {
         mDiversityCanvas = new DiversityCanvas((Context) this);
         setContentView(mDiversityCanvas);
         mDiversityCanvas.setOnTouchListener(this);
-        Xlog.i(TAG, "Oncreate");
+        Log.i("@M_" + TAG, "Oncreate");
 
     }
 
@@ -247,11 +247,11 @@ public class TsVerifyLine extends Activity implements View.OnTouchListener {
 
         public void surfaceChanged(SurfaceHolder holder, int format, int width,
                 int height) {
-            Xlog.v(TAG, "surfaceChanged");
+            Log.v("@M_" + TAG, "surfaceChanged");
         }
 
         public void surfaceCreated(SurfaceHolder holder) {
-            Xlog.v(TAG, "surfaceCreated");
+            Log.v("@M_" + TAG, "surfaceCreated");
             mRun = true;
 
             mThread = new DiversityThread(holder, null);
@@ -261,7 +261,7 @@ public class TsVerifyLine extends Activity implements View.OnTouchListener {
 
         public void surfaceDestroyed(SurfaceHolder holder) {
             mRun = false;
-            Xlog.v(TAG, "surfaceDestroyed");
+            Log.v("@M_" + TAG, "surfaceDestroyed");
             mThread.quit();
         }
 
@@ -286,14 +286,14 @@ public class TsVerifyLine extends Activity implements View.OnTouchListener {
                         doUpdate();
                         break;
                     default:
-                        Xlog.d(TAG, "Unknown msg:" + msg.what);
+                        Log.d("@M_" + TAG, "Unknown msg:" + msg.what);
                         break;
                     }
                 }
             };
 
             private void doUpdate() {
-                Xlog.d(TAG, "doUpdate()");
+                Log.d("@M_" + TAG, "doUpdate()");
                 Canvas c = null;
                 c = mSurfaceHolder.lockCanvas(null);
                 if (c != null) {
@@ -329,7 +329,7 @@ public class TsVerifyLine extends Activity implements View.OnTouchListener {
                         canvas.drawLine(p1.x, p1.y, p2.x, p2.y, mLinePaint);
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    Xlog.v(TAG, "mPts1 ArrayIndexOutOfBoundsException: " + e.getMessage());
+                    Log.v("@M_" + TAG, "mPts1 ArrayIndexOutOfBoundsException: " + e.getMessage());
                     return;
                 }
 
@@ -341,7 +341,7 @@ public class TsVerifyLine extends Activity implements View.OnTouchListener {
                         canvas.drawLine(p1.x, p1.y, p2.x, p2.y, mLinePaint);
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    Xlog.v(TAG, "mInput ArrayIndexOutOfBoundsException: "
+                    Log.v("@M_" + TAG, "mInput ArrayIndexOutOfBoundsException: "
                             + e.getMessage());
                     return;
                 }

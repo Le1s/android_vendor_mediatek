@@ -43,9 +43,13 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
+import android.content.Context;
+import android.net.ConnectivityManager;
 
-import com.mediatek.xlog.Xlog;
+
+
 
 /**
  * This is main UI of EngineerMode. It uses viewPager to show each classified
@@ -64,15 +68,23 @@ import com.mediatek.xlog.Xlog;
 public class EngineerMode extends Activity {
 
     private static final String TAG = "EM/MainView";
-    private static final int TAB_COUNT = 6; // Total count of PagerView
+    private static int TAB_COUNT = 6; // Total count of PagerView
+    private static int TAB_COUNT_WIFIONLY = 5; // Total count of PagerView
     // Define each tabs which will attach to PagerView
     private PrefsFragment mTabs[] = new PrefsFragment[TAB_COUNT];
 
     // Record each viewPager title string IDs in array:
-    private static final int[] TAB_TITLE_IDS = { R.string.tab_telephony,
+    private static int[] TAB_TITLE_IDS = { R.string.tab_telephony,
             R.string.tab_connectivity, R.string.tab_hardware_testing,
             R.string.tab_location, R.string.tab_log_and_debugging,
             R.string.tab_others, };
+
+    private static int[] TAB_TITLE_IDS_WIFIONLY = {
+            R.string.tab_connectivity, R.string.tab_hardware_testing,
+            R.string.tab_location, R.string.tab_log_and_debugging,
+            R.string.tab_others, };
+
+    private MyPagerAdapter mPagerAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,7 +94,13 @@ public class EngineerMode extends Activity {
         final FragmentManager fragmentManager = getFragmentManager();
         final FragmentTransaction transaction = fragmentManager
                 .beginTransaction();
-        Xlog.v(TAG, "new fregments");
+
+        if(isWifiOnly()){
+            TAB_TITLE_IDS = TAB_TITLE_IDS_WIFIONLY;
+            TAB_COUNT = TAB_COUNT_WIFIONLY;
+        }
+
+        Log.v("@M_" + TAG, "new fregments");
         for (int i = 0; i < TAB_COUNT; i++) {
             mTabs[i] = new PrefsFragment();
             mTabs[i].setResource(i);
@@ -99,13 +117,32 @@ public class EngineerMode extends Activity {
                 .setTabIndicatorColorResource(android.R.color.holo_blue_light);
 
         transaction.commitAllowingStateLoss();
-        fragmentManager.executePendingTransactions();
+//        fragmentManager.executePendingTransactions();
 
-        MyPagerAdapter pagerAdapter = new MyPagerAdapter();
-        viewPager.setAdapter(pagerAdapter);
+        mPagerAdapter = new MyPagerAdapter();
+        viewPager.setAdapter(mPagerAdapter);
         viewPager.setCurrentItem(0);
-
     }
+
+   private boolean isWifiOnly() {
+        ConnectivityManager connManager = (ConnectivityManager) EngineerMode.this
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        boolean bWifiOnly = false;
+        if (null != connManager) {
+            bWifiOnly = !connManager
+                    .isNetworkSupported(ConnectivityManager.TYPE_MOBILE);
+            Log.i("@M_" + TAG, "bWifiOnly: " + bWifiOnly);
+        }
+        return bWifiOnly;
+    }
+
+    @Override
+    protected void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
+        mPagerAdapter.updateCurrentFragment();
+    }
+
 
     class MyPagerAdapter extends PagerAdapter {
         private final FragmentManager mFragmentManager;
@@ -169,6 +206,7 @@ public class EngineerMode extends Activity {
                     mCurPrimaryItem.setUserVisibleHint(false);
                 }
                 mCurPrimaryItem = fragment;
+                mCurPrimaryItem.setUserVisibleHint(true);
             }
         }
 
@@ -178,5 +216,13 @@ public class EngineerMode extends Activity {
             }
             throw new IllegalArgumentException("position: " + position);
         }
+
+        public void updateCurrentFragment() {
+            if (mCurPrimaryItem != null) {
+                mCurPrimaryItem.setUserVisibleHint(true);
+            }
+
+        }
     }
+
 }

@@ -32,6 +32,20 @@
             android:id="@+id/networkModeSwitching"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/info_label"
+            android:id="@+id/network_mode_set_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/network_mode_set_hint" />
+        <CheckBox
+            android:id="@+id/disable_eHRPD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/disable_eHRPD" >
+        </CheckBox>
     </LinearLayout>
 
 </ScrollView>

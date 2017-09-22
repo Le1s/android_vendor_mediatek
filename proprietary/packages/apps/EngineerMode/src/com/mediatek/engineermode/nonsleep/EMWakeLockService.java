@@ -10,8 +10,8 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
-import com.mediatek.xlog.Xlog;
 
 public class EMWakeLockService extends Service {
 
@@ -31,7 +31,7 @@ public class EMWakeLockService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Xlog.d(TAG, "onCreate()");
+        Log.d("@M_" + TAG, "onCreate()");
         mWakeLock = ((PowerManager) getSystemService(Context.POWER_SERVICE)).newWakeLock(
                 PowerManager.FULL_WAKE_LOCK |
                 PowerManager.ACQUIRE_CAUSES_WAKEUP, TAG);
@@ -39,7 +39,7 @@ public class EMWakeLockService extends Service {
 
     @Override
     public void onDestroy() {
-        Xlog.d(TAG, "onDestroy()");
+        Log.d("@M_" + TAG, "onDestroy()");
         if (mWakeLock.isHeld()) {
             mWakeLock.release();
             mWakeLock = null;

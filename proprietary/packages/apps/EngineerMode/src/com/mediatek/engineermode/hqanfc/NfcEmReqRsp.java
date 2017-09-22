@@ -22,11 +22,12 @@ public class NfcEmReqRsp {
     // }mtk_nfc_sw_version_rsp_t;
     public static class NfcEmVersionRsp implements RawOperation {
         private static final int DATA_LENGTH = 19;
-        public static final int CONTENT_SIZE = 2 + 2 + DATA_LENGTH;
+        public static final int CONTENT_SIZE = DATA_LENGTH + 2 + 2 + 2;
 
         public byte[] mMwVersion;
         public int mFwVersion;
         public int mHwVersion;
+        public int mChipVersion;
 
         public NfcEmVersionRsp() {
             mMwVersion = new byte[DATA_LENGTH];
@@ -38,6 +39,9 @@ public class NfcEmReqRsp {
             int version = DataConvert.byteToInt(DataConvert.getByteArr(buffer));
             mFwVersion = (int) (version & 0xFFFF);
             mHwVersion = (int) ((version >> 16) & 0xFFFF);
+            byte[] u16buffer = new byte[2];
+            buffer.get(u16buffer, 0, 2);
+            mChipVersion = DataConvert.byte2uint16(u16buffer);
         }
 
         public void writeRaw(ByteBuffer buffer) throws NullPointerException,

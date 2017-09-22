@@ -39,6 +39,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -47,7 +48,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 
 public class Gpio extends Activity implements OnClickListener {
 
@@ -86,14 +86,14 @@ public class Gpio extends Activity implements OnClickListener {
 
     @Override
     public void onPause() {
-        Xlog.v(TAG, "-->onPause");
+        Log.v("@M_" + TAG, "-->onPause");
         EmGpio.gpioUnInit();
         super.onPause();
     }
 
     @Override
     protected void onResume() {
-        Xlog.v(TAG, "-->onResume");
+        Log.v("@M_" + TAG, "-->onResume");
         super.onResume();
         boolean ret = EmGpio.gpioInit();
         if (!ret) {

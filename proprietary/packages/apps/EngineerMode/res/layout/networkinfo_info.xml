@@ -23,15 +23,38 @@
         </Button>
     </LinearLayout>
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
-
-        <TextView
-            android:id="@+id/NetworkInfo_Info"
+        <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" >
-        </TextView>
-    </ScrollView>
 
+            <TextView
+                android:id="@+id/NetworkInfo_Info"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+            </TextView>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/NetworkInfo_List_Header"
+                android:visibility="gone"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+            </TextView>
+            <ListView
+                android:id="@+id/NetworkInfo_List"
+                android:visibility="gone"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:dividerHeight="1dp"
+                android:divider="#FF303030" >
+            </ListView>
+        </LinearLayout>
+    </FrameLayout>
 </LinearLayout>

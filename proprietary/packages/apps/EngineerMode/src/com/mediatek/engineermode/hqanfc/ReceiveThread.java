@@ -52,7 +52,7 @@ public class ReceiveThread implements Runnable {
     // @Override
     public void run() {
         if (mInputStream == null) {
-            System.out.println("[ReceiveThread]The dispatcher or stream object is null!");
+            Elog.d(NfcMainPage.TAG, "[ReceiveThread]The dispatcher or stream object is null!");
             return;
         }
         mRunning = true;
@@ -62,9 +62,9 @@ public class ReceiveThread implements Runnable {
                 byte[] b = new byte[NfcCommand.RECEIVE_DATA_SIZE];
                 mInputStream.read(b);
                 for (int i = 0; i < b.length; i++) {
-                    System.out.print(b[i] + " ");
+                    Elog.d(NfcMainPage.TAG, b[i] + " ");
                 }
-                System.out.println("done receive");
+                Elog.d(NfcMainPage.TAG,"done receive");
                 ByteBuffer buffer = ByteBuffer.wrap(b);
                 byte[] type = new byte[NfcCommand.INT_SIZE];
                 buffer.get(type);

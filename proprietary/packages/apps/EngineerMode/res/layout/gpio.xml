@@ -17,7 +17,7 @@
 
             <TextView
                 android:id="@+id/GPIO_Setno_Text"
-                android:layout_width="80dip"
+                android:layout_width="120dip"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
                 android:layout_marginTop="10dip"
@@ -31,6 +31,7 @@
                 android:layout_marginLeft="10dip"
                 android:layout_marginTop="10dip"
                 android:numeric="integer"
+                android:singleLine="true"
                 android:text="@string/GPIO_Edit_Value" >
             </EditText>
 
@@ -62,7 +63,7 @@
 
             <Button
                 android:id="@+id/GPIO_Direction_In"
-                android:layout_width="100dip"
+                android:layout_width="120dip"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
                 android:layout_marginTop="10dip"
@@ -70,7 +71,7 @@
 
             <Button
                 android:id="@+id/GPIO_Direction_Out"
-                android:layout_width="100dip"
+                android:layout_width="120dip"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dip"
                 android:layout_marginTop="10dip"
@@ -96,7 +97,7 @@
 
             <Button
                 android:id="@+id/GPIO_Data_High"
-                android:layout_width="100dip"
+                android:layout_width="120dip"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
                 android:layout_marginTop="10dip"
@@ -104,7 +105,7 @@
 
             <Button
                 android:id="@+id/GPIO_Data_Low"
-                android:layout_width="100dip"
+                android:layout_width="120dip"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dip"
                 android:layout_marginTop="10dip"

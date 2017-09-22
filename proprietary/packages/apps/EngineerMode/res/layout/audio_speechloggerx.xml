@@ -42,7 +42,7 @@
 
                 <RadioGroup
                     android:id="@+id/RadioGroup1"
-                    android:layout_marginLeft="60pt" >
+                    android:layout_marginLeft="60dp" >
 
                     <RadioButton
                         android:id="@+id/Audio_SpeechLogger_EPL"
@@ -206,7 +206,7 @@
 
                 <RadioGroup
                     android:id="@+id/RadioGroup2"
-                    android:layout_marginLeft="60pt" >
+                    android:layout_marginLeft="60dp" >
 
                     <RadioButton
                         android:id="@+id/Audio_AncLogger_Down"

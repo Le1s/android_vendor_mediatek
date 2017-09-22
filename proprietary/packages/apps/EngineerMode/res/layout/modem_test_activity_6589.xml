@@ -12,14 +12,32 @@
         android:id="@+id/modem_test_textview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dip"
         android:textAppearance="?android:attr/textAppearanceMedium" >
     </TextView>
+
+    <CheckBox
+        android:id="@+id/modem_test_unlock"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:text="@string/modem_test_unlock"
+        android:textAppearance="?android:attr/textAppearanceMedium" >
+    </CheckBox>
+
+    <CheckBox
+        android:id="@+id/modem_test_tdddataonly"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:text="@string/modem_test_tdddataonly"
+        android:textAppearance="?android:attr/textAppearanceMedium" >
+    </CheckBox>
 
     <Button
         android:id="@+id/modem_test_none_btn"
         android:layout_width="200dip"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dip"
         android:text="@string/modem_test_none"
         android:textAppearance="?android:attr/textAppearanceMedium" >
     </Button>
@@ -66,6 +84,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dip"
         android:text="@string/modem_test_factory"
+        android:textAppearance="?android:attr/textAppearanceMedium" >
+    </Button>
+
+    <Button
+        android:id="@+id/modem_test_c2k_btn"
+        android:layout_width="200dip"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dip"
+        android:text="@string/modem_test_c2k"
         android:textAppearance="?android:attr/textAppearanceMedium" >
     </Button>
 </LinearLayout>

@@ -208,6 +208,32 @@
                 </View>
             </TableLayout>
 
+            <TableLayout
+                android:id="@+id/TableLayout03"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dip"
+                    android:background="#FF00FF00" >
+                </View>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3pt"
+                    android:text="@string/BandSel_CDMA" >
+                </TextView>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:background="#FF909090" >
+                </View>
+            </TableLayout>
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dip"

@@ -41,14 +41,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.mediatek.engineermode.FeatureSupport;
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 import com.mediatek.engineermode.ShellExe;
 
 import java.io.IOException;
@@ -64,6 +65,11 @@ public class ApdcmActivity extends Activity implements OnClickListener {
     private static final String CMD_SET_DCM =
             "echo 1 0 %1$d %2$s > " + FS_DBG;
 
+    private static final String FS_DBG_W = "/proc/dcm/dcm_proc_dbg";
+    private static final String FS_DUMPREGS_W = "/proc/dcm/dcm_proc_dumpregs";
+    private static final String FS_HELP_W = "/proc/dcm/dcm_proc_help";
+    private static final String CMD_SET_DCM_W =
+            "echo 1 0 %1$d %2$s > " + FS_DBG_W;
     private EditText mEditArmDcm;
     private EditText mEditEmiDcm;
     private EditText mEditInfraDcm;
@@ -91,11 +97,28 @@ public class ApdcmActivity extends Activity implements OnClickListener {
     private EditText[] mApdcmEdits = new EditText[APDCM_NUM];
     private String[] mApdcmTags = new String[APDCM_NUM];
     private String mDcmStr;
+
+    private String mFsDebug;
+    private String mFsDump;
+    private String mFsHelp;
+    private String mCmdSet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dcm_apdcm);
-
+        if (FeatureSupport.isSupported(FeatureSupport.FK_MTK_WEARABLE_PLATFORM)) {
+            setContentView(R.layout.dcm_apdcm_w);
+            mFsDebug = FS_DBG_W;
+            mFsDump = FS_DUMPREGS_W;
+            mFsHelp = FS_HELP_W;
+            mCmdSet = CMD_SET_DCM_W;
+        } else {
+            setContentView(R.layout.dcm_apdcm);
+            mFsDebug = FS_DBG;
+            mFsDump = FS_DUMPREGS;
+            mFsHelp = FS_HELP;
+            mCmdSet = CMD_SET_DCM;
+        }
         mEditArmDcm = (EditText) findViewById(R.id.dcm_apdcm_arm_edit);
         mEditEmiDcm = (EditText) findViewById(R.id.dcm_apdcm_emi_edit);
         mEditInfraDcm = (EditText) findViewById(R.id.dcm_apdcm_infra_edit);
@@ -164,7 +187,7 @@ public class ApdcmActivity extends Activity implements OnClickListener {
     private void setUiByData(int apdcmIdx, boolean showDlg) {
         String cmd;
         String output;
-        cmd = CAT + FS_DBG;
+        cmd = CAT + mFsDebug;
         output = execCommand(cmd);
         // temp test code
         //output = "ARM_DCM=0x7410, \nEMI_DCM=0xdc71,\nINFRA_DCM=0xab43, \nPERI_DCM=0xef56,\nMISC_DCM=0x1569,\nMM_DCM=0x4321 , \nMFG_DCM=0x1234 , \n ";
@@ -183,7 +206,7 @@ public class ApdcmActivity extends Activity implements OnClickListener {
     private boolean resolveFillData(String outStr, int fillIdx) {
         String[] entries = outStr.split(" *, *\n *");
         if (entries.length != APDCM_NUM) {
-            Xlog.e(TAG, "resolveFillData() Resolve outStr fail, Invalid DCM Number");
+            Log.e("@M_" + TAG, "resolveFillData() Resolve outStr fail, Invalid DCM Number");
             return false;
         }
         String[] keyValPair;
@@ -240,7 +263,7 @@ public class ApdcmActivity extends Activity implements OnClickListener {
             return;
         }
         String cmd;
-        cmd = String.format(CMD_SET_DCM, apdcmIdx, dcmStr);
+        cmd = String.format(mCmdSet, apdcmIdx, dcmStr);
         execCommand(cmd);
         msg = mApdcmTags[apdcmIdx] + " " +  getString(R.string.dcm_text_set) + " " +
                 getString(R.string.dcm_operate_success);
@@ -255,13 +278,13 @@ public class ApdcmActivity extends Activity implements OnClickListener {
         int idx = view.getId();
         switch(idx) {
         case R.id.dcm_apdcm_dump_regs_btn:
-            cmd = CAT + FS_DUMPREGS;
+            cmd = CAT + mFsDump;
             output = execCommand(cmd);
             title = getString(R.string.dcm_text_dump_regs);
             showDialog(title, output);
             break;
         case R.id.dcm_apdcm_help_btn:
-            cmd = CAT + FS_HELP;
+            cmd = CAT + mFsHelp;
             output = execCommand(cmd);
             title = getString(R.string.dcm_text_help);
             showDialog(title, output);
@@ -311,23 +334,23 @@ public class ApdcmActivity extends Activity implements OnClickListener {
             handleClickSetBtn(6);
             break;
         default:
-            Xlog.w(TAG, "onClick() Unknown view id: " + idx);
+            Log.w("@M_" + TAG, "onClick() Unknown view id: " + idx);
             break;
         }
     }
 
     private String execCommand(String cmd) {
          int ret = -1;
-         Xlog.d(TAG, "[cmd]:" + cmd);
+         Log.d("@M_" + TAG, "[cmd]:" + cmd);
          //Toast.makeText(this, cmd, Toast.LENGTH_LONG).show();
          try {
              ret = ShellExe.execCommand(cmd);
          } catch (IOException e) {
-             Xlog.e(TAG, "IOException: " + e.getMessage());
+             Log.e("@M_" + TAG, "IOException: " + e.getMessage());
          }
          if (ret == 0) {
              String outStr = ShellExe.getOutput();
-             Xlog.d(TAG, "[output]: " + outStr);
+             Log.d("@M_" + TAG, "[output]: " + outStr);
              return outStr;
          }
          return null;

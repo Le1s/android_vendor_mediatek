@@ -65,9 +65,9 @@ public class NfcClient {
                 cmdReq.writeRaw(buffer);
             }
             for (int i = 0; i < buffer.array().length; i++) {
-                System.out.print(buffer.array()[i] + " ");
+                Elog.d(NfcMainPage.TAG, buffer.array()[i] + " ");
             }
-            System.out.println("done send");
+            Elog.d(NfcMainPage.TAG,"done send");
             mOutputStream.write(buffer.array());
             mOutputStream.flush();
         } catch (IOException e) {
@@ -129,15 +129,29 @@ public class NfcClient {
             Elog.v(NfcMainPage.TAG, "[NfcClient]createConnection: has connected");
             return true;
         }
-        try {
-            //mSocket = new Socket(LOCALHOST_IP_ADDRESS, DEFAULT_PORT);
-            mSocket = new LocalSocket();
-            LocalSocketAddress name = new LocalSocketAddress(LOCALSOCKET_NAME, LocalSocketAddress.Namespace.FILESYSTEM);
-            mSocket.connect(name);
-            mSocket.setSoTimeout(timeout);
-        } catch (IOException e) {
-            Elog.w(NfcMainPage.TAG, "[NfcClient]createConnection IOException: " + e.getMessage());
-            mSocket = null;
+        for (int i = 1; i <= 3; i ++) {
+            try {
+                //mSocket = new Socket(LOCALHOST_IP_ADDRESS, DEFAULT_PORT);
+                Elog.d(NfcMainPage.TAG, "[NfcClient]createConnection() re-try :" + i + "");
+                mSocket = new LocalSocket();
+                LocalSocketAddress name = new LocalSocketAddress(
+                        LOCALSOCKET_NAME, LocalSocketAddress.Namespace.FILESYSTEM);
+                mSocket.connect(name);
+                mSocket.setSoTimeout(timeout);
+                if (mSocket.isConnected() == false) {
+                    Elog.d(NfcMainPage.TAG, "[NfcClient] createConnection nfcstackp FAIL !");
+                    Thread.sleep(10000);
+                } else {
+                    break;
+                }
+            } catch (IOException e) {
+                Elog.w(NfcMainPage.TAG, "[NfcClient]createConnection IOException: "
+                        + e.getMessage());
+                mSocket = null;
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         if (mSocket == null) {
             return false;

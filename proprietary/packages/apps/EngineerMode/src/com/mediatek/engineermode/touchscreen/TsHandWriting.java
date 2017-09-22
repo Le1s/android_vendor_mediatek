@@ -43,6 +43,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.FontMetricsInt;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -52,7 +53,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.mediatek.xlog.Xlog;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class TsHandWriting extends Activity {
         super.onCreate(savedInstanceState);
         // setContentView(new MyView(this));
 
-        Xlog.v(TAG, "onCreate start");
+        Log.v("@M_" + TAG, "onCreate start");
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -82,13 +82,13 @@ public class TsHandWriting extends Activity {
         mView = new MyView(this);
         mView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         setContentView(mView);
-        Xlog.v(TAG, "onCreate success");
+        Log.v("@M_" + TAG, "onCreate success");
 
     }
 
     @Override
     public void onResume() {
-//        Xlog.v(TAG, "-->onResume");
+//        Log.v("@M_" + TAG, "-->onResume");
         super.onResume();
         final SharedPreferences preferences = this.getSharedPreferences(
                 "touch_screen_settings", android.content.Context.MODE_PRIVATE);
@@ -109,7 +109,7 @@ public class TsHandWriting extends Activity {
                             .show();
                 }
             } catch (IOException e) {
-                Xlog.w(TAG, e.toString());
+                Log.w("@M_" + TAG, e.toString());
             }
 
         }
@@ -119,7 +119,7 @@ public class TsHandWriting extends Activity {
     @Override
     public void onPause() {
 
-        Xlog.v(TAG, "-->onPause");
+        Log.v("@M_" + TAG, "-->onPause");
         final SharedPreferences preferences = this.getSharedPreferences(
                 "touch_screen_settings", android.content.Context.MODE_PRIVATE);
         String file = preferences.getString("filename", "N");
@@ -139,7 +139,7 @@ public class TsHandWriting extends Activity {
                             .show();
                 }
             } catch (IOException e) {
-                Xlog.w(TAG, e.toString());
+                Log.w("@M_" + TAG, e.toString());
             }
 
         }
@@ -237,7 +237,7 @@ public class TsHandWriting extends Activity {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             mTextPaint.getFontMetricsInt(mTextMetrics);
             mHeaderBottom = -mTextMetrics.ascent + mTextMetrics.descent + 2;
-            Xlog.v(TAG, "Metrics: ascent=" + mTextMetrics.ascent + " descent="
+            Log.v("@M_" + TAG, "Metrics: ascent=" + mTextMetrics.ascent + " descent="
                     + mTextMetrics.descent + " leading=" + mTextMetrics.leading
                     + " top=" + mTextMetrics.top + " bottom="
                     + mTextMetrics.bottom);
@@ -259,7 +259,7 @@ public class TsHandWriting extends Activity {
                             mTextBackgroundPaint);
             canvas.drawRect(w * 2, 0, (w * 2) + (mCurPressure * w) - 1, bottom,
                     mTextLevelPaint);
-            Xlog.w(TAG, "mCurPressure = " + mCurPressure);
+            Log.w("@M_" + TAG, "mCurPressure = " + mCurPressure);
             canvas.drawText("Pres: " + mCurPressure, 1 + w * 2, base,
                     mTextPaint);
 
@@ -347,7 +347,7 @@ public class TsHandWriting extends Activity {
             mCurX = (int) event.getX();
             mCurY = (int) event.getY();
             mCurPressure = event.getPressure();
-            Xlog.w(TAG, "event.getPressure()= " + mCurPressure);
+            Log.w("@M_" + TAG, "event.getPressure()= " + mCurPressure);
             mCurWidth = (int) (event.getSize() * (getWidth() / 3));
 
             invalidate();

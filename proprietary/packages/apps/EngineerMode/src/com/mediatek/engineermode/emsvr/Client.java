@@ -41,8 +41,8 @@ package com.mediatek.engineermode.emsvr;
 
 import android.net.LocalSocket;
 import android.net.LocalSocketAddress;
+import android.util.Log;
 
-import com.mediatek.xlog.Xlog;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -86,7 +86,7 @@ public class Client {
             mOutputStream = new DataOutputStream(mSocket.getOutputStream());
             mStatus = STATUS_SUCCESS;
         } catch (IOException e) {
-            Xlog.w(TAG, "startclient IOException " + e.getMessage());
+            Log.w("@M_" + TAG, "startclient IOException " + e.getMessage());
             mStatus = STATUS_ERROR;
         }
     }
@@ -201,7 +201,7 @@ public class Client {
             mInputStream.close();
             mSocket.close();
         } catch (IOException e) {
-            Xlog.w(TAG, "stop client IOException: " + e.getMessage());
+            Log.w("@M_" + TAG, "stop client IOException: " + e.getMessage());
         }
     }
 

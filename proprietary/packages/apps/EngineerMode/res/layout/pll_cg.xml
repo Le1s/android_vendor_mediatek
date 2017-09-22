@@ -14,6 +14,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginLeft="10dip"
 	        android:numeric="decimal"
+	        android:singleLine="true"
 	        android:hint="@string/pllcg_clkmux_id"/>
        <Button
           android:id="@+id/pllcg_clkmux_btn"
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
         android:numeric="decimal"
+        android:singleLine="true"
         android:hint="@string/pllcg_cg_id"/>
     <Button
         android:id="@+id/pllcg_enable_btn"

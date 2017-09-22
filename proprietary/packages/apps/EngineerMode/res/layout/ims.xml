@@ -242,5 +242,49 @@
             android:background="#FF909090" >
         </View>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="16sp"
+            android:text="@string/volte_set_hint" />
+        <RadioGroup
+            android:id="@+id/volte_set_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="left"
+            android:orientation="vertical" >
+
+            <RadioButton
+                android:id="@+id/volte_set_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/volte_set_off_string" >
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/volte_set_on"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/volte_set_on_string" >
+            </RadioButton>
+
+        </RadioGroup>
+        <Button
+            android:id="@+id/volte_set"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/volte_set_string" >
+        </Button>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="#FF909090" >
+        </View>
     </LinearLayout>
 </ScrollView>

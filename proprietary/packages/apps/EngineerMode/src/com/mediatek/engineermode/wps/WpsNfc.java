@@ -3,12 +3,12 @@ package com.mediatek.engineermode.wps;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 
 import java.util.ArrayList;
 
@@ -48,11 +48,11 @@ public class WpsNfc extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         if (mModuleList.get(position).equals(
                 getString(R.string.wps_role))) {
-            Xlog.v(TAG, "-->onListItemClick wps_role");
+            Log.v("@M_" + TAG, "-->onListItemClick wps_role");
             startActivity(new Intent(WpsNfc.this, WpsNfcRole.class));
         } else if (mModuleList.get(position).equals(
                 getString(R.string.wps_write_tag))) {
-            Xlog.v(TAG, "-->onListItemClick wps_write_tag");
+            Log.v("@M_" + TAG, "-->onListItemClick wps_write_tag");
             startActivity(new Intent(WpsNfc.this, WpsNfcTag.class));
         }
     }

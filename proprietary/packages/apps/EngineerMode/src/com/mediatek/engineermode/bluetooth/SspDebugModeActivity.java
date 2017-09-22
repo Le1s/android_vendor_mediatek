@@ -51,6 +51,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.SystemProperties;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
@@ -60,7 +61,6 @@ import android.widget.Toast;
 //import com.mediatek.bluetooth.BluetoothAdapterEx;
 import com.mediatek.engineermode.EngineerMode;
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 
 /**
  * Do BT SSP debug mode test.
@@ -136,7 +136,7 @@ public class SspDebugModeActivity extends Activity implements OnClickListener {
 //        if (null != mChecked) {
 //            mChecked.setOnCheckedChangeListener(mCheckedListener);
 //        } else {
-//            Xlog.w(TAG, "findViewById(R.id.SSPDebugModeCb) failed");
+//            Log.w("@M_" + TAG, "findViewById(R.id.SSPDebugModeCb) failed");
 //        }
 
         // Disable set Checkbox before open bluetooth
@@ -158,7 +158,7 @@ public class SspDebugModeActivity extends Activity implements OnClickListener {
     }
     @Override
     protected void onResume() {
-//        Xlog.v(TAG, "-->onResume");
+//        Log.v("@M_" + TAG, "-->onResume");
         super.onResume();
 
         showDialog(OPEN_BT);
@@ -168,14 +168,14 @@ public class SspDebugModeActivity extends Activity implements OnClickListener {
 
     @Override
     protected Dialog onCreateDialog(int id) {
-        Xlog.v(TAG, "-->onCreateDialog");
+        Log.v("@M_" + TAG, "-->onCreateDialog");
         if (id == OPEN_BT) {
             ProgressDialog dialog = new ProgressDialog(this);
             dialog.setMessage(getString(R.string.BT_open));
             dialog.setCancelable(false);
             dialog.setIndeterminate(true);
             // dialog.show();
-            Xlog.v(TAG, "OPEN_BT ProgressDialog succeed");
+            Log.v("@M_" + TAG, "OPEN_BT ProgressDialog succeed");
             return dialog;
         } else if (id == EXIT_EM_BT) {
             AlertDialog dialog = new AlertDialog.Builder(this)
@@ -209,7 +209,7 @@ public class SspDebugModeActivity extends Activity implements OnClickListener {
 
     @Override
     public void onBackPressed() {
-        Xlog.v(TAG, "-->onBackPressed mSspModeOn=" + mSspModeOn);
+        Log.v("@M_" + TAG, "-->onBackPressed mSspModeOn=" + mSspModeOn);
         if (mSspModeOn) {
             // showDialog(EXIT_EM_BT);
             Toast.makeText(getApplicationContext(),
@@ -229,9 +229,9 @@ public class SspDebugModeActivity extends Activity implements OnClickListener {
             // Disable click the checkbox
             mChecked.setEnabled(false);
             mWorkHandler.sendEmptyMessage(SET_SSP);
-            Xlog.v(TAG, "SSPDebug isChecked--" + mChecked.isChecked());
+            Log.v("@M_" + TAG, "SSPDebug isChecked--" + mChecked.isChecked());
             if (mSspModeOn) {
-                Xlog.v(TAG, " back EngineerMode");
+                Log.v("@M_" + TAG, " back EngineerMode");
                 showDialog(EXIT_EM_BT);
             }
         }
@@ -263,11 +263,11 @@ public class SspDebugModeActivity extends Activity implements OnClickListener {
                     mBtAdapter.enable();
                     while (mBtAdapter.getState() == BluetoothAdapter.STATE_TURNING_ON) {
 
-                        Xlog.i(TAG, "Bluetooth turning on ...");
+                        Log.i("@M_" + TAG, "Bluetooth turning on ...");
                         try {
                             Thread.sleep(SLEEP_TIME);
                         } catch (InterruptedException e) {
-                            Xlog.i(TAG, e.getMessage());
+                            Log.i("@M_" + TAG, e.getMessage());
                         }
                     }
                 }
@@ -276,18 +276,18 @@ public class SspDebugModeActivity extends Activity implements OnClickListener {
                 mSspModeOn = VALUE_TRUE.equals(SystemProperties.get(
                 KEY_PROP_SSP, VALUE_FALSE));
 
-                Xlog.i(TAG, "mSspModeOn =" + mSspModeOn);
+                Log.i("@M_" + TAG, "mSspModeOn =" + mSspModeOn);
                 mUiHandler.sendEmptyMessage(OPEN_BT_FINISHED);
             } else if (msg.what == OP_CLOSE_BT) {
                 if (mBtAdapter.getState() != BluetoothAdapter.STATE_OFF) {
                     // Cloese bluetooth
                     mBtAdapter.disable();
                     while (mBtAdapter.getState() == BluetoothAdapter.STATE_TURNING_OFF) {
-                         Xlog.v(TAG, "Bluetooth turning off ...");
+                         Log.v("@M_" + TAG, "Bluetooth turning off ...");
                         try {
                             Thread.sleep(SLEEP_TIME);
                         } catch (InterruptedException e) {
-                            Xlog.i(TAG, e.getMessage());
+                            Log.i("@M_" + TAG, e.getMessage());
                         }
                     }
                 }

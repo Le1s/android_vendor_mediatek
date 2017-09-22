@@ -40,6 +40,7 @@ package com.mediatek.engineermode.dcm;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -47,7 +48,6 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +79,7 @@ public class DcmList extends Activity implements OnItemClickListener {
     public void onItemClick(AdapterView<?> parent, View view, int position,
             long id) {
         if (position < 0 || position >= mDcmTargets.size()) {
-            Xlog.w(TAG, "onItemClick() Invalid postion:" + position);
+            Log.w("@M_" + TAG, "onItemClick() Invalid postion:" + position);
             return;
         }
         Intent intent = new Intent(this, mDcmTargets.get(position));

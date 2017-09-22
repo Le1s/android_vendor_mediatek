@@ -37,24 +37,49 @@
 
 package com.mediatek.engineermode.misc;
 
+import android.os.AsyncResult;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemProperties;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
+import android.telephony.SubscriptionManager;
+import android.telephony.TelephonyManager;
+import android.widget.Toast;
 
-import com.mediatek.engineermode.Elog;
+import com.android.internal.telephony.Phone;
+import com.android.internal.telephony.PhoneFactory;
+import android.util.Log;
 import com.mediatek.engineermode.FeatureSupport;
 import com.mediatek.engineermode.R;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Misc feature config Activity.
+ */
 public class MiscConfig extends PreferenceActivity {
     private static final String TAG = "EM/MiscConfig";
-    private static final String KEY_MISC_CONFIG = Settings.Global.TELEPHONY_MISC_FEATURE_CONFIG;
+    private static final String KEY_MISC_CONFIG = "1";
     private static final int INDEX_2G_ONLY_ROAMING = 0;
+    private static final int INDEX_SELF_REGISTER = 2;
+    private static final int MSG_QUERY = 0;
+    private static final int MSG_SET = 1;
+    private static final String CMD_QUERY = "AT+ECFGGET=\"sms_over_sgs\"";
+    private static final String CMD_SET = "AT+ECFGSET=\"sms_over_sgs\"";
+    private static final String VALUE_ENABLE = "1";
+    private static final String VALUE_DISABLE = "0";
 
     private CheckBoxPreference mPreferences[];
     private int mConfig = 0;
+    private Toast mToast;
+    private Phone mPhone = null;
+    private CheckBoxPreference mSmsSgsPreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +92,11 @@ public class MiscConfig extends PreferenceActivity {
             mPreferences[i] = new CheckBoxPreference(this);
             mPreferences[i].setSummary(features[i]);
             mPreferences[i].setPersistent(false);
+            if (i == INDEX_SELF_REGISTER &&
+                    !FeatureSupport.isSupported(FeatureSupport.FK_CT4GREG_APP)) {
+                Log.d("@M_" + TAG, "Not show entry for CT4GREG.");
+                continue;
+            }
             getPreferenceScreen().addPreference(mPreferences[i]);
         }
     }
@@ -75,16 +105,17 @@ public class MiscConfig extends PreferenceActivity {
     protected void onResume() {
         super.onResume();
         mConfig = Settings.Global.getInt(getContentResolver(), KEY_MISC_CONFIG, 0);
-        Elog.d(TAG, "Get " + KEY_MISC_CONFIG + " = " + mConfig);
+        Log.d("@M_" + TAG, "Get " + KEY_MISC_CONFIG + " = " + mConfig);
         for (int i = 0; i < mPreferences.length; i++) {
             mPreferences[i].setChecked((mConfig & (1 << i)) != 0);
         }
+        querySmsSgsValue();
     }
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
             Preference preference) {
-        Elog.d(TAG, "Enter onPreferenceTreeClick()");
+        Log.d("@M_" + TAG, "Enter onPreferenceTreeClick()");
         for (int i = 0; i < mPreferences.length; i++) {
             if (mPreferences[i].equals(preference)) {
                 if (mPreferences[i].isChecked()) {
@@ -92,11 +123,97 @@ public class MiscConfig extends PreferenceActivity {
                 } else {
                     mConfig &= ~(1 << i);
                 }
-                Elog.d(TAG, "Set " + KEY_MISC_CONFIG + " = " + mConfig);
+                Log.d("@M_" + TAG, "Set " + KEY_MISC_CONFIG + " = " + mConfig);
                 Settings.Global.putInt(getContentResolver(), KEY_MISC_CONFIG, mConfig);
                 return true;
             }
         }
+        if (preference == mSmsSgsPreference) {
+            setSgsValue(mSmsSgsPreference.isChecked() ? VALUE_ENABLE : VALUE_DISABLE);
+        }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
+
+    private void querySmsSgsValue() {
+        int subId = SubscriptionManager.getDefaultDataSubId();
+        Log.i("@M_" + TAG, "sub id " + subId);
+        int phoneId = SubscriptionManager.getPhoneId(subId);
+        Log.i("@M_" + TAG, "phone id " + phoneId);
+        int phoneCount = TelephonyManager.getDefault().getPhoneCount();
+        Log.i("@M_" + TAG, "phone count " + phoneCount);
+        mPhone = PhoneFactory.getPhone(phoneId >= 0 && phoneId < phoneCount ? phoneId : 0);
+
+        Message msg = mHandler.obtainMessage(MSG_QUERY);
+        if (mPhone != null) {
+            mPhone.invokeOemRilRequestStrings(new String[] {CMD_QUERY, "+ECFGGET:"}, msg);
+        }
+        Log.i("@M_" + TAG, "send " + CMD_QUERY + ", " + "+ECFGGET:");
+
+        mSmsSgsPreference = new CheckBoxPreference(this);
+        mSmsSgsPreference.setSummary(getString(R.string.misc_config_sgs));
+        mSmsSgsPreference.setPersistent(false);
+        getPreferenceScreen().addPreference(mSmsSgsPreference);
+    }
+
+    private void setSgsValue(String value) {
+        Message msg = mHandler.obtainMessage(MSG_SET);
+        if (mPhone != null) {
+            mPhone.invokeOemRilRequestStrings(
+                new String[] {CMD_SET + ",\"" + value + "\"", ""}, msg);
+        }
+        Log.i("@M_" + TAG, "send " + CMD_SET + ",\"" + value + "\"");
+    }
+
+    private void parseSmsSgsValue(String data) {
+        mSmsSgsPreference.setChecked(VALUE_ENABLE.equals(parseCommandResponse(data)));
+    }
+
+    private String parseCommandResponse(String data) {
+        Log.d("@M_" + TAG, "raw data: " + data);
+        Pattern p = Pattern.compile("\\+ECFGGET:\\s*\".*\"\\s*,\\s*\"(.*)\"");
+        Matcher m = p.matcher(data);
+        while (m.find()) {
+            String value = m.group(1);
+            Log.d("@M_" + TAG, "value: " + value);
+            return value;
+        }
+        Log.e("@M_" + TAG, "wrong format: " + data);
+        showToast("wrong format: " + data);
+        return "";
+    }
+
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            Log.e("@M_" + TAG, "handleMessage() " + msg.what);
+            if (msg.what == MSG_QUERY) {
+                AsyncResult ar = (AsyncResult) msg.obj;
+                if (ar.exception == null && ar.result != null) {
+                    if (ar.result instanceof String[]) {
+                        String[] data = (String[]) ar.result;
+                        if (data.length > 0) {
+                            parseSmsSgsValue(data[0]);
+                            return;
+                        }
+                    }
+                }
+                showToast("Query failed");
+            } else if (msg.what == MSG_SET) {
+                AsyncResult ar = (AsyncResult) msg.obj;
+                if (ar.exception == null) {
+                    showToast("Set successful");
+                } else {
+                    showToast("Set failed");
+                }
+            }
+        }
+    };
+
+    private void showToast(String msg) {
+        if (mToast != null) {
+            mToast.cancel();
+        }
+        mToast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
+        mToast.show();
     }
 }

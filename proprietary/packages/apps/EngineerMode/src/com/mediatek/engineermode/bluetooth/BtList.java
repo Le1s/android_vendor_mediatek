@@ -46,12 +46,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 
 import java.util.ArrayList;
 
@@ -136,7 +136,7 @@ public class BtList extends ListActivity {
 
     @Override
     protected Dialog onCreateDialog(int id) {
-        Xlog.d(TAG, "-->onCreateDialog");
+        Log.d("@M_" + TAG, "-->onCreateDialog");
         if (id == CHECK_BLE) {
             ProgressDialog dialog = new ProgressDialog(this);
 
@@ -215,7 +215,7 @@ public class BtList extends ListActivity {
 
             if (mBleSupport && mModuleList.get(position)
                     .equals(getString(R.string.BT_ble_test_mode_Title))) {
-                Xlog.v(TAG, "BLE_Test_Mode item is selected");
+                Log.v("@M_" + TAG, "BLE_Test_Mode item is selected");
                 startActivity(new Intent(BtList.this, BleTestMode.class));
             }
             mDoubleFlag = true;
@@ -243,7 +243,7 @@ public class BtList extends ListActivity {
                 } else {
                     mComboSupport = false;
                 }
-                Xlog.i(TAG, "BLE supported ? " + mBleSupport);
+                Log.i("@M_" + TAG, "BLE supported ? " + mBleSupport);
                 mChipId = mBtTest.getChipId();
             } else {
                 // if Bluetooth is in ON state, just sleep for 500
@@ -251,7 +251,7 @@ public class BtList extends ListActivity {
                 try {
                     Thread.sleep(SLEEP_TIME);
                 } catch (InterruptedException e) {
-                    Xlog.d(TAG, e.getMessage());
+                    Log.d("@M_" + TAG, e.getMessage());
                 }
             }
 
@@ -273,9 +273,9 @@ public class BtList extends ListActivity {
             mModuleList.add(getString(R.string.BT_tx_only_Title));
 
 //            int chipId = mBtTest.getChipId();
-            Xlog.v(TAG, "chipId@" + mChipId);
-            Xlog.v(TAG, "6620@" + getString(R.string.BT_0x6620));
-            Xlog.v(TAG, "0x6620@"
+            Log.v("@M_" + TAG, "chipId@" + mChipId);
+            Log.v("@M_" + TAG, "6620@" + getString(R.string.BT_0x6620));
+            Log.v("@M_" + TAG, "0x6620@"
                     + Integer.parseInt(getString(R.string.BT_0x6620),
                             NUM_RADIX));
 

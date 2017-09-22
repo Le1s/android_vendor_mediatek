@@ -73,4 +73,12 @@ public class BandModeContent {
     public static final String QUERY_CURRENT_COMMAND = "AT+EPBSE?";
     public static final String SET_COMMAND = "AT+EPBSE=";
     public static final String SAME_COMMAND = "+EPBSE:";
+
+    public static final int EVENT_QUERY_SUPPORTED_CDMA = 102;
+    public static final int EVENT_QUERY_CURRENT_CDMA = 103;
+    public static final int EVENT_SET_CDMA = 111;
+    public static final String QUERY_SUPPORT_COMMAND_CDMA = "AT+ECBAND=?";
+    public static final String QUERY_CURRENT_COMMAND_CDMA = "AT+ECBAND?";
+    public static final String SET_COMMAND_CDMA = "AT+ECBAND=";
+    public static final String SAME_COMMAND_CDMA = "+ECBAND:";
 }

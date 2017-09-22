@@ -3,6 +3,7 @@ package com.mediatek.engineermode.desense;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -12,7 +13,6 @@ import android.widget.ListView;
 
 import com.mediatek.engineermode.ChipSupport;
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,34 +47,21 @@ public class DesenseActivity extends Activity implements OnItemClickListener {
         for (int i = 0; i < ITEMS.length; i++) {
             items.add(ITEMS[i]);
         }
-        if (!getMempllSupport()) {
+
+        if (!MemPllSet.isSupport()) {
             items.remove(ITEMS[2]);
+        }
+
+
+        if (!DesensePllsActivity.isSupport()) {
+            items.remove(ITEMS[0]);
         }
         return items;
     }
 
-    private boolean getMempllSupport() {
-        final int chip = ChipSupport.getChip();
-        boolean support = true;
-
-        if (chip == ChipSupport.MTK_6595_SUPPORT || chip == ChipSupport.MTK_6795_SUPPORT) {
-            support = false;
-        }
-
-        if (chip == ChipSupport.MTK_6752_SUPPORT) {
-            support = false;
-        }
-
-        if (ChipSupport.isChipInSet(ChipSupport.CHIP_657X_SERIES_NEW)) {
-            support = false;
-        }
-
-        return support;
-    }
-
     public void onItemClick(AdapterView<?> parent, View view, int position,
             long id) {
-        Xlog.v(TAG, mListData.get(position) + " item is clicked!");
+        Log.v("@M_" + TAG, mListData.get(position) + " item is clicked!");
         if (ITEM_PLLS.equals(mListData.get(position))) {
             startActivity(new Intent(this, DesensePllsActivity.class));
         } else if (ITEM_FREQHOPPING.equals(mListData.get(position))) {
@@ -87,7 +74,7 @@ public class DesenseActivity extends Activity implements OnItemClickListener {
         } else if (ITEM_MEMPLL.equals(mListData.get(position))) {
             startActivity(new Intent(this, MemPllSet.class));
         } else {
-            Xlog.v(TAG, "other item is clicked!");
+            Log.v("@M_" + TAG, "other item is clicked!");
         }
     }
 

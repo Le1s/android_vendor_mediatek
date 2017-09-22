@@ -11,7 +11,7 @@
             android:layout_marginTop="10dip"/>
     <ToggleButton
         android:id="@+id/desense_sdlog_toggle_btn"
-        android:layout_width="110dip"
+        android:layout_width="150dip"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dip"
         android:textAppearance="?android:attr/textAppearanceMedium"

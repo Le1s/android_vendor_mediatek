@@ -6,31 +6,32 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 import android.widget.CheckBox;
 import com.mediatek.engineermode.R;
 
-import com.mediatek.xlog.Xlog;
 import java.util.ArrayList;
 
 /**
  * wifi wps NFC test_bed in engineermode
- *
+ * 
  * @author mtk54040
- *
+ * 
  */
-public class WpsNfcTag extends ListActivity implements OnClickListener {
+public class WpsNfcTag extends ListActivity implements OnClickListener{
 
     private static final String TAG = "EM/WpsNfcTag";
     private static final String WPS_NFC_USE_PK = "wps_nfc_pubkey";
-
+    
     private ArrayList<String> mModuleList = null;
     private WifiManager mWifiManager;
     private CheckBox mUsePublicKey;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +51,7 @@ public class WpsNfcTag extends ListActivity implements OnClickListener {
         mUsePublicKey.setOnClickListener(this);
         Settings.System
                         .putInt(getContentResolver(), WPS_NFC_USE_PK, 0); // default always 0
-
+                        
         mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
     }
 
@@ -59,7 +60,7 @@ public class WpsNfcTag extends ListActivity implements OnClickListener {
         // Send broadcast
 
         if (mModuleList.get(position).equals(getString(R.string.wps_pin))) {
-            Xlog.v(TAG, "-->onListItemClick wps_pin");
+            Log.v("@M_" + TAG, "-->onListItemClick wps_pin");
 
             // Intent intent = new Intent();
             // intent.putExtra(getString(R.string.wps_write_tag),
@@ -69,7 +70,7 @@ public class WpsNfcTag extends ListActivity implements OnClickListener {
 
             // add api function,first listener second para:
             // WifiManager.TOKEN_TYPE_NDEF
-            mWifiManager.writePinToNfc(WifiManager.TOKEN_TYPE_NDEF, null);
+            //mWifiManager.writePinToNfc(WifiManager.TOKEN_TYPE_NDEF, null);
             /*
              * // assume that we have already get config from WiFiManager. byte
              * networkIndex = 0x01; String ssid = "HomeWLAN"; Short
@@ -80,7 +81,7 @@ public class WpsNfcTag extends ListActivity implements OnClickListener {
              * macAddress = { (byte) 0x11, (byte) 0x22, (byte) 0x33, (byte)
              * 0xAA, (byte) 0xBB, (byte) 0xCC }; byte[] vendorExtension = {
              * 0x10, 0x49, 0x00, 0x06, 0x00, 0x37, 0x2A, 0x00, 0x01, 0x20 };
-             *
+             * 
              * WpsCredential mWpsCredential = new WpsCredential();
              * mWpsCredential.setNetworkIndex(networkIndex);
              * mWpsCredential.setSSID(ssid);
@@ -89,7 +90,7 @@ public class WpsNfcTag extends ListActivity implements OnClickListener {
              * mWpsCredential.setMacAddress(macAddress);
              * mWpsCredential.setNetworkKey(networkKey);
              * mWpsCredential.setVendorExtension(vendorExtension);
-             *
+             * 
              * // sendBroadcast: W_CONFIGURATION_ACTION, config Intent
              * intentHandoverSelector = new Intent(
              * INfcWpsTestBed.MTK_WPS_NFC_TESTBED_HS_ACTION);
@@ -101,7 +102,7 @@ public class WpsNfcTag extends ListActivity implements OnClickListener {
                     R.string.wps_send_broadcast, Toast.LENGTH_SHORT).show();
         } else if (mModuleList.get(position).equals(
                 getString(R.string.wps_credential))) {
-            Xlog.v(TAG, "-->onListItemClick wps_credential");
+            Log.v("@M_" + TAG, "-->onListItemClick wps_credential");
 
             // Intent intent = new Intent();
             // intent.putExtra(getString(R.string.wps_write_tag),
@@ -110,7 +111,7 @@ public class WpsNfcTag extends ListActivity implements OnClickListener {
             // sendBroadcast(intent);
 
             // add api function
-            mWifiManager.writeCredToNfc(WifiManager.TOKEN_TYPE_NDEF, null);
+            //mWifiManager.writeCredToNfc(WifiManager.TOKEN_TYPE_NDEF, null);
             /*
              * // sendBroadcast: W_CONFIGURATION_ACTION, config Intent
              * intentHandoverRequest = new Intent(
@@ -124,7 +125,7 @@ public class WpsNfcTag extends ListActivity implements OnClickListener {
         }
     }
     public void onClick(View v) {
-        Xlog.v(TAG, "-->onClick checkbox");
+        Log.v("@M_" + TAG, "-->onClick checkbox");
 
         if (v.equals(mUsePublicKey)) {
             if (mUsePublicKey.isChecked()) {
@@ -135,6 +136,6 @@ public class WpsNfcTag extends ListActivity implements OnClickListener {
                         WPS_NFC_USE_PK, 0);
             }
 
-        }
+        } 
     }
 }

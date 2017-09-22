@@ -67,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:maxLength="10"
                 android:numeric="integer"
+                android:singleLine="true"
                 android:text="@string/emptyStr" >
             </EditText>
         </TableRow>
@@ -109,6 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLength="10"
+                android:singleLine="true"
                 android:numeric="integer"
                 android:text="@string/emptyStr" >
             </EditText>

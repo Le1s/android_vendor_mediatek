@@ -8,7 +8,7 @@
 			android:targetClass="com.mediatek.engineermode.audio.Audio" />
 	</Preference>
 
-	<Preference android:key="camera" android:title="@string/camera"
+	<!-- <Preference android:key="camera" android:title="@string/camera"
 		android:persistent="false">
 		<intent android:action="android.intent.action.MAIN"
 			android:targetPackage="com.mediatek.engineermode"
@@ -40,7 +40,7 @@
 		<intent android:action="android.intent.action.MAIN"
 			android:targetPackage="com.mediatek.engineermode"
 			android:targetClass="com.mediatek.engineermode.dcm.DcmList" />
-	</Preference>
+	</Preference> -->
 
 	<Preference android:key="deep_idle" android:title="@string/deep_idle_label"
 		android:persistent="false">
@@ -91,27 +91,20 @@
 			android:targetClass="com.mediatek.engineermode.DeviceRegister" />
 	</Preference>
 
+	<Preference android:key="esn_track" android:title="@string/esn_track_title"
+		android:persistent="false">
+		<intent android:action="android.intent.action.MAIN"
+			android:targetPackage="com.mediatek.engineermode"
+			android:targetClass="com.mediatek.engineermode.EsnTrack" />
+	</Preference>
+
 	<Preference android:key="de_sense" android:title="@string/de_sense"
 		android:persistent="false">
 		<intent android:action="android.intent.action.MAIN"
 			android:targetPackage="com.mediatek.engineermode"
 			android:targetClass="com.mediatek.engineermode.desense.DesenseActivity" />
 	</Preference>
-	
-	<Preference android:key="display" android:title="@string/display"
-		android:persistent="false">
-		<intent android:action="android.intent.action.MAIN"
-			android:targetPackage="com.mediatek.engineermode"
-			android:targetClass="com.mediatek.engineermode.display.Display" />
-	</Preference>
-	
-	<Preference android:key="lcm" android:title="@string/hqa_lcm_name"
-		android:persistent="false">
-		<intent android:action="android.intent.action.MAIN"
-			android:targetPackage="com.mediatek.engineermode"
-			android:targetClass="com.mediatek.engineermode.lcm.LCM" />
-	</Preference>
-	
+
     <Preference android:key="non_sleep_mode" android:title="@string/non_sleep_mode"
         android:persistent="false">
         <intent android:action="android.intent.action.MAIN"
@@ -182,7 +175,18 @@
 			android:targetPackage="com.mediatek.engineermode"
 			android:targetClass="com.mediatek.engineermode.sensor.Sensor" />
 	</Preference>
-
+	<Preference android:key="sensor_hub_test" android:title="@string/sensor_hub_test"
+		android:persistent="false">
+		<intent android:action="android.intent.action.MAIN"
+			android:targetPackage="com.mediatek.sensorhub.settings"
+			android:targetClass="com.mediatek.sensorhub.settings.SensorHubSettings" />
+	</Preference>
+    <Preference android:key="smart_motion" android:title="@string/smart_motion"
+		android:persistent="false">
+		<intent android:action="android.intent.action.MAIN"
+			android:targetPackage="com.mediatek.smartmotion"
+			android:targetClass="com.mediatek.smartmotion.MainActivity" />
+	</Preference>
 	<Preference android:key="ptp_tech" android:title="@string/ptp_title"
 		android:persistent="false">
 		<intent android:action="android.intent.action.MAIN"

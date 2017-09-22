@@ -7,7 +7,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-        
+        <CheckBox android:id="@+id/wfd_vdo_portrait_resolution_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:text="@string/wfd_vdo_enable_portrait_resolution"/>
         <LinearLayout
             android:id="@+id/LinearLayout"
             android:layout_width="fill_parent"

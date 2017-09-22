@@ -3,6 +3,7 @@ package com.mediatek.engineermode.desense;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,7 +12,6 @@ import android.widget.Toast;
 
 import com.mediatek.engineermode.R;
 import com.mediatek.engineermode.ShellExe;
-import com.mediatek.xlog.Xlog;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -49,7 +49,7 @@ public class PllDetailActivity extends Activity {
 
             public void onClick(View v) {
                 String editValue = mEtValue.getText().toString().trim();
-                Xlog.v(TAG, "editValue = " + editValue);
+                Log.v("@M_" + TAG, "editValue = " + editValue);
                 Pattern pattern = Pattern.compile(PATTERN);
                 Matcher m = pattern.matcher(editValue);
                 if (m.find()) {
@@ -61,7 +61,7 @@ public class PllDetailActivity extends Activity {
                                 "Set PLL success", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Xlog.w(TAG, "set button NumberFormatException");
+                    Log.w("@M_" + TAG, "set button NumberFormatException");
                     Toast.makeText(PllDetailActivity.this,
                             "The input number is wrong!", Toast.LENGTH_SHORT)
                             .show();
@@ -80,7 +80,7 @@ public class PllDetailActivity extends Activity {
     private static int pllSetClock(int id, String hexVal) {
         int result = -1;
         String cmd = "echo enable " + id + " >/proc/clkmgr/pll_test";
-        Xlog.i(TAG, cmd);
+        Log.i("@M_" + TAG, cmd);
         try {
             if (ShellExe.RESULT_SUCCESS == ShellExe.execCommand(cmd)) {
                 cmd = "echo " + id + " " + hexVal + " >/proc/clkmgr/pll_fsel";
@@ -89,7 +89,7 @@ public class PllDetailActivity extends Activity {
                 }
             }
         } catch (IOException e) {
-            Xlog.v(TAG, "pllSetClock IOException: " + e.getMessage());
+            Log.v("@M_" + TAG, "pllSetClock IOException: " + e.getMessage());
         }
         return result;
     }

@@ -44,12 +44,12 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 
 import java.util.List;
 /**
@@ -153,7 +153,7 @@ public class NonSleepMode extends Activity implements OnClickListener, ServiceCo
 
     @Override
     public void onServiceDisconnected(ComponentName className) {
-        Xlog.d(TAG, "onServiceDisconnected");
+        Log.d("@M_" + TAG, "onServiceDisconnected");
 
     }
 }

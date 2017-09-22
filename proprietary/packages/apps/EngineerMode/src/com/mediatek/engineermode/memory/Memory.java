@@ -38,6 +38,7 @@ package com.mediatek.engineermode.memory;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -47,9 +48,7 @@ import android.widget.Toast;
 
 import com.mediatek.engineermode.FeatureHelpPage;
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class Memory extends Activity implements OnItemClickListener {
@@ -64,17 +63,10 @@ public class Memory extends Activity implements OnItemClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.memory);
         ListView itemList = (ListView) findViewById(R.id.list_memory_item);
-        mHaveEmmc = new File(EMMC_PROC_FILE).exists();
-
         ArrayList<String> items = new ArrayList<String>();
-        if (mHaveEmmc) {
-            items.add(getString(R.string.memory_item_emmc));
-        } else {
-            items.add(getString(R.string.memory_item_nand));
-        }
+        items.add(getString(R.string.memory_title_flash));
         items.add(getString(R.string.help));
         // items.add(getString(R.string.memory_item_emi));
-        Xlog.v(TAG, "have emmc? " + mHaveEmmc);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, items);
         itemList.setAdapter(adapter);
@@ -86,7 +78,7 @@ public class Memory extends Activity implements OnItemClickListener {
         Intent intent = null;
         switch (arg2) {
         case 0:
-            intent = new Intent(this, NandFlash.class);
+            intent = new Intent(this, Flash.class);
             break;
         case 1:
             //intent = new Intent(this, EmiRegister.class);
@@ -100,9 +92,8 @@ public class Memory extends Activity implements OnItemClickListener {
         if (null == intent) {
             Toast.makeText(this, R.string.memory_select_error,
                     Toast.LENGTH_LONG).show();
-            Xlog.d(TAG, "Select error");
+            Log.d("@M_" + TAG, "Select error");
         } else {
-            intent.putExtra(FLASH_TYPE, mHaveEmmc);
             this.startActivity(intent);
         }
     }

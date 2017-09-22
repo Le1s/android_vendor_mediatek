@@ -47,11 +47,12 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.android.internal.telephony.ITelephony;
 import com.android.internal.telephony.Phone;
+import com.android.internal.telephony.PhoneConstants;
 import com.android.internal.telephony.PhoneFactory;
-import com.mediatek.xlog.Xlog;
 
 public class MobileDataPreferred extends PreferenceActivity {
     private static final String TAG = "EM/CallDataPreferred";
@@ -71,8 +72,8 @@ public class MobileDataPreferred extends PreferenceActivity {
         PreferenceScreen prefSet = getPreferenceScreen();
         mMobileDataPref = (CheckBoxPreference) prefSet.findPreference(DATA_PREFER_KEY);
 
-        int pchFlag = SystemProperties.getInt("persist.radio.gprs.perfer", 0);
-        Xlog.v(TAG, "Orgin value persist.radio.gprs.perfer = " + pchFlag);
+        int pchFlag = SystemProperties.getInt("persist.radio.gprs.prefer", 0);
+        Log.v("@M_" + TAG, "Orgin value persist.radio.gprs.prefer = " + pchFlag);
         mMobileDataPref.setChecked(pchFlag == 0 ? false : true);
 
         if (mTelephony == null) {
@@ -126,10 +127,13 @@ public class MobileDataPreferred extends PreferenceActivity {
 
     private void setGprsTransferType(int type) {
         String property = (type == PCH_DATA_PREFER ? "1" : "0");
-        Xlog.v(TAG, "Change persist.radio.gprs.perfer to " + property);
-        SystemProperties.set("persist.radio.gprs.perfer", property);
+        Log.v("@M_" + TAG, "Change persist.radio.gprs.prefer to " + property);
+        SystemProperties.set("persist.radio.gprs.prefer", property);
         for (int i = 0 ; i < TelephonyManager.getDefault().getPhoneCount(); i++) {
             Phone phone = PhoneFactory.getPhone(i);
+
+
+
             phone.invokeOemRilRequestStrings(new String[] {"AT+EGTP=" + type, ""}, null);
             phone.invokeOemRilRequestStrings(new String[] {"AT+EMPPCH=" + type, ""}, null);
         }

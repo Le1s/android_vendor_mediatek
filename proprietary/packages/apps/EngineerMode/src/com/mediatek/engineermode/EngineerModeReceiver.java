@@ -39,8 +39,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 
-import com.mediatek.xlog.Xlog;
 
 public final class EngineerModeReceiver extends BroadcastReceiver {
 
@@ -52,22 +52,22 @@ public final class EngineerModeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction() == null) {
-            Xlog.i(TAG, "Null action");
+            Log.i("@M_" + TAG, "Null action");
             return;
         }
         if (intent.getAction().equals(SECRET_CODE_ACTION)) {
             Uri uri = intent.getData();
-            Xlog.i(TAG, "getIntent success in if");
+            Log.i("@M_" + TAG, "getIntent success in if");
             if (uri.equals(mEmUri)) {
                 Intent intentEm = new Intent(context, EngineerMode.class);
                 intentEm.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                Xlog.i(TAG, "Before start EM activity");
+                Log.i("@M_" + TAG, "Before start EM activity");
                 context.startActivity(intentEm);
             } else {
-                Xlog.i(TAG, "No matched URI!");
+                Log.i("@M_" + TAG, "No matched URI!");
             }
         } else {
-            Xlog.i(TAG, "Not SECRET_CODE_ACTION!");
+            Log.i("@M_" + TAG, "Not SECRET_CODE_ACTION!");
         }
     }
 }

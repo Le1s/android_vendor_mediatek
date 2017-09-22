@@ -14,14 +14,14 @@
 			android:targetClass="com.mediatek.mtklogger.debugtool.DebugToolboxActivity" />
 	</Preference>
 
-	<Preference android:key="modem_warning" android:title="@string/modem_warning_title"
+<!--	<Preference android:key="modem_warning" android:title="@string/modem_warning_title"
 		android:persistent="false">
 		<intent android:action="android.intent.action.MAIN"
 			android:targetPackage="com.mediatek.engineermode"
 			android:targetClass="com.mediatek.engineermode.modemwarning.ModemWarning" />
 	</Preference>
 
-<!--
+
 	<Preference android:key="log2server" android:title="@string/log2server"
 		android:persistent="false">
 		<intent android:action="android.intent.action.MAIN"
@@ -43,7 +43,7 @@
 			android:targetClass="com.mediatek.extmdlogger.ExtMDLoggerTest" />
 	</Preference>
 
-    <Preference android:key="atci" android:title="@string/ATCI_title"
+    <!-- <Preference android:key="atci" android:title="@string/ATCI_title"
 		android:persistent="false">
 		<intent android:action="android.intent.action.MAIN"
 			android:targetPackage="com.mediatek.engineermode"
@@ -54,5 +54,5 @@
 		<intent android:action="android.intent.action.MAIN"
 			android:targetPackage="com.mediatek.engineermode"
 			android:targetClass="com.mediatek.engineermode.modemdebug.ModemDebug" />
-	</Preference>
+	</Preference> -->
 </PreferenceScreen>

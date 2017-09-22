@@ -36,7 +36,7 @@
 package com.mediatek.engineermode.touchscreen;
 
 import com.mediatek.engineermode.ShellExe;
-import com.mediatek.xlog.Xlog;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -51,7 +51,7 @@ public class TouchScreenShellExe {
 
     public static String getOutput() {
         String result = ShellExe.getOutput();
-        Xlog.i(TAG, "getOutPut:sb-- " + result);
+        Log.i("@M_" + TAG, "getOutPut:sb-- " + result);
         return result;
     }
 

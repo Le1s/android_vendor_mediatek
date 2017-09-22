@@ -49,13 +49,13 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 
 import java.util.Random;
 import java.util.Vector;
@@ -83,7 +83,7 @@ public class TsVerifyShakingPoint extends Activity implements View.OnTouchListen
         if (null != extra) {
             mIsVerifyPoint = extra.getBoolean(TsVerifyList.TS_POINT);
         }
-        Xlog.v(TAG, "is verify point ? " + mIsVerifyPoint);
+        Log.v("@M_" + TAG, "is verify point ? " + mIsVerifyPoint);
         if (mIsVerifyPoint) {
             setTitle(R.string.TouchScreen_VerificationPoint);
         }
@@ -110,14 +110,14 @@ public class TsVerifyShakingPoint extends Activity implements View.OnTouchListen
     public boolean onTouch(View arg0, MotionEvent event) {
         if (mIsVerifyPoint) {
             if (MotionEvent.ACTION_DOWN == event.getAction()) {
-                Xlog.i(TAG, "The PrePoint.x value is : "
+                Log.i("@M_" + TAG, "The PrePoint.x value is : "
                         + String.valueOf(mPrePoint.x));
-                Xlog.i(TAG, "The PrePoint.y value is : "
+                Log.i("@M_" + TAG, "The PrePoint.y value is : "
                         + String.valueOf(mPrePoint.y));
                 int xTouch = (int) event.getX();
                 int yTouch = (int) event.getY();
-                Xlog.i(TAG, "The xTouch value is : " + String.valueOf(xTouch));
-                Xlog.i(TAG, "The yTouch value is : " + String.valueOf(yTouch));
+                Log.i("@M_" + TAG, "The xTouch value is : " + String.valueOf(xTouch));
+                Log.i("@M_" + TAG, "The yTouch value is : " + String.valueOf(yTouch));
                 int dx2 = (xTouch - mPrePoint.x) * (xTouch - mPrePoint.x);
                 int dy2 = (yTouch - mPrePoint.y) * (yTouch - mPrePoint.y);
                 mPointError = Math.sqrt((double) (dx2 + dy2));
@@ -164,7 +164,7 @@ public class TsVerifyShakingPoint extends Activity implements View.OnTouchListen
 
         public void surfaceChanged(SurfaceHolder holder, int format, int width,
                 int height) {
-            Xlog.v(TAG, "surfaceChanged");
+            Log.v("@M_" + TAG, "surfaceChanged");
         }
 
         public void surfaceCreated(SurfaceHolder holder) {
@@ -199,7 +199,7 @@ public class TsVerifyShakingPoint extends Activity implements View.OnTouchListen
                         doUpdate();
                         break;
                     default:
-                        Xlog.d(TAG, "Unknown msg:" + msg.what);
+                        Log.d("@M_" + TAG, "Unknown msg:" + msg.what);
                         break;
                     }
                 }
@@ -220,7 +220,7 @@ public class TsVerifyShakingPoint extends Activity implements View.OnTouchListen
             }
 
             private void doUpdate() {
-                Xlog.d(TAG, "doUpdate()");
+                Log.d("@M_" + TAG, "doUpdate()");
                 Canvas c = null;
                 c = mSurfaceHolder.lockCanvas(null);
                 if (c != null) {

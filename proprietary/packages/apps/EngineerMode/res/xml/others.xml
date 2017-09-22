@@ -1,18 +1,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
-	<Preference android:key="settings_font" android:title="@string/settings_font"
-		android:persistent="false">
-		<intent android:action="android.intent.action.MAIN"
-			android:targetPackage="com.mediatek.engineermode"
-			android:targetClass="com.mediatek.engineermode.settingsfontsize.SettingsFontSize" />
-	</Preference>
-	
-	<Preference android:key="swla" android:title="@string/swla"
+	<!-- <Preference android:key="swla" android:title="@string/swla"
 		android:persistent="false">
 		<intent android:action="android.intent.action.MAIN"
 			android:targetPackage="com.mediatek.engineermode"
 			android:targetClass="com.mediatek.engineermode.swla.SwlaActivity" />
-	</Preference>
+	</Preference> -->
 
 
 	<Preference android:key="thermal" android:title="@string/thermal"
@@ -28,12 +20,6 @@
 <!-- 		        android:targetPackage="com.mediatek.configurecheck" -->
 <!-- 		        android:targetClass="com.mediatek.configurecheck.MainActivity" /> -->
 <!-- 	</Preference> -->
-    <Preference android:key="thermal_Stress_Test" android:title="@string/thermal_stress_test"
-        android:persistent="false">
-        <intent android:action="android.intent.action.MAIN"
-            android:targetPackage="com.mediatek.mtkthermalstress"
-            android:targetClass="com.mediatek.mtkthermalstress.MainActivity" />
-    </Preference>
 	<Preference android:key="ConfigureCheck2_Send_Test" android:title="@string/configure_check2_send_test"
 		android:persistent="false">
 		<intent android:action="android.intent.action.MAIN"
@@ -43,10 +29,17 @@
 
 	<Preference android:key="ConfigureCheck2_Self_Test" android:title="@string/configure_check2_self_test"
 		android:persistent="false">
-		<intent 
+		<intent
 		        android:targetPackage="com.mediatek.configurecheck2"
 		        android:targetClass="com.mediatek.configurecheck2.ManSelfTestActivity" />
-	</Preference>	
+	</Preference>
+
+	<Preference android:key="CT_ConfigureCheck" android:title="@string/CT_configure_check"
+        android:persistent="false">
+        <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.mediatek.configurecheck"
+                android:targetClass="com.mediatek.configurecheck.ManSelfTestActivity" />
+    </Preference>
 
 	<Preference android:key="cmcc_ftprecheck" android:title="@string/cmcc_ftprecheck"
         android:persistent="false">
@@ -55,6 +48,12 @@
                 android:targetClass="com.mediatek.ftprecheck.FTPreCheckActivity" />
     </Preference>
 
+    <Preference android:key="mdml_sample" android:title="@string/mdml_sample"
+        android:persistent="false">
+        <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.mediatek.mdmlsample"
+                android:targetClass="com.mediatek.mdmlsample.MainActivity" />
+    </Preference>
 	<Preference android:key="system_update" android:title="@string/system_update"
 	    android:persistent="false">
 	    <intent android:action="com.mediatek.systemupdate.UPDATE_TYPE_OPTION"
@@ -62,12 +61,12 @@
 			android:targetClass="com.mediatek.systemupdate.UpdateOption" />
 	</Preference>
 
-	<Preference android:key="usbacm" android:title="@string/usbacm"
+	<!-- <Preference android:key="usbacm" android:title="@string/usbacm"
 		android:persistent="false">
 		<intent android:action="android.intent.action.MAIN"
 			android:targetPackage="com.mediatek.engineermode"
 			android:targetClass="com.mediatek.engineermode.usbacm.UsbAcm" />
-	</Preference>
+	</Preference> -->
 
 	<Preference android:key="saber" android:title="@string/saber"
 		android:persistent="false">
@@ -82,10 +81,23 @@
 			android:targetPackage="com.mediatek.engineermode"
 			android:targetClass="com.mediatek.engineermode.cip.CipPropContentActivity" />
 	</Preference>
-    <Preference android:key="voice_settings" android:title="@string/voice_settings_title"
+   <!--  <Preference android:key="voice_settings" android:title="@string/voice_settings_title"
 		android:persistent="false">
 		<intent android:action="android.intent.action.MAIN"
 			android:targetPackage="com.mediatek.engineermode"
 			android:targetClass="com.mediatek.engineermode.voicesettings.VoiceList" />
+	</Preference> -->
+	<Preference android:key="usb_checker_enabler" android:title="@string/usb_checker_enabler"
+		android:persistent="false">
+		<intent android:targetPackage="com.mediatek.usbchecker"
+		        android:targetClass="com.mediatek.usbchecker.EnablerActivity" />
 	</Preference>
+
+    <Preference android:key="moms" android:title="@string/moms_title"
+		android:persistent="false">
+		<intent android:action="android.intent.action.MAIN"
+			android:targetPackage="com.mediatek.engineermode"
+			android:targetClass="com.mediatek.engineermode.moms.MoMs" />
+	</Preference>
+
 </PreferenceScreen>

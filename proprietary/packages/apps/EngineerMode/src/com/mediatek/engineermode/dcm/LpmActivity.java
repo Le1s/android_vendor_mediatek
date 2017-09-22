@@ -42,6 +42,7 @@ import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -49,8 +50,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.mediatek.engineermode.FeatureSupport;
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 import com.mediatek.engineermode.ShellExe;
 
 import java.io.File;
@@ -98,7 +99,11 @@ public class LpmActivity extends Activity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dcm_lpm);
+        if (FeatureSupport.isSupported(FeatureSupport.FK_MTK_WEARABLE_PLATFORM)) {
+            setContentView(R.layout.dcm_lpm_w);
+        } else {
+            setContentView(R.layout.dcm_lpm);
+        }
 
         mSpnClocks = (Spinner) findViewById(R.id.dcm_lpm_ref_clk);
         mSpnSignals = (Spinner) findViewById(R.id.dcm_lpm_signals);
@@ -274,7 +279,7 @@ public class LpmActivity extends Activity implements OnClickListener {
             showDialog(getString(R.string.dcm_text_help), output);
             break;
         default:
-            Xlog.w(TAG, "onClick() Unknown view id: " + idx);
+            Log.w("@M_" + TAG, "onClick() Unknown view id: " + idx);
             break;
         }
     }
@@ -287,16 +292,16 @@ public class LpmActivity extends Activity implements OnClickListener {
 
     private String execCommand(String cmd) {
          int ret = -1;
-         Xlog.d(TAG, "[cmd]:" + cmd);
+         Log.d("@M_" + TAG, "[cmd]:" + cmd);
          //Toast.makeText(this, cmd, Toast.LENGTH_LONG).show();
          try {
              ret = ShellExe.execCommand(cmd);
          } catch (IOException e) {
-             Xlog.e(TAG, "IOException: " + e.getMessage());
+             Log.e("@M_" + TAG, "IOException: " + e.getMessage());
          }
          if (ret == 0) {
              String outStr = ShellExe.getOutput();
-             Xlog.d(TAG, "[output]: " + outStr);
+             Log.d("@M_" + TAG, "[output]: " + outStr);
              return outStr;
          }
          return null;

@@ -41,12 +41,12 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.mediatek.xlog.Xlog;
 
 import java.util.HashMap;
 
@@ -89,12 +89,12 @@ public class TsRateReport extends Activity {
 
         @Override
         protected void onDraw(Canvas canvas) {
-            Xlog.v(TAG, "-->onDraw");
+            Log.v("@M_" + TAG, "-->onDraw");
             int textsize = 15;
             canvas.drawText("Pointer number detected: "
                     + String.valueOf(mPointerNumDetected), 3, textsize + 10,
                     getPaint(4, textsize));
-            Xlog.v(TAG, "Pointer number detected: " + mPointerNumDetected);
+            Log.v("@M_" + TAG, "Pointer number detected: " + mPointerNumDetected);
 
             for (PointerData pt : mPtsStatus.values()) {
                 pt.setUTimeStamp();
@@ -150,7 +150,7 @@ public class TsRateReport extends Activity {
 
         @Override
         public boolean onTouchEvent(MotionEvent event) {
-            Xlog.v(TAG, "-->onTouchEvent");
+            Log.v("@M_" + TAG, "-->onTouchEvent");
             int action = event.getAction();
             int actionCode = action & MotionEvent.ACTION_MASK;
             int idx = action >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
@@ -175,7 +175,7 @@ public class TsRateReport extends Activity {
             }
 
             int pointCt = event.getPointerCount();
-            Xlog.v(TAG, "Pointer counts = " + pointCt + " mPtsStatus.size()= "
+            Log.v("@M_" + TAG, "Pointer counts = " + pointCt + " mPtsStatus.size()= "
                     + mPtsStatus.size());
 
             for (int i = 0; i < pointCt; i++) {

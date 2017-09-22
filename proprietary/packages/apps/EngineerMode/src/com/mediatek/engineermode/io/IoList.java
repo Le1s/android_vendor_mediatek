@@ -58,7 +58,7 @@ public class IoList extends Activity implements OnItemClickListener {
         ListView listView = (ListView) findViewById(R.id.ListView_Io);
         // if(TP_listView == null)
         // {
-        // Xlog.w("IO", "clocwork worked...");
+        // Log.w("@M_" + "IO", "clocwork worked...");
         // //not return and let exception happened.
         // }
         ArrayList<String> items = new ArrayList<String>();

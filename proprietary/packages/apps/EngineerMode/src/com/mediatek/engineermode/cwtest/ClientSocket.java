@@ -37,7 +37,7 @@
 
 package com.mediatek.engineermode.cwtest;
 
-import com.mediatek.xlog.Xlog;
+import android.util.Log;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -79,7 +79,7 @@ public class ClientSocket {
      *            Callback when message received
      */
     public ClientSocket(CWTest callBack) {
-        Xlog.v(TAG, "ClientSocket constructor");
+        Log.v("@M_" + TAG, "ClientSocket constructor");
         this.mCallBack = callBack;
         mCommandQueue = new LinkedBlockingQueue<String>();
         mDataBuffer = new byte[BUFFER_SIZE];
@@ -90,9 +90,9 @@ public class ClientSocket {
                 while (true) {
                     try {
                         mCommand = mCommandQueue.take();
-                        Xlog.v(TAG, "Queue take command:" + mCommand);
+                        Log.v("@M_" + TAG, "Queue take command:" + mCommand);
                     } catch (InterruptedException ie) {
-                        Xlog.w(TAG,
+                        Log.w("@M_" + TAG,
                                 "Take command interrupted:" + ie.getMessage());
                         return;
                     }
@@ -111,11 +111,11 @@ public class ClientSocket {
                             while ((count = mDataInput.read(mDataBuffer)) != -1) {
                                 line++;
                                 result = new String(mDataBuffer, 0, count);
-                                Xlog.v(TAG, "line: " + line + " sentence: "
+                                Log.v("@M_" + TAG, "line: " + line + " sentence: "
                                         + result);
                                 if (result.contains("PMTK817")) {
                                     mResponse = result;
-                                    Xlog.v(TAG, "Get response from MNL");
+                                    Log.v("@M_" + TAG, "Get response from MNL");
                                     break;
                                 }
                                 if (line > LINE_OUT_SIZE) {
@@ -124,13 +124,13 @@ public class ClientSocket {
                                 }
                             }
                         } catch (IOException e) {
-                            Xlog.w(TAG,
+                            Log.w("@M_" + TAG,
                                     "sendCommand IOException: "
                                             + e.getMessage());
                             mResponse = "ERROR";
                         }
                     } else {
-                        Xlog.d(TAG, "out is null");
+                        Log.d("@M_" + TAG, "out is null");
                         mResponse = "ERROR";
                     }
                     if (null != ClientSocket.this.mCallBack) {
@@ -148,9 +148,9 @@ public class ClientSocket {
      * Start client socket and connect with server.
      */
     private void openClient() {
-        Xlog.v(TAG, "enter startClient");
+        Log.v("@M_" + TAG, "enter startClient");
         if (null != mClientSocket && mClientSocket.isConnected()) {
-            Xlog.d(TAG, "localSocket has started, return");
+            Log.d("@M_" + TAG, "localSocket has started, return");
             return;
         }
         try {
@@ -159,9 +159,9 @@ public class ClientSocket {
             mDataOutput = new DataOutputStream(mClientSocket.getOutputStream());
             mDataInput = new DataInputStream(mClientSocket.getInputStream());
         } catch (UnknownHostException e) {
-            Xlog.w(TAG, e.getMessage());
+            Log.w("@M_" + TAG, e.getMessage());
         } catch (IOException e) {
-            Xlog.w(TAG, e.getMessage());
+            Log.w("@M_" + TAG, e.getMessage());
         }
     }
 
@@ -169,7 +169,7 @@ public class ClientSocket {
      * Stop client socket and disconnect with server.
      */
     private void closeClient() {
-        Xlog.v(TAG, "enter closeClient");
+        Log.v("@M_" + TAG, "enter closeClient");
         try {
             if (null != mDataInput) {
                 mDataInput.close();
@@ -181,7 +181,7 @@ public class ClientSocket {
                 mClientSocket.close();
             }
         } catch (IOException e) {
-            Xlog.w(TAG, "closeClient IOException: " + e.getMessage());
+            Log.w("@M_" + TAG, "closeClient IOException: " + e.getMessage());
         } finally {
             mClientSocket = null;
             mDataInput = null;
@@ -193,9 +193,9 @@ public class ClientSocket {
      * Finalise communicate with socket server.
      */
     public void endClient() {
-        Xlog.v(TAG, "enter endClient");
+        Log.v("@M_" + TAG, "enter endClient");
         mSendThread.interrupt();
-        Xlog.v(TAG, "Queue remaining:" + mCommandQueue.size());
+        Log.v("@M_" + TAG, "Queue remaining:" + mCommandQueue.size());
         closeClient();
         mCallBack = null;
     }
@@ -207,21 +207,21 @@ public class ClientSocket {
      *            Command need to send
      */
     public void sendCommand(String command) {
-        Xlog.v(TAG, "enter sendCommand");
+        Log.v("@M_" + TAG, "enter sendCommand");
         String sendComm = "$" + command + "*" + calcCS(command);
-        Xlog.v(TAG, "Send command: " + sendComm);
+        Log.v("@M_" + TAG, "Send command: " + sendComm);
         if (!mSendThread.isAlive()) {
-            Xlog.v(TAG, "sendThread is not alive");
+            Log.v("@M_" + TAG, "sendThread is not alive");
             mSendThread.start();
         }
         if (command.equals(sendComm) || mCommandQueue.contains(sendComm)) {
-            Xlog.v(TAG, "send command return because of hasn't handle the same");
+            Log.v("@M_" + TAG, "send command return because of hasn't handle the same");
             return;
         }
         try {
             mCommandQueue.put(sendComm);
         } catch (InterruptedException ie) {
-            Xlog.w(TAG, "send command interrupted:" + ie.getMessage());
+            Log.w("@M_" + TAG, "send command interrupted:" + ie.getMessage());
         }
     }
 

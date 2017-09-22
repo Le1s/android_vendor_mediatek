@@ -45,6 +45,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -58,7 +59,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.mediatek.engineermode.R;
 import com.mediatek.engineermode.ShellExe;
-import com.mediatek.xlog.Xlog;
 
 public class SleepModeActivity extends Activity implements OnClickListener,
         OnCheckedChangeListener  {
@@ -173,7 +173,7 @@ public class SleepModeActivity extends Activity implements OnClickListener,
                 mSleepMode = SLEEP_MODE_SHUT_DOWN;
             } else {
                 mSleepMode = -1;
-                Xlog.d(TAG, "cat suspend_mode:" + output);
+                Log.d("@M_" + TAG, "cat suspend_mode:" + output);
             }
         }
 
@@ -297,7 +297,7 @@ public class SleepModeActivity extends Activity implements OnClickListener,
             }
             break;
         default:
-            Xlog.w(TAG, "unknown view id: " + id);
+            Log.w("@M_" + TAG, "unknown view id: " + id);
             break;
         }
     }
@@ -323,16 +323,16 @@ public class SleepModeActivity extends Activity implements OnClickListener,
 
     private String execCommand(String cmd) {
          int ret = -1;
-         Xlog.d(TAG, "[cmd]:" + cmd);
+         Log.d("@M_" + TAG, "[cmd]:" + cmd);
          //Toast.makeText(this, cmd, Toast.LENGTH_SHORT).show();
          try {
              ret = ShellExe.execCommand(cmd);
          } catch (IOException e) {
-             Xlog.e(TAG, "IOException: " + e.getMessage());
+             Log.e("@M_" + TAG, "IOException: " + e.getMessage());
          }
          if (ret == 0) {
              String outStr = ShellExe.getOutput();
-             Xlog.d(TAG, "[output]: " + outStr);
+             Log.d("@M_" + TAG, "[output]: " + outStr);
              return outStr;
          }
          return null;
@@ -358,7 +358,7 @@ public class SleepModeActivity extends Activity implements OnClickListener,
         try {
             timerVal = Integer.parseInt(timerValStr);
         } catch (NumberFormatException e) {
-            Xlog.d(TAG, "NumberFormatException: parse timerVal fail");
+            Log.d("@M_" + TAG, "NumberFormatException: parse timerVal fail");
             msg = getString(R.string.sleep_mode_invalid_timer_val);
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             return false;
@@ -392,7 +392,7 @@ public class SleepModeActivity extends Activity implements OnClickListener,
             showDialog(getString(R.string.sleep_mode_setting), output);
             break;
         default:
-            Xlog.w(TAG, "unknown view id: " + id);
+            Log.w("@M_" + TAG, "unknown view id: " + id);
             break;
         }
     }

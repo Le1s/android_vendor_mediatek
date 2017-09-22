@@ -15,7 +15,7 @@
 	<Preference android:key="fm_receiver" android:title="@string/fm_receiver"
 		android:persistent="false">
 		<intent android:action="android.intent.action.MAIN"
-			android:targetPackage="com.mediatek.fmradio" android:targetClass="com.mediatek.fmradio.FmRadioEmActivity" />
+			android:targetPackage="com.android.fmradio" android:targetClass="com.android.fmradio.FmEmActivity" />
 	</Preference>
 	<Preference android:key="fm_transmitter" android:title="@string/fm_transmitter"
 		android:persistent="false">
@@ -42,7 +42,7 @@
             android:targetPackage="com.mediatek.nfc.dta"
                        android:targetClass="com.mediatek.nfc.dta.DeviceTestApp" />
     </Preference>
-	<Preference android:key="wifi" android:title="@string/wifi"
+	<!-- <Preference android:key="wifi" android:title="@string/wifi"
 		android:persistent="false">
 		<intent android:action="android.intent.action.MAIN"
 			android:targetPackage="com.mediatek.engineermode"
@@ -54,7 +54,7 @@
 		<intent android:action="android.intent.action.MAIN"
 			android:targetPackage="com.mediatek.engineermode"
 			android:targetClass="com.mediatek.engineermode.wifi.WifiTestSetting" />
-	</Preference>
+	</Preference> -->
 	<Preference android:key="wfd_settings" android:title="@string/wfd_settings"
 		android:persistent="false">
 		<intent android:action="android.intent.action.MAIN"
@@ -66,5 +66,11 @@
         <intent android:action="android.intent.action.MAIN"
             android:targetPackage="com.mediatek.engineermode"
             android:targetClass="com.mediatek.engineermode.wps.WpsNfcList" />
+    </Preference>
+    <Preference android:key="bt_profile" android:title="@string/BT_profile"
+        android:persistent="false">
+        <intent android:action="android.intent.action.MAIN"
+            android:targetPackage="com.mediatek.gattdemo"
+            android:targetClass="com.mediatek.gattdemo.MainActivity" />
     </Preference>
 </PreferenceScreen>

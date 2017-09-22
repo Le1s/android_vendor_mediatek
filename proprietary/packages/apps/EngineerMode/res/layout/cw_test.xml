@@ -11,7 +11,7 @@
 
         <TextView
             android:id="@+id/cw_test_times"
-            android:layout_width="150dip"
+            android:layout_width="220dip"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3pt"
             android:text="@string/cw_test_times_tx" >
@@ -19,8 +19,9 @@
 
         <EditText
             android:id="@+id/cw_test_times_content"
-            android:layout_width="120dip"
+            android:layout_width="100dip"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:numeric="integer" >
         </EditText>
     </LinearLayout>
@@ -33,7 +34,7 @@
 
         <TextView
             android:id="@+id/cw_test_interval"
-            android:layout_width="150dip"
+            android:layout_width="220dip"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3pt"
             android:text="@string/cw_test_interval_tx" >
@@ -41,8 +42,9 @@
 
         <EditText
             android:id="@+id/cw_test_interval_content"
-            android:layout_width="120dip"
+            android:layout_width="100dip"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:numeric="integer" >
         </EditText>
     </LinearLayout>

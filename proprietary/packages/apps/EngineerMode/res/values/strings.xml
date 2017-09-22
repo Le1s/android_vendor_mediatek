@@ -46,12 +46,12 @@
     <string name="rf_desense_test">RF De-sense Test</string>
 
     <string name="fast_dormancy">Fast Dormancy</string>
-    <string name="nfc_6605">NFC(MT6605)</string>
+    <string name="nfc_6605">NFC(6605)</string>
     <string name="nfc_3110">NFC(MSR3110)</string>
     <string name="fm_receiver">FM Receiver</string>
     <string name="fm_transmitter">FM Transmitter</string>
 
-    <string name="display">Display</string>
+
     <string name="io">IO</string>
     <string name="touchscreen">TouchScreen</string>
     <string name="sd_card_test">SD Card Test</string>
@@ -71,6 +71,7 @@
 
 
     <string name="location_basedservice">Location Based Service</string>
+    <string name="fused_location_provider">Fused Location Provider</string>
     <string name="auto_dialer">Auto Dialer</string>
 
     <string name="system_logger">System Logger</string>
@@ -222,36 +223,8 @@
     <!-- TouchScreen end -->
 
 
-    <!-- Display start -->
-    <string name="Display">Display</string>
-    <string name="Display_lcd_Text">Back Light</string>
-    <string name="Display_lcd_on">LCD ON</string>
-    <string name="Display_lcd_off">LCD OFF</string>
-    <string name="Display_lcm_Text">LCM Controller</string>
-    <string name="Display_lcm_on">LCM ON</string>
-    <string name="Display_lcm_off">LCM OFF</string>
-    <string name="Display_set_Text">PWM duty: 0~63</string>
-    <string name="Display_set">Set</string>
-    <string name="Display_Edit_Value">0</string>
-    <string name="Display_input_invalid">Error: please input number between 0 and 63.</string>
-    <string name="Display_backlight_on_ok">Set LCD backlight ON success.</string>
-    <string name="Display_backlight_on_fail">Set LCD backlight ON Failed.</string>
-    <string name="Display_backlight_off_ok">Set LCD backlight OFF success.</string>
-    <string name="Display_backlight_off_fail">Set LCD backlight OFF Failed.</string>
-    <string name="Display_controller_on_ok">Set LCD controller ON success.</string>
-    <string name="Display_controller_on_fail">Set LCD controller ON Failed.</string>
-    <string name="Display_controller_off_ok">Set LCD controller OFF success.</string>
-    <string name="Display_controller_off_fail">Set LCD controller OFF Failed.</string>
-    <string name="Display_set_ok">Set Success.</string>
-    <string name="Display_set_fail">Set Failed.</string>
-
-    <!-- Display end -->
-
-
     <!-- Memory start -->
     <string name="memory">Memory</string>
-    <string name="memory_item_emmc">EMMC</string>
-    <string name="memory_item_nand">Nand Flash</string>
     <string name="memory_item_emi">EMI Registers</string>
     <string name="memory_title_flash">Flash</string>
     <string name="memory_title_emi">EMI Register</string>
@@ -267,8 +240,8 @@
     Feature name: Memory\n\n
     Used to check flash, file system and partition information.\n\n
     It supports EMMC and NAND flash.\n\n
-    There are 3 tabs for detailed information:\n\n
-    flash common information, file system information and partition information.\n\n
+    There are 2 tabs for detailed information:\n\n
+    file system information and partition information.\n\n
     </string>
     <!-- Memory end -->
 
@@ -530,6 +503,11 @@
     <!-- HQA.CPUSTRESS test end -->
 
     <!-- Audio start -->
+    <string name="Audio_AudioCommand">AudioCommand</string>
+    <string name="Audio_AudioParameter">AudioParameter</string>
+    <string name="Audio_Set">Set</string>
+    <string name="Audio_Get">Get</string>
+    <string name="Audio_ReceiveMsg">The Receive msg is:</string>
     <string name="Audio">Audio</string>
     <string name="Audio_ModeSetting">Audio_ModeSetting</string>
     <string name="Audio_ModeSetting_TextView">Value is 0~255</string>
@@ -539,6 +517,7 @@
     <string name="Audio_SpEnhancement_TextView">Value is 0~100</string>
     <string name="Audio_SpEnhancement_EditText">0</string>
     <string name="Audio_SpEnhancement_Button">Set</string>
+    <string name="Audio_SpEnhancement_Vol">Volume Index 3</string>
     <string name="Audio_DebugInfo">Audio_DebugInfo</string>
     <string name="Audio_DebugSession">Audio_DebugSession</string>
     <string name="Audio_MagiAsr_Text">Enable using Sound Recorder to verify MagiASR feature</string>
@@ -678,7 +657,7 @@
     <string name="wifi_item_dpd">DPD Calibration</string>
     <string name="wifi_item_tem">Temperature Sensor</string>
     <string name="wifi_dialog_warn">Error</string>
-    <string name="wifi_dialog_warn_message">Please turn off Wi-Fi first</string>
+    <string name="wifi_dialog_warn_message">Please make sure:\n1. Wi-Fi is off.\n2. Operation is too frequent, please try later.</string>
     <string name="wifi_dialog_init">Progress</string>
     <string name="wifi_dialog_init_message">Please wait for device to initialize ...</string>
     <string name="wifi_dialog_fail">Error</string>
@@ -776,6 +755,7 @@
     <string name="wifi_bw_advanced_cbw">Channel BW:</string>
     <string name="wifi_bw_advanced_dbw">Data BW:</string>
     <string name="wifi_bw_advanced_prim_ch">Primary Ch:</string>
+    <string name="wifi_cert_speedup_cpu_freq">Speed up CPU freq for cert</string>
     <!-- WiFi end -->
 
     <!-- CTIA test start -->
@@ -837,6 +817,18 @@
     <string name="NetworkInfo_3GUl2EmUrlcEventStatusIndStruct">3GUl2EmUrlcEventStatusIndStruct</string>
     <string name="NetworkInfo_3GUl2EmPeriodicBlerReportInd">3GUl2EmPeriodicBlerReportInd</string>
     <string name="NetworkInfo_xGCsceEMNeighCellSStatusInd">XGCsceEMNeighCellSStatusInd</string>
+    <string name="NetworkInfo_1xRTT_Radio">1xRTT Radio</string>
+    <string name="NetworkInfo_1xRTT_Info">1xRTT Info</string>
+    <string name="NetworkInfo_1xRTT_SCH_Info">1xRTT SCHInfo</string>
+    <string name="NetworkInfo_1xRTT_Statistics">1xRTT Statistics</string>
+    <string name="NetworkInfo_1xRTT_Serving">1xRTT Serving/Neighbor</string>
+    <string name="NetworkInfo_EVDO_Serving_Info">EVDO Serving_Info</string>
+    <string name="NetworkInfo_EVDO_Active_Set">EVDO Active Set</string>
+    <string name="NetworkInfo_EVDO_Candidate_Set">EVDO Candidate Set</string>
+    <string name="NetworkInfo_EVDO_Neighbor_Set">EVDO Neighbor Set</string>
+    <string name="NetworkInfo_EVDO_FL">EVDO FL</string>
+    <string name="NetworkInfo_EVDO_RL">EVDO RL</string>
+    <string name="NetworkInfo_EVDO_State">EVDO State</string>
     <!-- For LGE  -->
     <string name="NetworkInfo_3GSlceVoice">3GSpeechCodec</string>
     <string name="NetworkInfo_3GSecurityConfiguration">3GSecurityConfiguration</string>
@@ -953,6 +945,9 @@
     <string name="BT_serial_port_baudrate">Serial port baudrate</string>
     <string name="BT_serial_port_number">Serial port number</string>
     <string name="BT_start">Start</string>
+    
+    <!-- BLE GATT Profile test -->
+    <string name="BT_profile">GattProfile</string>
 
     <!-- No signal Rx test part -->
     <string name="BTNSRXTitle">Non-signaling RX Test</string>
@@ -1147,6 +1142,11 @@
     <string name="modem_test_operator">Operator</string>
     <string name="modem_test_factory">Factory</string>
     <string name="modem_test_integrity_off">Integrity Off</string>
+    <string name="modem_test_c2k">C2K Test Mode</string>
+    <string name="modem_test_unlock">Unlock Test SIM</string>
+    <string name="modem_test_tdddataonly">LTE TDD data only lab test</string>
+    <string name="modem_test_unlock_info">It is ONLY for CT unlock USIM/SIM card test, please switch off for other test cases!</string>
+    <string name="modem_test_tdddataonly_info">It is ONLY for LTE Instrument TDD data only test, please switch off for other test cases!</string>
     <!-- Modem test end -->
 
 
@@ -1202,6 +1202,12 @@
     <string name="USB_IF_OTG20_EXIT_Text">EXIT</string>
     <string name="USB_IF_OTG20_START_Text">START</string>
     <string name="USB_IF_OTG20_STOP_Text">STOP</string>
+
+    <string name="usb_phy_tuning">USB PHY Tuning</string>
+    <string name="usb_phy_submit">Submit</string>
+    <string name="usb_phy_driving_capability">USB_DRIVING_CAPABILITY</string>
+    <string name="usb_phy_hstx_srctrl">RG_USB20_HSTX_SRCTRL</string>
+    <string name="usb_phy_intr_en">RG_USB20_INTR_EN</string>
     <!-- USB end -->
 
 
@@ -1237,6 +1243,23 @@
     <string name="BandSel_UMTS_BAND_IX">WCDMA-1800</string>
     <string name="BandSel_UMTS_BAND_X">WCDMA-1700</string>
     <string name="BandSel_RESET">Reset to default</string>
+    <string name="BandSel_CDMA">CDMA Mode</string>
+    <string name="BandSel_CDMA_BAND_0">Band Class 0(North American Celluar Band)</string>
+    <string name="BandSel_CDMA_BAND_1">Band Class 1(North American PCS band)</string>
+    <string name="BandSel_CDMA_BAND_2">Band Class 2(TACS band)</string>
+    <string name="BandSel_CDMA_BAND_3">Band Class 3(JTACS band)</string>
+    <string name="BandSel_CDMA_BAND_4">Band Class 4(Korean PCS band)</string>
+    <string name="BandSel_CDMA_BAND_5">Band Class 5(NMT-450 Band)</string>
+    <string name="BandSel_CDMA_BAND_6">Band Class 6(IMT-2000 band)</string>
+    <string name="BandSel_CDMA_BAND_7">Band Class 7(North American 700Mhz Celluar Band)</string>
+    <string name="BandSel_CDMA_BAND_8">Band Class 8 (1800-MHz Band)</string>
+    <string name="BandSel_CDMA_BAND_9">Band Class 9 (900-MHz Band)</string>
+    <string name="BandSel_CDMA_BAND_10">Band Class 10 (Secondary 800 MHz Band)</string>
+    <string name="BandSel_CDMA_BAND_11">Band Class 11 (400 MHz European PAMR Band</string>
+    <string name="BandSel_CDMA_BAND_12">Band Class 12 (800 MHz PAMR Band)</string>
+    <string name="BandSel_CDMA_BAND_13">Band Class 13 (2.5 GHz IMT-2000 Extension Band)</string>
+    <string name="BandSel_CDMA_BAND_14">Band Class 14 (US PCS 1.9GHz Band) </string>
+    <string name="BandSel_CDMA_BAND_15">Band Class 15 (AWS Band)</string>
     <!-- Band select end -->
 
 
@@ -1620,16 +1643,32 @@
 	<!-- Configure check 2.0 self test start -->
 	  <string name="configure_check2_self_test">CTSC(自测配置检查)</string>
 	<!-- Configure check 2.0 self test end -->
-	
+
+	<!-- CT Configure check test start -->
+	  <string name="CT_configure_check">CT CTSC(配置检查)</string>
+	<!-- CT Configure check test end -->
+
+	<!-- UsbChecker enabler start -->
+		<string name="usb_checker_enabler">UsbChecker Enabler</string>
+	<!-- UsbChecker enabler end -->
+
 	<!-- CMCC FT Pre Check start -->
       <string name="cmcc_ftprecheck">CMCC FT Pre-Check</string>
     <!-- CMCC FT Pre Check end -->
 	
+    <!-- MDML Sample start -->
+    <string name="mdml_sample">MDML Sample</string>
+    <!-- MDML Sample end -->
+
     <!-- Network select start -->
-	  <string name="network_select">Network Selecting</string>
-	  <string name="cdma_network_select">CDMA Network Select</string>
-	  <string name="query_preferred_fail">Query/Set Network Mode Failed!</string>
-	  <string name="network_mode_set_label">Set preferred network type:</string>
+    <string name="network_select">Network Selecting</string>
+    <string name="cdma_network_select">CDMA Network Select</string>
+    <string name="query_preferred_fail">Query/Set Network Mode Failed!</string>
+    <string name="network_mode_set_label">Set preferred network type:</string>
+    <string name="network_mode_set_hint">To set "CDMA only", please enter Settings/Enable 4G and disable it.</string>
+    <string name="disable_eHRPD">Disable eHRPD</string>
+    <string name="query_eHRPD_state_fail">query fail</string>
+    <string name="set_eHRPD_state_fail">set fail</string>
 	<!-- Network select end -->
 
     <!-- HQA NFC Start -->
@@ -1823,6 +1862,7 @@
     <string name="camera_custom_param_hint_delimiter">delimiter is ;</string>
     <string name="auto_clibr_camera_sensor">Camera Sensor</string>
     <string name="auto_clibr_camera_sensor_main">Main</string>
+    <string name="auto_clibr_camera_sensor_main2">Main2</string>
     <string name="auto_clibr_camera_sensor_sub">Sub</string>
     <string name="camera_key_selected_sensor_id">key_selected_sensor_id</string>
     <string name="auto_clibr_shutter_delay">Shutter Delay</string>
@@ -1865,6 +1905,8 @@
     <string name="capture_sensor_range_tip">please input right sensor gain!</string>
     <string name="auto_clibr_iso_interpolation">ISO interpolation</string>
     <string name="auto_clibr_iso_inter_ratio">Ratio(%)</string>
+    <string name="auto_clibr_scene_mode">Scene mode</string>
+    <string name="auto_clibr_flash_calibration">Flash Calibration</string>
     <!-- Auto calibration end -->
     <!-- camera mclk start -->
     <string name="desense_camera_txt">MCLOCK Driving Current</string>
@@ -2035,10 +2077,13 @@
     <string name="rf_desense_tx_test_gsm">GSM</string>
     <string name="rf_desense_tx_test_td">TD-SCDMA</string>
     <string name="rf_desense_tx_test_fd">WCDMA</string>
+    <string name="rf_desense_tx_test_cdma">CDMA</string>
     <string name="rf_desense_band">Band</string>
     <string name="rf_desense_modulation">Modulation</string>
     <string name="rf_desense_modulation_gmsk">GMSK</string>
     <string name="rf_desense_modulation_edge">EDGE</string>
+    <string name="rf_desense_modulation_1x">1X</string>
+    <string name="rf_desense_modulation_evdo">EVDO</string>
     <string name="rf_desense_channel">Channel (ARFCN)</string>
     <string name="rf_desense_channel_3g">Channel (UARFCN)</string>
     <string name="rf_desense_power">Power Level</string>
@@ -2064,14 +2109,6 @@
     <!-- RF de-sense test end -->
 
     <string name="hspa_info_title">HSPA Info</string>
-
-    <!-- Lcm Start -->
-    <string name="hqa_lcm_name">LCM</string>
-    <string name="hqa_lcm_tm_status">TM Status</string>
-    <string name="hqa_lcm_cycle_tip">LCM Cycle (5~55) </string>
-    <string name="hqa_lcm_mipi_tip">LCM MIPI Clock (Less Than 1000) </string>
-    <string name="hqa_lcm_set">Set</string>
-    <!-- Lcm End -->
 
     <!-- mcdi setting start -->
     <string name="mcdi_setting_label">MCDI Setting</string>
@@ -2241,6 +2278,12 @@
     <string name="wfd_wifi_info">Wi-Fi info</string>
     <string name="wfd_latency">WFD latency</string>
     <string name="wfd_profiling_on">Profiling on screen</string>
+    <string name="wfd_vdo_enable_portrait_resolution">Enable Portrait Resolution</string>
+    <string name="wfd_iot_property">IOT Property</string>   
+    <string name="wfd_iot_scenario_mode">Enable scenario mode</string>   
+    <string name="wfd_iot_drop_dummy">Enable drop dummy-nal</string>
+    <string name="wfd_iot_av_sync">Enable av sync</string>
+    <string name="wfd_iot_set">Set</string>
     <!--wfd end -->
 
     <!-- World Phone start -->
@@ -2331,6 +2374,12 @@
     <string name="device_register">Device Register</string>
     <string name="ct_device_register">Device Register</string>
     <!-- Device Register end -->
+
+	<!-- ESN Track start -->
+    <string name="esn_track_title">ESN Track</string>
+    <string name="esn_track_pref_title">Send ESN Track SMS</string>
+
+    <!-- ESN Track end -->
 
     <string name="modem_warning_title">Modem Warning Setting</string>
     <string name="modem_warning">Enable Yellow Screen for Modem Warning</string>
@@ -2446,7 +2495,6 @@
     <string name="wps_dialog_warn_message">Please plug out battery and reboot</string>
     <string name="wps_dialog_ok">OK</string>
     <!-- wps nfc end -->
-    <string name="thermal_stress_test">Thermal Stress Test</string>
     <!-- Low power debug -->
     <string name="low_power_debug">Low Power Protection Debug</string>
     <string name="low_power_stop_txt">low_battery_protect_stop</string>
@@ -2528,11 +2576,21 @@
     <string name="ims_category_call">Call</string>
     <string name="ims_category_sms">SMS</string>
     <string name="ims_category_bearer">Bearer</string>
+    <string name="ims_category_ussd">USSD</string>
+    <string name="volte_set_hint">VOLTE Setting</string>
+    <string name="volte_set_off_string">Default setting</string>
+    <string name="volte_set_on_string">CMW500 setting</string>
+    <string name="volte_set_string">Set</string>
+    <string name="volte_set_ims_apn">volte_set_ims_apn</string>
+    <string name="volte_set_check">volte_set_check</string>
+    <string name="ims_category_pcscf">PCSCF</string>
     <!-- IMS end -->
 
     <!-- ATCI start -->
     <string name="ATCI_title">ATCI</string>
-    <string name="ATCI_enable">ENABLE ATCI</string>
+    <string name="ATCI_enable">Enable ATCI Once</string>
+    <string name="ATCI_enable_always">Always enable ATCI</string>
+    <string name="ATCI_disable">Disable ATCI</string>
     <!-- ATCI end -->
 
     <!-- Misc start -->
@@ -2551,4 +2609,137 @@
     <string name="video_clearmotion_customize">ClearMotion Customize</string>
     <string name="video_clearmotion_demo">ClearMotion Demo</string>
     <!-- Video end -->
+
+    <!-- Security Status Start -->
+    <string name="security_status">2G/3G/4G Security Status</string>
+    <string name="security_status_2g">2G</string>
+    <string name="security_status_3g">3G</string>
+    <string name="security_status_4g">4G</string>
+    <string name="security_status_2g_cipher">Ciphering Algorithm (CS):</string>
+    <string name="security_status_2g_gprs">GPRS Encryption Algorithm (PS):</string>
+    <string name="security_status_3g_cipher">Ciphering Algorithm:</string>
+    <string name="security_status_3g_integrity">Integrity Algorithm:</string>
+    <string name="security_status_4g_enas_cipher">ENAS Ciphering Algorithm:</string>
+    <string name="security_status_4g_enas_integrity">ENAS Integrity Algorithm:</string>
+    <string name="security_status_4g_errc_cipher">ERRC Ciphering Algorithm:</string>
+    <string name="security_status_4g_errc_integrity">ERRC Integrity Algorithm:</string>
+    <!-- Security Status End -->
+
+    <!-- Antenna Diversity Start -->
+    <string name="antenna_diversity">3G/4G Antenna Diversity</string>
+    <string name="antenna_diversity_3g">3G Serving Cell</string>
+    <string name="antenna_diversity_4g">4G Serving Cell</string>
+    <string name="antenna_diversity_prx">PRX On</string>
+    <string name="antenna_diversity_drx">DRX On</string>
+    <string name="antenna_diversity_prx_drx">PRX/DRX On</string>
+    <string name="antenna_diversity_ant0">ANT0</string>
+    <string name="antenna_diversity_ant1">ANT1</string>
+    <string name="antenna_diversity_combined">Combined</string>
+    <string name="antenna_diversity_rscp">RSCP</string>
+    <string name="antenna_diversity_pssi">RSSI</string>
+    <string name="antenna_diversity_rsrp">RSRP</string>
+    <string name="antenna_diversity_rsrq">RSRQ</string>
+    <string name="antenna_diversity_rssi">RSSI</string>
+    <string name="antenna_diversity_sinr">SINR</string>
+    <string name="antenna_diversity_default">---</string>
+    <!-- Antenna Diversity End -->
+
+    <!-- AMR Start -->
+    <string name="amr_wb">AMR-WB on/off</string>
+    <string name="amr_wb_gsm">Enable GSM AMR-WB</string>
+    <string name="amr_wb_umts">Enable UMTS AMR-WB</string>
+    <!-- AMR End -->
+    <string name="notice_wo_emsvr">The gmo user/userdebug load do not support the item, 
+                     please use eng load or non-gmo user/userdebug load.</string>
+    <string name="sensor_hub_test">Sensor Hub Test</string>
+    <string name="smart_motion">Smart Motion</string>
+    <!-- C2K-IR setting -->
+    <string name="c2k_ir_setting">C2K IR Settings</string>
+    <string name="c2k_ir_setting_mode">C2K IR network mode</string>
+    <string name="c2k_ir_done">Done</string>
+    <string name="c2k_ir_dialog">Notice</string>
+    <string name="c2k_ir_notice">The new selection will take effect after you reboot the device.</string>
+    <string name="c2k_ir_integrity_off">WCDMA Integrity Check Off</string>
+
+    <!-- ViLTE start -->
+    <string name="vilte_title">ViLTE</string>
+    <string name="vilte_ut_support_title">Enable loopback mode</string>
+    <string name="vilte_ut_support_enable">Enable</string>
+    <string name="vilte_ut_support_disable">Disable</string>
+    <string name="vilte_video_fps_title">Set FPS</string>
+    <string name="vilte_video_fps_set">OK</string>
+    <string name="vilte_dump_data_title">Dump data</string>
+    <string name="vilte_source_bitstream_title">Source bitstream</string>
+    <string name="vilte_sink_bitstream_title">Sink bitstream</string>
+    <!-- ViLTE end -->
+    <string name="modem_img_switch">Rainer modem img swich</string>
+    <string name="modem_img_selected">Select modem img</string>
+
+    <!-- SBP start -->
+    <string name="sbp_title">SBP</string>
+    <string name="sbp_id">SBP ID</string>
+    <string name="sbp_feature">SBP feature</string>
+    <string name="sbp_data">SBP feature data</string>
+    <!-- SBP end -->
+
+    <!-- CT Test SIM card start -->
+    <string name="test_card_title">CT Test SIM card for 4G data only</string>
+    <!-- CT Test SIM card end -->
+
+    <!-- U3 PHY Switch start -->
+    <string name="u3_phy_switch_title">U3 PHY Switch</string>
+    <string name="u3_phy_switch_hint">Please unplug USB cable before setting</string>
+    <string name="u3_phy_switch_ap">AP controls U3 PHY to PC</string>
+    <string name="u3_phy_switch_md">MD controls U3 PHY to SIB</string>
+    <string name="u3_phy_switch_set">Set</string>
+    <!-- U3 PHY Switch end -->
+
+    <!-- SMS over SGs start -->
+    <string name="misc_config_sgs">Sms Over Sgs support</string>
+    <!-- SMS over SGs end -->
+
+    <!-- Bypass start -->
+    <string name="success">success</string>
+    <string name="failed">failed</string>
+    <string name="bypass_settings_title">C2K modem setting</string>
+    <string name="usb_mode_bypass_modem">data</string>
+    <string name="usb_mode_bypass_ets">ets</string>
+    <string name="usb_mode_bypass_at">atc</string>
+    <string name="usb_mode_bypass_pcv">pcv</string>
+    <string name="usb_mode_bypass_gps">gps</string>
+    <string name="usb_mode_bypass_all">all</string>
+    <string name="usb_mode_bypass_ets_rndis">ets+rndis</string>
+    <!-- Bypass end -->
+    <!-- SIM WHITELIST -->
+    <string name="mnc_mcc_check_text">mncmcc check</string>
+    <string name="white_list">whitelist:</string>
+    <string name="enable_default">default</string>
+    <string name="enable_text">enable</string>
+    <string name="disable_text">disable</string>
+
+    <!-- Sim Switch start -->
+    <string name="sim_switch">SIM switch</string>
+    <string name="sim_switch_off">off</string>
+    <string name="sim_switch_on">on</string>
+    <!-- Sim Switch end -->
+
+    <!-- MoMs -->
+    <string name="disable_moms_for_cts">Disable MoMs for CTS Test</string>
+    <string name="reenable_moms">Reenable MoMs</string>
+    <string name="moms_title">MoMs</string>
+    <!-- MoMs -->
+    
+    <!-- MD EM Filter Start -->
+    <string name="md_em_filter">MD EM Filter</string>
+    <string name="md_filter_string">Enable All MD EM</string>
+    <string name="enable_md_filter">enable_md_filter</string>
+    <!-- MD EM Filter End -->
+
+    <!-- eHRPD Background Data -->
+    <string name="ehrpd_bg_data">Background Data Select</string>
+    <string name="disable_ehrpd_bg_data">Disable Background Data Select</string>
+    <string name="ehrpd_bg_data_enable">Enable</string>
+    <string name="ehrpd_bg_data_disable">Disable</string>
+    <string name="ehrpd_bg_data_disable_hint">This will close background data, please confirm it!</string>
+    <!-- eHRPD Background Data -->
 </resources>

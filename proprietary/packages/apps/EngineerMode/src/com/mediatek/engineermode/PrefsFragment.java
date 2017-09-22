@@ -48,26 +48,33 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.provider.Settings;
-
+import android.widget.Toast;
 
 import com.mediatek.engineermode.cip.CipUtil;
 import com.mediatek.engineermode.ptp.PtpList;
-import com.mediatek.engineermode.voicesettings.VoiceList;
-import com.mediatek.xlog.Xlog;
 import java.io.File;
 
 public class PrefsFragment extends PreferenceFragment {
     private static final String TAG = "EM/PrefsFragment";
-    private static final int[] FRAGMENT_RES = {R.xml.telephony,
+    private static int[] FRAGMENT_RES = {R.xml.telephony,
+            R.xml.connectivity, R.xml.hardware_testing, R.xml.location,
+            R.xml.log_and_debugging, R.xml.others};
+
+    private static int[] FRAGMENT_RES_WIFIONLY = {
             R.xml.connectivity, R.xml.hardware_testing, R.xml.location,
             R.xml.log_and_debugging, R.xml.others};
     private static final String INNER_LOAD_INDICATOR_FILE =
             "/system/etc/system_update/address.xml";
     private static final int MTK_NFC_CHIP_TYPE_MSR3110 = 0x01;
-    private static final int MTK_NFC_CHIP_TYPE_MT6605 = 0x02;
+    private static final int MTK_NFC_CHIP_TYPE_6605 = 0x02;
     private static final String FILE_DHRY_0 = "/sys/bus/platform/drivers/slt_cpu0_dhry/slt_cpu0_dhry";
+    private static final String[] KEY_REMOVE_ARRAY = {"dcm", "deep_idle", "cpu_dvfs", "pll_cg",
+                    "mcdi_setting", "sleep_mode", "de_sense", "display", "battery_log", "sensor",
+                    "io", "touchscreen", "memory"};
     private int mXmlResId;
+    private boolean mIsInit = false;
 
     /**
      * Default empty constructor
@@ -90,8 +97,39 @@ public class PrefsFragment extends PreferenceFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Load preferences from xml.
-        addPreferencesFromResource(FRAGMENT_RES[mXmlResId]);
+        if(isWifiOnly()){
+            FRAGMENT_RES = FRAGMENT_RES_WIFIONLY;
+        }
+
+    }
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen screen, Preference pref) {
+        if (pref == null || FeatureSupport.isSupportedEmSrv()) {
+            return super.onPreferenceTreeClick(screen, pref);
+        }
+        String id = pref.getKey();
+        for (String c : KEY_REMOVE_ARRAY) {
+            if (id.equals(c)) {
+                Toast.makeText(getActivity(), R.string.notice_wo_emsvr,
+                    Toast.LENGTH_LONG).show();
+                return true;
+            }
+        }
+        return super.onPreferenceTreeClick(screen, pref);
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    private void removePreference(PreferenceScreen prefScreen, String prefId) {
+        Preference pref = (Preference) findPreference(prefId);
+        if (pref != null) {
+            prefScreen.removePreference(pref);
+        }
+    }
+
+    private void removeUnsupportedItems() {
         PreferenceScreen screen = getPreferenceScreen();
 
         if (!FeatureSupport.isSupported(FeatureSupport.FK_DT_SUPPORT)) {
@@ -101,14 +139,14 @@ public class PrefsFragment extends PreferenceFragment {
 
         // Duplicate with Network Selecting, remove them
         removePreference(screen, "digital_standard");
-        if (ModemCategory.getModemType() == ModemCategory.MODEM_TD) {
-            removePreference(screen, "rat_mode");
-        }
 
-        if (!FeatureSupport.isSupported(FeatureSupport.FK_DT_SUPPORT)) {
-            removePreference(screen, "dualtalk_network_select");
-        } else {
-            removePreference(screen, "network_select");
+
+        if (!FeatureSupport.isSupported(FeatureSupport.FK_MTK_C2K_SUPPORT)) {
+            if (!FeatureSupport.isSupported(FeatureSupport.FK_DT_SUPPORT)) {
+                removePreference(screen, "dualtalk_network_select");
+            } else {
+                removePreference(screen, "network_select");
+            }
         }
 
         // if
@@ -117,19 +155,20 @@ public class PrefsFragment extends PreferenceFragment {
         // removePreference(screen, "nfc");
         // }
         // it's ok
-        int versionCode = Settings.Global.getInt(getActivity().getContentResolver(), "nfc_controller_code", -1);
+        int versionCode = Settings.Global.getInt(getActivity().
+                getContentResolver(), "nfc_controller_code", -1);
         if (FRAGMENT_RES[mXmlResId] == R.xml.connectivity) {
-            switch(versionCode) {
+            switch (versionCode) {
                 case MTK_NFC_CHIP_TYPE_MSR3110 :
-                    Xlog.i(TAG, "MSR3110 nfc chip, call nfc");
+                    Log.i("@M_" + TAG, "MSR3110 nfc chip, call nfc");
                     removePreference(screen, "hqanfc");
                     break;
-                case MTK_NFC_CHIP_TYPE_MT6605 :
-                    Xlog.i(TAG, "MT6605 nfc chip, call hqanfc");
+                case MTK_NFC_CHIP_TYPE_6605 :
+                    Log.i("@M_" + TAG, "6605 nfc chip, call hqanfc");
                     removePreference(screen, "nfc");
                     break;
                 default:
-                    Xlog.i(TAG, "no nfc chip support");
+                    Log.i("@M_" + TAG, "no nfc chip support");
                     removePreference(screen, "hqanfc");
                     removePreference(screen, "nfc");
                     removePreference(screen, "nfc_dta");
@@ -144,8 +183,9 @@ public class PrefsFragment extends PreferenceFragment {
             removePreference(screen, "log2server");
         }*/
 
-        if (FeatureSupport.isSupported(FeatureSupport.FK_EVDO_DT_SUPPORT) || !FeatureSupport.isSupported(FeatureSupport.FK_DT_SUPPORT)
-                || SystemProperties.getInt("ril.external.md", 0) == 0) {
+        if (FeatureSupport.isSupported(FeatureSupport.FK_EVDO_DT_SUPPORT)
+                || !FeatureSupport.isSupported(FeatureSupport.FK_DT_SUPPORT)
+                || !FeatureSupport.isSupported(FeatureSupport.FK_MTK_C2K_SUPPORT)) {
             removePreference(screen, "ext_md_logger");
         }
 
@@ -172,6 +212,8 @@ public class PrefsFragment extends PreferenceFragment {
             removePreference(screen, "location_basedservice");
         }
 
+        removePreference(screen, "fused_location_provider");
+
         if (!ChipSupport.isFeatureSupported(ChipSupport.MTK_AGPS_APP)
                 || !ChipSupport.isFeatureSupported(ChipSupport.MTK_GPS_SUPPORT)
                 || !isVoiceCapable() || isWifiOnly()) {
@@ -193,6 +235,8 @@ public class PrefsFragment extends PreferenceFragment {
             removePreference(screen, "bluetooth");
         }
 
+        removePreference(screen, "audio");
+
         // wifi is not ready if MTK_WLAN_SUPPORT isn't defined
         if (!ChipSupport.isFeatureSupported(ChipSupport.MTK_WLAN_SUPPORT)) {
             removePreference(screen, "wifi");
@@ -204,6 +248,7 @@ public class PrefsFragment extends PreferenceFragment {
         }
 
         if (isWifiOnly()) {
+            removePreference(screen, "amr_wb");
             removePreference(screen, "antenna");
             removePreference(screen, "bandmode");
             removePreference(screen, "cfu");
@@ -220,6 +265,7 @@ public class PrefsFragment extends PreferenceFragment {
             removePreference(screen, "dualtalk_network_select");
             removePreference(screen, "rat_mode");
             removePreference(screen, "rf_desense_test");
+            removePreference(screen, "sbp");
             removePreference(screen, "swla");
             removePreference(screen, "simme_lock1");
             removePreference(screen, "simme_lock2");
@@ -228,6 +274,9 @@ public class PrefsFragment extends PreferenceFragment {
             removePreference(screen, "lte_network_mode");
             removePreference(screen, "lte_network_info");
             removePreference(screen, "lte_tool");
+            removePreference(screen, "md_em_filter");
+            removePreference(screen, "ehrpd_bg_data");
+            removePreference(screen, "sim_switch");
         }
 
         // if it single sim, then the flow is the same as before
@@ -246,7 +295,7 @@ public class PrefsFragment extends PreferenceFragment {
             // ComponentName("com.android.simmelock","com.android.simmelock.LockList"));
             removePreference(screen, "simme_lock2");
         }
-        Xlog.i(TAG, "ChipSupport.getChip(): " + ChipSupport.getChip());
+        Log.i("@M_" + TAG, "ChipSupport.getChip(): " + ChipSupport.getChip());
         if (ChipSupport.MTK_6589_SUPPORT > ChipSupport.getChip()) {
             removePreference(screen, "de_sense");
             removePreference(screen, "camera89");
@@ -285,17 +334,40 @@ public class PrefsFragment extends PreferenceFragment {
         }
 
         String mOptr = SystemProperties.get("ro.operator.optr");
+        String mOpSeg = SystemProperties.get("ro.operator.seg");
         if (!"OP01".equals(mOptr)) {
             removePreference(screen, "ConfigureCheck2_Send_Test");
             removePreference(screen, "ConfigureCheck2_Self_Test");
+        }
+
+        if (!"OP09".equals(mOptr) &&
+            SystemProperties.get("ro.ct6m_support").equals("1") == false) {
+            removePreference(screen, "CT_ConfigureCheck");
+        }
+
+        String usbCheckerState = SystemProperties.get("ro.mtk_usb_cba_support", "0");
+        Log.i("@M_" + TAG, "ro.mtk_usb_cba_support is " + usbCheckerState);
+
+        if (!usbCheckerState.equals("1")) {
+            removePreference(screen, "usb_checker_enabler");
         }
 
         if (!SystemProperties.get("ro.mtk_cmcc_ft_precheck_support").equals("1")) {
             removePreference(screen, "cmcc_ftprecheck");
         }
 
-        if ("OP09".equals(mOptr)) { // For CT
-            removePreference(screen, "swla");
+        if (!SystemProperties.get("ro.mtk_modem_monitor_support").equals("1")) {
+            removePreference(screen, "mdml_sample");
+        }
+
+        if (FeatureSupport.isSupported(FeatureSupport.FK_MTK_C2K_SUPPORT)) { // For C2K
+            // keep all network menu: network_select, cdma_network_select, network_selection
+            //removePreference(screen, "swla");
+            removePreference(screen, "dualtalk_network_select");
+            // hide IR menu temporarily. API not ready yet.
+            removePreference(screen, "network_selection");
+        } else if (("OP09".equals(mOptr)) && ("SEGDEFAULT".equals(mOpSeg))) { // For CT
+            //removePreference(screen, "swla");
             removePreference(screen, "network_select");
             removePreference(screen, "dualtalk_network_select");
         } else {
@@ -303,13 +375,16 @@ public class PrefsFragment extends PreferenceFragment {
             removePreference(screen, "network_selection");
         }
 
-        if (!FeatureSupport.isSupported(FeatureSupport.FK_DEVREG_APP)) {
-            removePreference(screen, "device_register");
+        if (!(("OP09".equals(mOptr)) && ("SEGDEFAULT".equals(mOpSeg)))) {
+            removePreference(screen, "test_card");
         }
 
-        if (!FeatureSupport.isSupported(FeatureSupport.FK_WFD_SUPPORT)) {
-            removePreference(screen, "wfd_settings");
+        if (!FeatureSupport.isSupported(FeatureSupport.FK_DEVREG_APP)) {
+            removePreference(screen, "device_register");
+            Log.i("@M_" + TAG, "Not show entry for DEVREG.");
         }
+
+         removePreference(screen, "wfd_settings");
 
         if (!FeatureSupport.isSupported(FeatureSupport.FK_LTE_DC_SUPPORT)) {
             removePreference(screen, "lte_config");
@@ -331,6 +406,7 @@ public class PrefsFragment extends PreferenceFragment {
         if (UserHandle.MU_ENABLED && UserManager.supportsMultipleUsers()
                 && UserManager.get(getActivity()).getUserHandle() != UserHandle.USER_OWNER) {
             // Remove all items used phone instance
+            removePreference(screen, "amr_wb");
             removePreference(screen, "antenna");
             removePreference(screen, "bandmode");
             removePreference(screen, "te_dev_tool");
@@ -349,6 +425,7 @@ public class PrefsFragment extends PreferenceFragment {
             removePreference(screen, "dualtalk_network_select");
             removePreference(screen, "rat_mode");
             removePreference(screen, "rf_desense_test");
+            removePreference(screen, "sbp");
             removePreference(screen, "swla");
             removePreference(screen, "simme_lock1");
             removePreference(screen, "simme_lock2");
@@ -357,16 +434,19 @@ public class PrefsFragment extends PreferenceFragment {
             removePreference(screen, "lte_network_mode");
             removePreference(screen, "lte_network_info");
             removePreference(screen, "lte_tool");
+            removePreference(screen, "world_mode");
+            removePreference(screen, "md_em_filter");
+            removePreference(screen, "ehrpd_bg_data");
+            removePreference(screen, "misc_config");
         }
 
+
+
         if (!FeatureSupport.isSupported(FeatureSupport.FK_LTE_SUPPORT)
-                && ModemCategory.getModemType() == ModemCategory.MODEM_TD) {
+                && ChipSupport.getChip() <= ChipSupport.MTK_6595_SUPPORT) {
             removePreference(screen, "antenna");
         }
 
-        if (!VoiceList.isVoiceWakeupSupported(getActivity())) {
-            removePreference(screen, "voice_settings");
-        }
         if (!PtpList.isPtpSupported()) {
             removePreference(screen, "ptp_tech");
         }
@@ -385,26 +465,52 @@ public class PrefsFragment extends PreferenceFragment {
         if (!FeatureSupport.isSupported(FeatureSupport.FK_AAL_SUPPORT)) {
             removePreference(screen, "aal");
         }
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        PreferenceScreen screen = getPreferenceScreen();
-        int count = screen.getPreferenceCount();
-        for (int i = 0; i < count; i++) {
-            Preference pre = screen.getPreference(i);
-            if (null != pre) {
-                Intent intent = pre.getIntent();
-                pre.setEnabled(isActivityAvailable(intent));
-            }
+        if (!FeatureSupport.isSupported(FeatureSupport.FK_TC1_FEATURE)) {
+            removePreference(screen, "security_status");
+            removePreference(screen, "antenna_diversity");
+        } else {
+            removePreference(screen, "antenna");
         }
-    }
+        if (SystemProperties.get("ro.mtk_sensorhub_support").equals("1") == false) {
+            removePreference(screen, "sensor_hub_test");
+            removePreference(screen, "smart_motion");
+        }
 
-    private void removePreference(PreferenceScreen prefScreen, String prefId) {
-        Preference pref = (Preference) findPreference(prefId);
-        if (pref != null) {
-            prefScreen.removePreference(pref);
+        if (ChipSupport.getChip() < ChipSupport.MTK_6735_SUPPORT) {
+            removePreference(screen, "amr_wb");
+        }
+        if (!((FeatureSupport.isSupported(FeatureSupport.FK_SVLTE_SUPPORT)
+               || FeatureSupport.isSupported(FeatureSupport.FK_SRLTE_SUPPORT))
+            && FeatureSupport.isSupported(FeatureSupport.FK_C2K_IRAT_SUPPORT))) {
+            removePreference(screen, "c2k_ir_settings");
+        }
+
+        if (!FeatureSupport.isSupported(FeatureSupport.FK_VILTE_SUPPORT)) {
+            removePreference(screen, "vilte");
+        }
+        if (FeatureSupport.isSupported(FeatureSupport.FK_MTK_WEARABLE_PLATFORM)) {
+            removePreference(screen, "camera89");
+            removePreference(screen, "camera_desence");
+            removePreference(screen, "usb");
+            removePreference(screen, "dcm");
+            removePreference(screen, "deep_idle");
+            removePreference(screen, "mcdi_setting");
+            removePreference(screen, "fm_receiver");
+            removePreference(screen, "settings_font");
+            removePreference(screen, "device_manager");
+            removePreference(screen, "debug_utils");
+            removePreference(screen, "sd_card_test");
+            removePreference(screen, "user2root");
+            removePreference(screen, "sleep_mode");
+//            removePreference(screen, "lcm");
+            removePreference(screen, "modem_debug");
+        }
+        if (!FeatureSupport.isSupported(FeatureSupport.FK_MTK_C2K_SUPPORT)) {
+            removePreference(screen, "bypass");
+        }
+        if (FeatureSupport.isUserLoad()) {
+            removePreference(screen, "lte_tool");
         }
     }
 
@@ -412,7 +518,7 @@ public class PrefsFragment extends PreferenceFragment {
         TelephonyManager telephony = (TelephonyManager) getActivity()
                 .getSystemService(Context.TELEPHONY_SERVICE);
         boolean bVoiceCapable = telephony != null && telephony.isVoiceCapable();
-        Xlog.i(TAG, "sIsVoiceCapable : " + bVoiceCapable);
+        Log.i("@M_" + TAG, "sIsVoiceCapable : " + bVoiceCapable);
         return bVoiceCapable;
     }
 
@@ -423,7 +529,7 @@ public class PrefsFragment extends PreferenceFragment {
         if (null != connManager) {
             bWifiOnly = !connManager
                     .isNetworkSupported(ConnectivityManager.TYPE_MOBILE);
-            Xlog.i(TAG, "bWifiOnly: " + bWifiOnly);
+            Log.i("@M_" + TAG, "bWifiOnly: " + bWifiOnly);
         }
         return bWifiOnly;
     }
@@ -431,4 +537,31 @@ public class PrefsFragment extends PreferenceFragment {
     private boolean isActivityAvailable(Intent intent) {
         return null != getActivity().getPackageManager().resolveActivity(intent, 0);
     }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        // TODO Auto-generated method stub
+        super.setUserVisibleHint(isVisibleToUser);
+        Log.i("@M_" + TAG, "setUserVisibleHint : " + isVisibleToUser + " index of " + mXmlResId);
+        if (isVisibleToUser) {
+            if (!mIsInit) {
+                // Load preferences from xml.
+                addPreferencesFromResource(FRAGMENT_RES[mXmlResId]);
+                removeUnsupportedItems();
+                mIsInit = true;
+            }
+            PreferenceScreen screen = getPreferenceScreen();
+
+            int count = screen.getPreferenceCount();
+            for (int i = 0; i < count; i++) {
+                Preference pre = screen.getPreference(i);
+                if (null != pre) {
+                    Intent intent = pre.getIntent();
+                    pre.setEnabled(isActivityAvailable(intent));
+                }
+            }
+        }
+    }
+
+
 }

@@ -90,6 +90,11 @@ public class ChipSupport {
     public static final int MTK_6595_SUPPORT = 42;
     public static final int MTK_6752_SUPPORT = 64;
     public static final int MTK_6795_SUPPORT = 65;
+    public static final int MTK_6735_SUPPORT = 66;
+    public static final int MTK_8163_SUPPORT = 67;
+    public static final int MTK_6580_SUPPORT = 68;
+    public static final int MTK_6755_SUPPORT = 69;
+    public static final int MTK_6797_SUPPORT = 70;
 
     /**
      * Feature support.
@@ -104,9 +109,11 @@ public class ChipSupport {
     public static final int MTK_WLAN_SUPPORT = 7;
     public static final int MTK_TTY_SUPPORT = 8;
     public static final int MTK_NFC_SUPPORT = 9;
+    public static final int MTK_AUDIO_TUNING_TOOL_V2_1 = 10;
 
     public static final int[] CHIP_657X_SERIES_NEW = {MTK_6571_SUPPORT, MTK_6572_SUPPORT};
-    public static final int[] CHIP_64BIT_SUPPORT = {MTK_6752_SUPPORT, MTK_6795_SUPPORT};
+    public static final int[] CHIP_64BIT_SUPPORT = {MTK_6752_SUPPORT, MTK_6795_SUPPORT,
+                                                    MTK_6735_SUPPORT, MTK_8163_SUPPORT};
 
     public static boolean isCurrentChipHigher(int comparedChip, boolean allowEquel) {
         int curChip = getChip();

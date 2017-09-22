@@ -40,13 +40,13 @@ package com.mediatek.engineermode.bluetooth;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Button;
 
 import com.mediatek.engineermode.R;
-import com.mediatek.xlog.Xlog;
 
 /**
  * Do BT RX ADC Clock selection
@@ -85,7 +85,7 @@ public class BtClockSelectionActivity extends Activity implements OnClickListene
 
     @Override
     protected void onResume() {
-        Xlog.v(TAG, "-->onResume");
+        Log.v("@M_" + TAG, "-->onResume");
         super.onResume();
 
        // showDialog(OPEN_BT);
@@ -93,7 +93,7 @@ public class BtClockSelectionActivity extends Activity implements OnClickListene
     }
     @Override
     protected void onStop() {
-        Xlog.v(TAG, "-->onStop");
+        Log.v("@M_" + TAG, "-->onStop");
         uninitBtTestOjbect();
         super.onStop();
     }
@@ -119,7 +119,7 @@ public class BtClockSelectionActivity extends Activity implements OnClickListene
         char[] cmd = new char[cmdLen];
         char[] response = null;
 
-        Xlog.i(TAG, "-->runHCICommand");
+        Log.i("@M_" + TAG, "-->runHCICommand");
         cmd[0] = 0x01;
         cmd[1] = 0x20;
         cmd[2] = 0xFC;
@@ -141,10 +141,10 @@ public class BtClockSelectionActivity extends Activity implements OnClickListene
             String s = null;
             for (int i = 0; i < response.length; i++) {
                 s = String.format("response[%d] = 0x%x", i, (long) response[i]);
-                Xlog.i(TAG, s);
+                Log.i("@M_" + TAG, s);
             }
         } else {
-            Xlog.i(TAG, "HCICommandRun failed");
+            Log.i("@M_" + TAG, "HCICommandRun failed");
         }
         response = null;
 
@@ -152,7 +152,7 @@ public class BtClockSelectionActivity extends Activity implements OnClickListene
 
     // init BtTest -call init function of BtTest
     private boolean initBtTestOjbect() {
-        Xlog.i(TAG, "-->initBtTestOjbect");
+        Log.i("@M_" + TAG, "-->initBtTestOjbect");
 
         if (mHasInit) {
             return mHasInit;
@@ -163,7 +163,7 @@ public class BtClockSelectionActivity extends Activity implements OnClickListene
         if (mBtTest != null) {
             if (mBtTest.init() != 0) {
                 mHasInit = false;
-                Xlog.i(TAG, "mBtTest initialization failed");
+                Log.i("@M_" + TAG, "mBtTest initialization failed");
             } else {
                 mHasInit = true;
             }
@@ -172,11 +172,11 @@ public class BtClockSelectionActivity extends Activity implements OnClickListene
     }
 
     private boolean uninitBtTestOjbect() {
-        Xlog.i(TAG, "-->uninitBtTestOjbect");
+        Log.i("@M_" + TAG, "-->uninitBtTestOjbect");
         if (mBtTest != null && mHasInit) {
             //runHCIResetCmd();
             if (mBtTest.unInit() != 0) {
-                Xlog.i(TAG, "mBtTest un-initialization failed");
+                Log.i("@M_" + TAG, "mBtTest un-initialization failed");
             }
         }
         mBtTest = null;
