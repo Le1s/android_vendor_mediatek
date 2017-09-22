@@ -8,7 +8,7 @@
 namespace android
 {
     // Interface definition: Remote serice to manage system bandwidth
-    class IBWCService : public IInterface 
+    class IBWCService : public IInterface
     {
     protected:
         enum {
@@ -21,17 +21,13 @@ namespace android
         virtual status_t setProfile(int32_t profile, int32_t state) = 0;
     };
 
-    class BnBWCService : public BnInterface<IBWCService> 
+    class BnBWCService : public BnInterface<IBWCService>
     {
         virtual status_t onTransact(uint32_t code,
             const Parcel& data,
             Parcel* reply,
             uint32_t flags = 0);
-    };    
+    };
 };
 
 #endif
-
-
-
-

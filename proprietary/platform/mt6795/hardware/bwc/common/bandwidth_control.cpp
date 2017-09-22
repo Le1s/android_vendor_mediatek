@@ -3,7 +3,6 @@
 #include "bandwidth_control.h"
 #include "bandwidth_control_private.h"
 
-
 #ifdef FLAG_SUPPORT_PROPERTY
 //Property
 #include <cutils/properties.h>
@@ -11,10 +10,7 @@
 #define PROPERTY_VALUE_MAX  (512)
 #endif
 
-
-
 #define MAX_PROP_NAME_CHAR  (512)
-
 
 /*******************************************************************************
     Bandwidth Control Limitation Table
@@ -39,31 +35,8 @@ const static BWC_SETTING BWCLIMIT_VT_1066(  BWC_SIZE( 1920, 1080 ),     //_senso
                                             );
 
 #endif
-static const char* BwcProfileType_GetStr( BWC_PROFILE_TYPE profile )
-{
-    switch( profile )
-    {
-    case BWCPT_VIDEO_NORMAL:        return "BWCPT_VIDEO_NORMAL";
-    case BWCPT_VIDEO_RECORD_CAMERA: return "BWCPT_VIDEO_RECORD_CAMERA";
-    case BWCPT_VIDEO_RECORD_SLOWMOTION: return "BWCPT_VIDEO_RECORD_SLOWMOTION";
-    case BWCPT_VIDEO_RECORD:        return "BWCPT_VIDEO_RECORD";
-    case BWCPT_VIDEO_PLAYBACK:      return "BWCPT_VIDEO_PLAYBACK";
-    case BWCPT_VIDEO_SWDEC_PLAYBACK: return "BWCPT_VIDEO_SWDEC_PLAYBACK";
-    case BWCPT_VIDEO_SNAPSHOT:      return "BWCPT_VIDEO_SNAPSHOT";
-    case BWCPT_VIDEO_TELEPHONY:     return "BWCPT_VIDEO_TELEPHONY";
-    case BWCPT_CAMERA_PREVIEW:      return "BWCPT_CAMERA_PREVIEW";
-    case BWCPT_CAMERA_CAPTURE:      return "BWCPT_CAMERA_CAPTURE";
-    case BWCPT_CAMERA_ICFP:	    return "BWCPT_CAMERA_CAPTURE";
-    case BWCPT_CAMERA_ZSD:          return "BWCPT_CAMERA_ZSD";
-    case BWCPT_VIDEO_LIVE_PHOTO:    return "BWCPT_VIDEO_LIVE_PHOTO";
-    case BWCPT_VIDEO_WIFI_DISPLAY:  return "BWCPT_VIDEO_WIFI_DISPLAY";
-    case BWCPT_NONE:                return "BWCPT_NONE";
-    }
 
-    BWC_ERROR("Unknown profile:0x%08x\n", (unsigned int)profile); 
-    return "BWCPT_UNKNOWN";
-}
-
+extern const char* BwcProfileType_GetStr( BWC_PROFILE_TYPE profile );
 /*******************************************************************************
     Bandwidth Control Primitive Datatypes
  *******************************************************************************/
@@ -73,12 +46,14 @@ static const char* BwcProfileType_GetStr( BWC_PROFILE_TYPE profile )
 void BWC_SIZE::LoadFromProperty( const char* property_name ){
     // Doesn't suppport
     // BWC.mm* system properties have been removed in GMP
+    BWC_UNUSED(property_name);
     BWC_WARNING("BWC_SIZE::LoadFromProperty is not supported on this platform");
 }
 
 void BWC_SIZE::SetToProperty( const char* property_name ) const {
     // Doesn't suppport
     // BWC.mm* system properties have been removed in GMP
+    BWC_UNUSED(property_name);
     BWC_WARNING("BWC_SIZE::SetToProperty is not supported on this platform");
 }
 
@@ -89,20 +64,21 @@ void BWC_SIZE::SetToProperty( const char* property_name ) const {
 void BWC_INT::LoadFromProperty( const char* property_name ){
     // Doesn't suppport
     // BWC.mm* system properties have been removed in GMP
+    BWC_UNUSED(property_name);
     BWC_WARNING("BWC_INT::LoadFromProperty is not supported on this platform");
 }
 
 void BWC_INT::SetToProperty( const char* property_name ) const {
     // Doesn't suppport
     // BWC.mm* system properties have been removed in GMP
+    BWC_UNUSED(property_name);
     BWC_WARNING("BWC_INT::SetToProperty is not supported on this platform");
 }
 
 /*-----------------------------------------------------------------------------
     BWC_SETTING
   -----------------------------------------------------------------------------*/
-unsigned long BWC_SETTING::CalcThroughput_VR( void ) const
-{
+unsigned long BWC_SETTING::CalcThroughput_VR( void ) const {
     unsigned long throughput = 0;
 
     const float bpp = 1.5;  //use yuv422 as limit calculation
@@ -111,17 +87,15 @@ unsigned long BWC_SETTING::CalcThroughput_VR( void ) const
     throughput +=   vr_size.w * vr_size.h * 2;          //cdp out + venc in
     throughput +=   disp_size.w * disp_size.h * 2;      //cdp out + disp in
 
-    if( tv_size.w * tv_size.h )
-    {
-        throughput += tv_size.w * tv_size.h;    //TV in 
+    if( tv_size.w * tv_size.h ){
+        throughput += tv_size.w * tv_size.h;    //TV in
     }
 
     return (unsigned long)(throughput*fps*bpp);
 
 }
 
-unsigned long BWC_SETTING::CalcThroughput_VT( void ) const
-{
+unsigned long BWC_SETTING::CalcThroughput_VT( void ) const {
     unsigned long throughput = 0;
 
     const float bpp = 1.5;  //use yuv422 as limit calculation
@@ -132,21 +106,18 @@ unsigned long BWC_SETTING::CalcThroughput_VT( void ) const
 
     throughput +=   vr_size.w * vr_size.h * 1;          //vdec out
 
-    if( tv_size.w * tv_size.h )
-    {
-        throughput += tv_size.w * tv_size.h * 2;    //disp out + TV in 
+    if( tv_size.w * tv_size.h ){
+        throughput += tv_size.w * tv_size.h * 2;    //disp out + TV in
     }
 
     return (unsigned long)(throughput*fps*bpp);
 
 }
 
-
-void BWC_SETTING::DumpInfo( void )
-{
+void BWC_SETTING::DumpInfo( void ){
     #define _DUMP_SIZE( _field_name_ ) \
         BWC_INFO("%20s = %6ld x %6ld\n", #_field_name_, _field_name_.w , _field_name_.h );
-    
+
     #define _DUMP_INT( _scalar_ ) \
         BWC_INFO("%20s = %6ld\n", #_scalar_, (long)_scalar_ );
 
@@ -161,8 +132,6 @@ void BWC_SETTING::DumpInfo( void )
     _DUMP_INT(vdec_codec_type);
     BWC_INFO("----------------------------\n\n");
 
-    
-    
 }
 
 /*******************************************************************************
@@ -172,10 +141,9 @@ void BWC_SETTING::DumpInfo( void )
     BWC
   -----------------------------------------------------------------------------*/
 
-int BWC::Profile_Change( BWC_PROFILE_TYPE profile_type , bool bOn )
-{
-    BWC_SETTING mmsetting;
 
+int BWC::Profile_Change( BWC_PROFILE_TYPE profile_type, bool bOn ){
+    BWC_SETTING mmsetting;
     BWCHelper bwcHelper;
     int return_code = 0;
 
@@ -230,8 +198,7 @@ int BWC::Profile_Change( BWC_PROFILE_TYPE profile_type , bool bOn )
         BwcProfileType_GetStr(profile_type), bOn ? "ON" : "OFF",
             bwcHelper.profile_get(&mm_info));
     return 0;
-    
-    
+
 }
 
 /*******************************************************************************
@@ -248,7 +215,7 @@ BWC_SIZE BWC::SensorSize_Get( void ){
     BWC_SIZE    sensor_size;
     BWCHelper bwcHelper;
     MTK_SMI_BWC_MM_INFO_USER mm_info;
-        
+
     if( bwcHelper.get_bwc_mm_property(&mm_info) == 0 ){
         sensor_size.w = mm_info.sensor_size[0];
         sensor_size.h = mm_info.sensor_size[1];
@@ -300,7 +267,7 @@ BWC_SIZE BWC::TvOutSize_Get( void ){
     BWC_SIZE    tv_size;
     MTK_SMI_BWC_MM_INFO_USER mm_info;
     BWCHelper bwcHelper;
-        
+
     if( bwcHelper.get_bwc_mm_property(&mm_info) == 0 ){
         tv_size.w = mm_info.tv_out_size[0];
         tv_size.h = mm_info.tv_out_size[1];
@@ -326,11 +293,11 @@ int BWC::Fps_Get( void ){
 
 void BWC::VideoEncodeCodec_Set( BWC_VCODEC_TYPE codec_type ){
     BWCHelper bwcHelper;
-        
+
     bwcHelper.set_bwc_mm_property(SMI_BWC_USER_INFO_VIDEO_ENCODE_CODEC,
         codec_type, 0);
 }
-    
+
 BWC_VCODEC_TYPE BWC::VideoEncodeCodec_Get( void ){
     MTK_SMI_BWC_MM_INFO_USER mm_info;
     BWCHelper bwcHelper;
@@ -358,8 +325,11 @@ BWC_VCODEC_TYPE BWC::VideoDecodeCodec_Get( void ){
 }
 
 //GMP end
+
+
 void BWC::_Profile_Set( BWC_PROFILE_TYPE profile ){
 //Null function
+    BWC_UNUSED(profile);
     BWC_WARNING(
         "BWC::_Profile_Set is not supported on this platform, use Profile_Change instead");
 }
@@ -397,12 +367,20 @@ int BWC::_Profile_Get( void ){
 int BWC::property_name_str_get( const char* function_name, char* prop_name ){
     // Doesn't suppport in GMP
     // BWC doesn't keep the information with system properties
+    BWC_UNUSED(function_name);
+    BWC_UNUSED(prop_name);
     BWC_WARNING("BWC::property_name_str_get is not supported on this platform");
     return 0;
-    
+
 }
 
 unsigned int BWC_MONITOR::query_hwc_max_pixel(){
-    return BWC_NO_OVL_LIMIT; // Currently 0 means always uses MAX HW OVL
+    unsigned int hwc_max_pixel = -1;
+    hwc_max_pixel = this->get_smi_bw_state();
+    //BWC_INFO("query_hwc_max_pixel: get_smi_bw_state return %d\n", hwc_max_pixel );
+    if( hwc_max_pixel <= 0 ){
+        return 1920 * 1080 * 7;
+    }else{
+        return hwc_max_pixel;
+    }
 }
-

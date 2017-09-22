@@ -4,8 +4,8 @@ Service of MTK bandwidth control module (BWC)
 WHAT IT DOES?
 =============
 
-BWC(bandwidth controller) service provide binder interface to change the bus related 
-configurtion in the runtime, which optimizes the bus access latency in multimedia 
+BWC(bandwidth controller) service provide binder interface to change the bus related
+configurtion in the runtime, which optimizes the bus access latency in multimedia
 scenarios. BWC is required for all MTK multimedia middleware implementation including
 camera and video middlewares.
 

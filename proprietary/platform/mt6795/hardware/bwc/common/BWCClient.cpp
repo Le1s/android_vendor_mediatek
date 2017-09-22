@@ -1,7 +1,7 @@
-#define LOG_TAG "BWCClient" 
+#define LOG_TAG "BWCClient"
 
 #include <sys/types.h>
-#include <cutils/xlog.h>
+#include <cutils/log.h>
 #include <binder/IServiceManager.h>
 #include <binder/ProcessState.h>
 #include "BWCClient.h"
@@ -18,10 +18,10 @@ namespace android {
         assertStateLocked();
     }
 
-    status_t BWCClient::assertStateLocked() const 
+    status_t BWCClient::assertStateLocked() const
     {
         int count = 0;
-        if (mBWCService == NULL) 
+        if (mBWCService == NULL)
         {
             // try for one second
             const String16 name("BWC");
@@ -30,7 +30,7 @@ namespace android {
                 if (err == NAME_NOT_FOUND) {
                     if (count < 3)
                     {
-                        ALOGW("BWCService not published, waiting...");  
+                        ALOGW("BWCService not published, waiting...");
                         usleep(100000);
                         count++;
                         continue;
@@ -53,14 +53,14 @@ namespace android {
             };
 
             mDeathObserver = new DeathObserver(*const_cast<BWCClient*>(this));
-            mBWCService->asBinder()->linkToDeath(mDeathObserver);
+            IInterface::asBinder(mBWCService)->linkToDeath(mDeathObserver);
         }
         return NO_ERROR;
     }
 
     // Set the BWC profile with BWC binder service
     status_t BWCClient::setProfile(int32_t profile, bool isEnable)
-    {    
+    {
         status_t err;
         Mutex::Autolock _l(mLock);
         // Retrieve the service object

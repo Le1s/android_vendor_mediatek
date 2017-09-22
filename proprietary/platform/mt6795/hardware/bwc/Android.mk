@@ -32,52 +32,42 @@
 # have been modified by MediaTek Inc. All revisions are subject to any receiver's
 # applicable license agreements with MediaTek Inc.
 
-
-
-
-#ifeq ($(MTK_PLATFORM),$(filter $(MTK_PLATFORM),MT6593))
-
 LOCAL_PATH:= $(call my-dir)
 
+COMMON_PATH:= common
+INCLUDE_PATH:= inc
 
 include $(CLEAR_VARS)
 
+LOCAL_CFLAGS += -DBWC_RO
+
 LOCAL_SRC_FILES:= \
-    bandwidth_control.cpp \
-    bandwidth_control_port.cpp \
-    IBWCService.cpp \
-    BWCService.cpp \
-    BWCClient.cpp \
-    BWManager.cpp
-    
+	$(COMMON_PATH)/bandwidth_control.cpp \
+	$(COMMON_PATH)/bandwidth_control_port.cpp \
+	$(COMMON_PATH)/IBWCService.cpp \
+	$(COMMON_PATH)/BWCService.cpp \
+	$(COMMON_PATH)/BWCClient.cpp \
+	$(COMMON_PATH)/BWManager.cpp \
+	$(COMMON_PATH)/BWCProfileAdapter.cpp
 
 LOCAL_C_INCLUDES:= \
-  $(TOP)/frameworks/base/include/ \
-  $(MTK_PATH_SOURCE)/hardware/bwc/inc \
-  $(TOP)/$(MTK_PATH_PLATFORM)/kernel/core/include/mach \
-  $(TOP)/$(MTK_PATH_PLATFORM)/hardware/bwc/inc \
+	$(INCLUDE_PATH) \
+	$(TOP)/frameworks/base/include/ \
+	$(MTK_PATH_SOURCE)/hardware/bwc/inc \
+	$(TOP)/$(MTK_PATH_PLATFORM)/kernel/core/include/mach \
+	$(TOP)/$(MTK_PATH_PLATFORM)/hardware/bwc/inc \
 
 LOCAL_SHARED_LIBRARIES := \
-     libcutils \
-     liblog \
-     libnetutils \
-     libutils \
-     libbinder
- 
- 
+	libcutils \
+	liblog \
+	libnetutils \
+	libutils \
+	libbinder
+
 LOCAL_MODULE := libbwc
 LOCAL_MULTILIB := both
 
 LOCAL_MODULE_TAGS := optional
 
-#LOCAL_PRELINK_MODULE := false
-
 include $(BUILD_SHARED_LIBRARY)
-
 include $(CLEAR_VARS)
-include $(call all-makefiles-under,$(LOCAL_PATH))
-
-
-#endif
-
-

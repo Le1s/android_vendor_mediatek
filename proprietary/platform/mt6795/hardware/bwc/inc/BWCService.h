@@ -9,8 +9,8 @@
 namespace android
 {
 
-    class BWCService : 
-        public BinderService<BWCService>, 
+    class BWCService :
+        public BinderService<BWCService>,
         public BnBWCService,
         public Thread
     {

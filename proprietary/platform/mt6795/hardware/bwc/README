@@ -3,7 +3,7 @@ Library of MTK bandwidth control module (BWC)
 
 WHAT IT DOES?
 =============
-libbwc.so optimizes the bus access latency in multimedia scenarios to meet realtime 
+libbwc.so optimizes the bus access latency in multimedia scenarios to meet realtime
 requirement. BWC is required for all MTK multimedia middleware implementation including
 camera and video middlewares.
 

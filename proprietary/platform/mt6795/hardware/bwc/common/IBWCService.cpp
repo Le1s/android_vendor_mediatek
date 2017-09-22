@@ -1,15 +1,16 @@
 #define LOG_TAG "IBWCService" 
 
-#include <cutils/xlog.h>
+#define MTK_LOG_ENABLE 1
+#include <cutils/log.h>
 #include "IBWCService.h"
 
 namespace android {
 
     // Proxy of BWC remote service
-    class BpBWCService : public BpInterface<IBWCService> 
+    class BpBWCService : public BpInterface<IBWCService>
     {
     public:
-        BpBWCService(const sp<IBinder>& impl) : BpInterface<IBWCService>(impl) 
+        BpBWCService(const sp<IBinder>& impl) : BpInterface<IBWCService>(impl)
         {
         }
 
@@ -20,7 +21,7 @@ namespace android {
             data.writeInt32(state);
 
             if (remote()->transact(BWC_SET_PROFILE, data, &reply) != NO_ERROR) {
-                XLOGE("setProfile could not contact remote\n");
+                ALOGE("setProfile could not contact remote\n");
                 return -1;
             }
 
@@ -31,13 +32,13 @@ namespace android {
 
     IMPLEMENT_META_INTERFACE(BWCService, "BWCService");
 
-    // Handling the binder transaction to BWCService 
-    status_t BnBWCService::onTransact(uint32_t code, const Parcel& data, Parcel* reply, uint32_t flags) 
-    {    
+    // Handling the binder transaction to BWCService
+    status_t BnBWCService::onTransact(uint32_t code, const Parcel& data, Parcel* reply, uint32_t flags)
+    {
         status_t ret = 0;
 
 
-        switch(code) 
+        switch(code)
         {
             // Set current BWC profile (profile id, state id)
         case BWC_SET_PROFILE:

@@ -20,7 +20,7 @@ namespace android {
     public:
         status_t setProfile(int32_t profile, bool isEnable);
 
-    private:    
+    private:
         BWCClient();
 
         // DeathRecipient interface

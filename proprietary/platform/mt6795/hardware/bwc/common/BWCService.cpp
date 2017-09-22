@@ -1,11 +1,12 @@
 #define LOG_TAG "BWCService" 
 
+#define MTK_LOG_ENABLE 1
 #include <sys/types.h>
 #include <dlfcn.h>
 #include <fcntl.h>
 #include <math.h>
 #include <string.h>
-#include <cutils/xlog.h>
+#include <cutils/log.h>
 #include <cutils/properties.h>
 #include <utils/SortedVector.h>
 #include <binder/PermissionCache.h>
@@ -17,11 +18,11 @@
 namespace android {
 
 
-#define BWCS_LOGD(fmt, arg...) XLOGD(fmt, ##arg);
+#define BWCS_LOGD(fmt, arg...) ALOGD(fmt, ##arg);
 
     BWCService::BWCService()
-    {   
-        BWCS_LOGD("BWCService constructor");    
+    {
+        BWCS_LOGD("BWCService constructor");
     }
 
     BWCService::~BWCService()
@@ -44,7 +45,7 @@ namespace android {
     }
 
 
-    void BWCService::onFirstRef() 
+    void BWCService::onFirstRef()
     {
         // Set the priority to PRIORITY_BACKGROUND
         // since it is a background thread to collection system bandwidth information
@@ -54,7 +55,7 @@ namespace android {
     status_t BWCService::readyToRun()
     {
         BWCS_LOGD("BWCService ready");
-        return NO_ERROR;    
+        return NO_ERROR;
     }
 
     bool BWCService::threadLoop()
@@ -63,7 +64,7 @@ namespace android {
         // To collect system bandwitdh informtation here
         // Currently it is a simple implementation
         while(1){
-            sleep(60*15); 
+            sleep(60*15);
         }
         return true;
     }
