@@ -75,7 +75,7 @@ LOCAL_SHARED_LIBRARIES := \
     librilutils
 
 LOCAL_STATIC_LIBRARIES := \
-    librilmtk-prop-md2
+#    librilmtk-prop-md2
 
 LOCAL_CFLAGS := -DMTK_RIL -DMTK_GEMINI -DANDROID_MULTI_SIM -DMTK_RIL_MD2
 
