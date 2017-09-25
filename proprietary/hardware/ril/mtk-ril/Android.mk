@@ -206,7 +206,7 @@ endif
     # for asprinf
 
 LOCAL_STATIC_LIBRARIES := \
-    mtk-ril-prop-md2
+#    mtk-ril-prop-md2
 
 ifeq ($(GEMINI),yes)
   LOCAL_CFLAGS := -D_GNU_SOURCE -DMTK_RIL -DMTK_GEMINI -D__CCMNI_SUPPORT__ -DANDROID_MULTI_SIM
@@ -259,7 +259,8 @@ endif
 LOCAL_SHARED_LIBRARIES += \
     libcutils libutils
 LOCAL_STATIC_LIBRARIES := \
-    mtk-ril-prop-md2
+#    mtk-ril-prop-md2
+
 LOCAL_CFLAGS += -DRIL_SHLIB
 LOCAL_MODULE:= mtk-rilmd2
 LOCAL_MULTILIB := 32
