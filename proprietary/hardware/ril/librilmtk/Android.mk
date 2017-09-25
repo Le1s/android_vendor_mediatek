@@ -26,7 +26,7 @@ LOCAL_SHARED_LIBRARIES := \
     librilutils
 
 LOCAL_STATIC_LIBRARIES := \
-    librilmtk-prop-md1
+    #librilmtk-prop-md1
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../include
 
@@ -45,7 +45,7 @@ ifeq ($(SIM_COUNT), 4)
 endif
 
 ifeq ($(MTK_EAP_SIM_AKA),yes)
-  LOCAL_CFLAGS += -DMTK_EAP_SIM_AKA  
+  LOCAL_CFLAGS += -DMTK_EAP_SIM_AKA
 endif
 
 ifneq ($(strip $(TARGET_BUILD_VARIANT)), eng)
@@ -94,7 +94,7 @@ ifeq ($(SIM_COUNT), 4)
 endif
 
 ifeq ($(MTK_EAP_SIM_AKA),yes)
-  LOCAL_CFLAGS += -DMTK_EAP_SIM_AKA  
+  LOCAL_CFLAGS += -DMTK_EAP_SIM_AKA
 endif
 
 ifneq ($(strip $(TARGET_BUILD_VARIANT)), eng)
